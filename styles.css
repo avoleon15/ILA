@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&family=Pixelify+Sans&display=swap');
+
+:root {
+    --color-background: #0A101A;
+    --color-surface-primary: #0C1F34;
+    --color-surface-secondary: #102945;
+    --color-text-primary: #CFCED0;
+    --color-text-secondary: #B3B3B3;
+    --color-accent: #C18D21;
+
+    --font-body: 'Barlow', sans-serif;
+    --font-title: 'Pixelify Sans', cursive;
+}
+
+body{
+    background: var(--color-background);
+    margin: 0;
+}
+
+header{
+    position: relative;
+
+    background: var(--color-background);
+    background-image: url('/assets/hero-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
+    inset: 0;
+}
+
+header h1{
+    position: relative;
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    font-size: 5rem;
+}
+
+header p{
+    position: relative;
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    font-size: 1.2rem;
+    padding-bottom: 20%;
+}
