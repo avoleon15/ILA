@@ -35,7 +35,7 @@ header{
 header::before {
     content: "";
     position: absolute;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.5);
     inset: 0;
 }
 
@@ -51,5 +51,5 @@ header p{
     font-family: var(--font-body);
     color: var(--color-text-secondary);
     font-size: 1.2rem;
-    padding-bottom: 20%;
+    padding: 20px;
 }
