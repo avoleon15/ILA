@@ -85,6 +85,7 @@ header p{
     }
     #header-button:hover{
         font-size: 1.4rem;
+    }
 }
 
 #description{
@@ -149,6 +150,7 @@ header p{
     }
     #header-button:hover{
         font-size: 1.2rem;
+    }
     #description{
         height: 400px;
         margin: 0 10%;
