@@ -87,3 +87,35 @@ header p{
 
     border-bottom: 1px double var(--color-accent);
 }
+
+@media (max-width: 768px) {
+    #description{
+        height: 500px;
+        margin: 0 20%;
+    }
+    #description h3{
+        font-size: 2rem;
+    }
+    #description h5{
+        font-size: 1.5em;
+    }
+    #description p{
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 430px) {
+    #description{
+        height: 400px;
+        margin: 0 10%;
+    }
+    #description h3{
+        font-size: 1.6rem;
+    }
+    #description h5{
+        font-size: 1em;
+    }
+    #description p{
+        font-size: 0.9rem;
+    }
+}
