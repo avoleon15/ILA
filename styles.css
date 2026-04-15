@@ -165,3 +165,82 @@ header p{
         font-size: 0.9rem;
     }
 }
+
+#technologies{
+    height: 600px;
+    padding: 0 5%;
+
+    background: var(--color-surface-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 50px;
+}
+
+#technologies h2{
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    font-size: 4rem;
+
+    display: flex;
+    align-items: baseline;
+    gap: 30px;
+}
+
+#technologies h2 i{
+    color: var(--color-accent);
+    font-size: 3rem;
+}
+
+.tech-bigbox{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 5%;
+}
+
+.tech-box{
+    height: 250px;
+    width: 25%;
+    padding: 25px;
+    background: var(--color-surface-secondary);
+    border-radius: 20px;
+}
+
+.tech-box i{
+    color: var(--color-accent);
+    font-size: 1.5rem;
+}
+
+.tech-box h5{
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    font-size: 2rem;
+
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+}
+
+.tech-box p{
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    #technologies{
+        height: 500px;
+    }
+    #technologies h2{
+        font-size: 2rem;
+    }
+    #technologies h2 i{
+        font-size: 1.5em;
+    }
+    #description p{
+        font-size: 1.2rem;
+    }
+}
