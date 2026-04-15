@@ -172,7 +172,7 @@ header p{
     background-color: var(--color-text-secondary);
     display: flex;
     flex-direction: column;
-    height: 120vh;
+    height: 110vh;
     
 
 }
@@ -217,7 +217,7 @@ header p{
 }
 
 #luis{
-    color: var(--color-text-primary);
+    color: var(--color-text-primary );
 }
 
 #iris{
