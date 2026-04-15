@@ -168,13 +168,12 @@ header p{
 
 #technologies{
     height: 600px;
-    padding: 0 5%;
+    padding: 100px 5%;
 
     background: var(--color-surface-primary);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 
     gap: 50px;
 }
@@ -182,7 +181,7 @@ header p{
 #technologies h2{
     font-family: var(--font-title);
     color: var(--color-text-primary);
-    font-size: 4rem;
+    font-size: 2.5rem;
 
     display: flex;
     align-items: baseline;
@@ -191,7 +190,7 @@ header p{
 
 #technologies h2 i{
     color: var(--color-accent);
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
 .tech-bigbox{
@@ -211,13 +210,13 @@ header p{
 
 .tech-box i{
     color: var(--color-accent);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .tech-box h5{
     font-family: var(--font-title);
     color: var(--color-text-primary);
-    font-size: 2rem;
+    font-size: 1.3rem;
 
     display: flex;
     gap: 10px;
@@ -227,20 +226,64 @@ header p{
 .tech-box p{
     font-family: var(--font-body);
     color: var(--color-text-secondary);
-    font-size: 1.1rem;
+    font-size: 1rem;
+}
+
+@media (max-width: 1024px) {
+    .tech-box{
+        height: 300px;
+    }
+    .tech-box p{
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 768px) {
     #technologies{
-        height: 500px;
+        height: 650px;
+        padding: 50px 5%;
     }
     #technologies h2{
         font-size: 2rem;
     }
     #technologies h2 i{
-        font-size: 1.5em;
+        font-size: 1.3rem;
     }
-    #description p{
-        font-size: 1.2rem;
+    .tech-bigbox{
+        flex-wrap: wrap;
+    }
+    .tech-box{
+        width: 45%;
+        height: 220px;
+        padding: 20px;
+    }
+    .tech-box i{
+        font-size: 1rem;
+    }
+    .tech-box h5{
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 430px) {
+    #technologies{
+        height: 900px;
+    }
+    #technologies h2{
+        font-size: 1.5rem;
+    }
+    #technologies h2 i{
+        font-size: 1.1rem;
+    }
+    .tech-box{
+        width: 90%;
+        height: 150px;
+        padding: 20px;
+    }
+    .tech-box i{
+        font-size: 1rem;
+    }
+    .tech-box h5{
+        font-size: 1.1rem;
     }
 }
