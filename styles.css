@@ -165,3 +165,18 @@ header p{
         font-size: 0.9rem;
     }
 }
+
+
+#money{
+    display: flow-root;
+    background-color: var(--color-text-secondary);
+    height: 90vh;
+    
+
+}
+
+#tittle_money{
+    font-family: var(--font-title);
+    text-align: center;
+    margin-top: 40px;
+}
