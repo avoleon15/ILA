@@ -184,6 +184,7 @@ header p{
     text-align: center;
     margin-top: 40px;
     margin-bottom: 40px;
+    
 }
 
 
@@ -203,6 +204,8 @@ header p{
     border-radius: 20px;
     text-align: center;
     color: var(--color-text-secondary);
+    
+    
 }
 
 
@@ -214,10 +217,34 @@ header p{
 
 .money-box h5{
     font-family: var(--font-title);
-    color: var(--color-text-secondary);
+    color: var(--color-accent);
+    border: 2px solid #ffffff;
+    box-shadow: 4px 4px 0 #000000;
+    image-rendering: pixelated;
 }
 
 .money-box p{
     font-family: var(--font-title);
-    color: var(--color-background);
+    color: var(--color-text-secondary);
+    
+}
+
+.bi-cash-coin {
+    position: relative;
+    top: 9px;
+    margin-left: 10px;
+}
+
+
+.bi-cash-coin:hover {
+    color: green;
+}
+
+
+.money-box:hover{
+    color: var(--color-accent);
+    transform: scale(1.05);
+    font-size: 1.03rem;
+    cursor: pointer;
+
 }
