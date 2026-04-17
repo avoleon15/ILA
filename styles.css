@@ -199,7 +199,7 @@ footer p{
     font-family: var(--font-title);
     color: var(--color-text-primary);
     font-size: 2.5rem;
-    background: var(--color-background);
+    background: var(--color-surface-primary);
     display: flex;
     align-items: baseline;
     gap: 30px;
