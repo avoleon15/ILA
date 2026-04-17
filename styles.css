@@ -179,4 +179,20 @@ header p{
     font-family: var(--font-title);
     text-align: center;
     margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.money-box{
+    background-color: #102945;
+    padding: 20px;
+    width: 250px;
+  
+
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    
+
 }
