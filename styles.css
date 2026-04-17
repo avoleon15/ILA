@@ -349,17 +349,17 @@ footer p{
     gap: 18px;
     max-width: 900px;
     margin-bottom: 10px;
-    border-left: 2px solid rgba(193, 141, 33, 0.5);
+    border-left: 2px solid var(--color-accent);
     padding-left: 28px;
 }
 
 .escability-card{
     position: relative;
-    background: rgba(21, 52, 83, 0.82);
-    border: 1px solid rgba(193, 141, 33, 0.35);
+    background: var(--color-surface-secondary);
+    border: 1px solid var(--color-accent);
     border-radius: 14px;
     padding: 20px 22px;
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+    box-shadow: 0 10px 22px var(--color-background)
 }
 
 .escability-card::before{
@@ -371,7 +371,8 @@ footer p{
     height: 14px;
     border-radius: 50%;
     background: var(--color-accent);
-    box-shadow: 0 0 0 4px rgba(193, 141, 33, 0.2);
+    box-shadow: 0 0 0 4px var(--color-surface-secondary);
+    
 }
 
 .escability-card h5{
