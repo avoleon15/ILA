@@ -199,7 +199,7 @@ footer p{
     font-family: var(--font-title);
     color: var(--color-text-primary);
     font-size: 2.5rem;
-
+    background: var(--color-background);
     display: flex;
     align-items: baseline;
     gap: 30px;
@@ -301,6 +301,128 @@ footer p{
         font-size: 1rem;
     }
     .tech-box h5{
+        font-size: 1.1rem;
+    }
+}
+
+#purpose{
+    height: 600px;
+    padding: 100px 5%;
+
+    background: var(--color-background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 50px;
+}
+
+#purpose h2{
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    font-size: 2.5rem;
+
+    display: flex;
+    align-items: baseline;
+    gap: 30px;
+}
+
+#purpose h2 i{
+    color: var(--color-accent);
+    font-size: 2.5rem;
+}
+
+.purpose-bigbox{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 5%;
+}
+
+.purpose-box{
+    height: 250px;
+    width: 30%;
+    padding: 25px;
+    background: var(--color-surface-secondary);
+    border-radius: 20px;
+}
+
+.purpose-box i{
+    color: var(--color-accent);
+    font-size: 1.2rem;
+}
+
+.purpose-box h5{
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    font-size: 1.3rem;
+
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+}
+
+.purpose-box p{
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+}
+
+@media (max-width: 1024px) {
+    .purpose-box{
+        height: 280px;
+    }
+    .purpose-box p{
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #purpose{
+        height: 780px;
+        padding: 50px 5%;
+    }
+    #purpose h2{
+        font-size: 2rem;
+    }
+    #purpose h2 i{
+        font-size: 1.3rem;
+    }
+    .purpose-bigbox{
+        flex-wrap: wrap;
+    }
+    .purpose-box{
+        width: 45%;
+        height: 240px;
+        padding: 20px;
+    }
+    .purpose-box i{
+        font-size: 1rem;
+    }
+    .purpose-box h5{
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 430px) {
+    #purpose{
+        height: 930px;
+    }
+    #purpose h2{
+        font-size: 1.5rem;
+    }
+    #purpose h2 i{
+        font-size: 1.1rem;
+    }
+    .purpose-box{
+        width: 90%;
+        height: 170px;
+        padding: 20px;
+    }
+    .purpose-box i{
+        font-size: 1rem;
+    }
+    .purpose-box h5{
         font-size: 1.1rem;
     }
 }
