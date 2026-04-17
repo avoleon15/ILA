@@ -7,6 +7,7 @@
     --color-text-primary: #CFCED0;
     --color-text-secondary: #B3B3B3;
     --color-accent: #C18D21;
+    --color-shadow:#333333;
 
     --font-body: 'Barlow', sans-serif;
     --font-title: 'Pixelify Sans', cursive;
@@ -169,30 +170,54 @@ header p{
 
 #money{
     display: flow-root;
-    background-color: var(--color-text-secondary);
+    background-color: #0D0D0D;
     height: 90vh;
+    
+
     
 
 }
 
 #tittle_money{
     font-family: var(--font-title);
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+
+#tittle_money1{
+    font-family: var(--font-body);
+    color: var(--color-accent);
     text-align: center;
     margin-top: 40px;
     margin-bottom: 40px;
 }
 
 .money-box{
-    background-color: #102945;
+    background-color: var(--color-shadow);
     padding: 20px;
-    width: 250px;
-  
-
+    width: 350px;
+    height: 250px;
+    border-radius: 20px;
+    text-align: center;
+    color: var(--color-text-secondary);
 }
+
 
 .container{
     display: flex;
-    justify-content: space-between;
-    
+    justify-content: space-evenly;
+}
 
+
+.money-box h5{
+    font-family: var(--font-title);
+    color: var(--color-text-secondary);
+}
+
+.money-box p{
+    font-family: var(--font-title);
+    color: var(--color-background);
 }
