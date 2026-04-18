@@ -469,6 +469,9 @@ footer p{
 @media (max-width: 1024px) {
     .escability-grid{
         max-width: 100%;
+    }
+}
+
 .features h2{
     font-family: var(--font-title);
     color: var(--color-accent);
@@ -484,11 +487,11 @@ footer p{
 }
 
 .target-list {
-  text-align: left;      
-  padding-left: 20px; 
-  width: 300px;
-  margin: 0 auto;       
-  padding: 20px;
+    text-align: left;
+    padding-left: 20px;
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .target p{
@@ -568,7 +571,6 @@ footer p{
     .escability-card h5{
         font-size: 1.1rem;
     }
-}
     .features{
         padding: 40px 4%;
     }
@@ -618,4 +620,3 @@ footer p{
         line-height: 1.5;
     }
 }
-
