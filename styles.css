@@ -216,14 +216,22 @@ header p{
     font-size: 1.2rem;
 }
 
-#luis{
-    color: var(--color-text-primary );
-}
 
-#iris{
+#quotes p{
     color: var(--color-text-primary);
 }
 
-#alvaro{
-    color: var(--color-text-primary)
+@media (max-width: 768px) {
+  #quotes p {
+    font-size: 1.1rem;
+  }
 }
+
+@media (max-width: 480px) {
+  #quotes p {
+    font-size: 1rem;
+  }
+}
+
+
+    
