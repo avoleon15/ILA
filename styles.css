@@ -268,7 +268,7 @@ footer p{
     font-family: var(--font-title);
     color: var(--color-text-primary);
     font-size: 2.5rem;
-
+    background: var(--color-surface-primary);
     display: flex;
     align-items: baseline;
     gap: 30px;
@@ -374,6 +374,125 @@ footer p{
     }
 }
 
+#purpose{
+    min-height: auto;
+    padding: 80px 5% 70px;
+
+    background: var(--color-background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 36px;
+}
+
+#purpose h2{
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    font-size: 2.5rem;
+
+    display: flex;
+    align-items: baseline;
+    gap: 30px;
+}
+
+#purpose h2 i{
+    color: var(--color-accent);
+    font-size: 2.5rem;
+}
+
+.purpose-layout{
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    justify-items: stretch;
+    gap: 0;
+}
+
+.purpose-copy{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: min(100%, 580px);
+    max-width: 640px;
+    justify-self: end;
+    margin-left: 0;
+}
+
+.purpose-line{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 0;
+}
+
+.purpose-tag{
+    min-width: 220px;
+    padding: 10px 24px 10px 16px;
+    font-family: var(--font-title);
+    font-size: 1rem;
+    color: #fff;
+    text-align: left;
+    justify-self: start;
+    clip-path: polygon(0 0, 84% 0, 100% 50%, 84% 100%, 0 100%);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.purpose-tag-one{
+    background: var(--color-surface-secondary);
+}
+
+.purpose-tag-two{
+    background: var(--color-surface-primary);
+}
+
+.purpose-tag-three{
+    background: var(--color-text-secondary);
+}
+
+.purpose-line p{
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.purpose-visual{
+    position: relative;
+    width: clamp(320px, 42vw, 580px);
+    max-width: 580px;
+    aspect-ratio: auto;
+    justify-self: end;
+}
+
+.purpose-target{
+    position: static;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+@media (max-width: 1024px) {
+    .purpose-layout{
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .purpose-copy{
+        justify-self: stretch;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .purpose-visual{
+        width: min(72vw, 460px);
+        max-width: 460px;
+        justify-self: center;
 #escability{
     position: relative;
     overflow: hidden;
@@ -528,6 +647,81 @@ footer p{
 }
 
 @media (max-width: 768px) {
+    #purpose{
+        min-height: auto;
+        padding: 50px 5%;
+    }
+
+    #purpose h2{
+        font-size: 2rem;
+    }
+
+    #purpose h2 i{
+        font-size: 1.3rem;
+    }
+
+    .purpose-line{
+        padding: 0;
+    }
+
+    .purpose-tag{
+        min-width: 180px;
+        font-size: 0.9rem;
+        padding: 9px 18px 9px 14px;
+    }
+
+    .purpose-line p{
+        font-size: 0.95rem;
+    }
+
+    .purpose-visual{
+        width: min(78vw, 380px);
+        max-width: 380px;
+    }
+}
+
+@media (max-width: 430px) {
+    #purpose h2{
+        font-size: 1.5rem;
+    }
+
+    #purpose h2 i{
+        font-size: 1.1rem;
+    }
+
+    .purpose-layout{
+        gap: 0;
+    }
+
+    .purpose-line{
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .purpose-tag{
+        width: 100%;
+        white-space: normal;
+    }
+
+    .purpose-line p{
+        font-size: 0.9rem;
+    }
+
+    .purpose-visual{
+        width: min(88vw, 300px);
+        max-width: 300px;
+    }
+
+    .purpose-target{
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 360px) {
+    .purpose-visual{
+        width: min(92vw, 260px);
+        max-width: 260px;
     #escability{
         padding: 80px 7%;
     }
