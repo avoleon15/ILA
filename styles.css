@@ -7,6 +7,10 @@
     --color-text-primary: #CFCED0;
     --color-text-secondary: #B3B3B3;
     --color-accent: #C18D21;
+    --color-shadow:#333333;
+    --color-box_shadow: #000000;
+    --color-white: #ffffff;
+    --color-bill: green;
 
     --font-body: 'Barlow', sans-serif;
     --font-title: 'Pixelify Sans', cursive;
@@ -181,6 +185,91 @@ footer p{
     #description p{
         font-size: 0.9rem;
     }
+}
+
+
+#money{
+    display: flow-root;
+    background-color: var(--color-background);
+    height: 90vh;
+    
+
+    
+
+}
+
+#tittle_money{
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    
+}
+
+
+#tittle_money1{
+    font-family: var(--font-body);
+    color: var(--color-accent);
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    top: -30px;
+}
+
+.money-box{
+    background-color: var(--color-shadow);
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    color: var(--color-text-secondary);
+    flex: 1 1 280px;   
+    
+    
+}
+
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+
+.money-box h5{
+    font-family: var(--font-title);
+    color: var(--color-accent);
+    border: 2px solid var(--color-white);
+    box-shadow: 4px 4px 0 var(--color-box_shadow);
+    image-rendering: pixelated;
+}
+
+.money-box p{
+    font-family: var(--font-title);
+    color: var(--color-text-secondary);
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    line-height: 1.5;
+    
+}
+
+.bi-cash-coin {
+    position: relative;
+    top: 9px;
+    margin-left: 10px;
+}
+
+
+.bi-cash-coin:hover {
+    color: var(--color-bill);
+}
+
+
+.money-box:hover{
+    color: var(--color-accent);
+    transform: scale(1.05);
+    transition: all, 1.5s;
+    font-size: 1.03rem;
+    cursor: pointer;
 }
 
 
