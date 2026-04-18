@@ -53,6 +53,23 @@ header p{
     color: var(--color-text-secondary);
     font-size: 1.2rem;
     padding: 20px;
+}
+
+
+footer{
+    background-color: var(--color-background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 200px;
+    
+
+}
+
+footer p{
+    text-align: center;
+    font-family: var(--font-body);
+    color: var(--color-text-secondary); 
     text-align: center;
 }
 
@@ -235,3 +252,231 @@ header p{
 
 
     
+#technologies{
+    height: 600px;
+    padding: 100px 5%;
+
+    background: var(--color-surface-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 50px;
+}
+
+#technologies h2{
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    font-size: 2.5rem;
+
+    display: flex;
+    align-items: baseline;
+    gap: 30px;
+}
+
+#technologies h2 i{
+    color: var(--color-accent);
+    font-size: 2.5rem;
+}
+
+.tech-bigbox{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 5%;
+}
+
+.tech-box{
+    height: 250px;
+    width: 25%;
+    padding: 25px;
+    background: var(--color-surface-secondary);
+    border-radius: 20px;
+}
+
+.tech-box i{
+    color: var(--color-accent);
+    font-size: 1.2rem;
+}
+
+.tech-box h5{
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    font-size: 1.3rem;
+
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+}
+
+.tech-box p{
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+}
+
+@media (max-width: 1024px) {
+    .tech-box{
+        height: 300px;
+    }
+    .tech-box p{
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #technologies{
+        height: 650px;
+        padding: 50px 5%;
+    }
+    #technologies h2{
+        font-size: 2rem;
+    }
+    #technologies h2 i{
+        font-size: 1.3rem;
+    }
+    .tech-bigbox{
+        flex-wrap: wrap;
+    }
+    .tech-box{
+        width: 45%;
+        height: 220px;
+        padding: 20px;
+    }
+    .tech-box i{
+        font-size: 1rem;
+    }
+    .tech-box h5{
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 430px) {
+    #technologies{
+        height: 900px;
+    }
+    #technologies h2{
+        font-size: 1.5rem;
+    }
+    #technologies h2 i{
+        font-size: 1.1rem;
+    }
+    .tech-box{
+        width: 90%;
+        height: 150px;
+        padding: 20px;
+    }
+    .tech-box i{
+        font-size: 1rem;
+    }
+    .tech-box h5{
+        font-size: 1.1rem;
+    }
+}
+
+.features h2{
+    font-family: var(--font-title);
+    color: var(--color-accent);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.target{
+    background-color: var(--color-surface-secondary);
+    padding: 50px 5%;
+    gap: 20px;
+}
+
+.target-list {
+  text-align: left;      
+  padding-left: 20px; 
+  width: 300px;
+  margin: 0 auto;       
+  padding: 20px;
+}
+
+.target p{
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.target li{
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+}
+
+
+@media (max-width: 1024px) {
+    .features h2{
+        font-size: 2.2rem;
+    }
+
+    .target{
+        padding: 45px 4%;
+    }
+
+    .target p{
+        font-size: 1.1rem;
+    }
+
+    .target li{
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .features{
+        padding: 40px 4%;
+    }
+
+    .features h2{
+        font-size: 2rem;
+    }
+
+    .target{
+        padding: 35px 20px;
+    }
+
+    .target p{
+        font-size: 1rem;
+    }
+
+    .target-list{
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .target li{
+        font-size: 0.93rem;
+    }
+}
+
+@media (max-width: 430px) {
+    .features{
+        padding: 30px 4%;
+    }
+
+    .features h2{
+        font-size: 1.6rem;
+    }
+
+    .target{
+        padding: 25px 15px;
+        border-radius: 15px;
+    }
+
+    .target p{
+        font-size: 0.95rem;
+    }
+
+    .target li{
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+}
+
