@@ -493,6 +493,9 @@ footer p{
         width: min(72vw, 460px);
         max-width: 460px;
         justify-self: center;
+    }
+}
+
 #escability{
     position: relative;
     overflow: hidden;
@@ -722,6 +725,7 @@ footer p{
     .purpose-visual{
         width: min(92vw, 260px);
         max-width: 260px;
+    }
     #escability{
         padding: 80px 7%;
     }
