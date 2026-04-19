@@ -65,7 +65,7 @@ footer{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 200px;
+    height: 150px;
     
 
 }
@@ -191,8 +191,8 @@ footer p{
 #money{
     display: flow-root;
     background-color: var(--color-background);
-    height: 90vh;
-    
+    min-height: 70vh;
+    padding: 2rem;
 
     
 
@@ -223,7 +223,8 @@ footer p{
     border-radius: 20px;
     text-align: center;
     color: var(--color-text-secondary);
-    flex: 1 1 280px;   
+    flex: 1 1 200px;   
+    
     
     
 }
@@ -232,7 +233,8 @@ footer p{
 .container{
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 2rem;
+   
 }
 
 
@@ -586,6 +588,8 @@ footer p{
 }
 
 #escability{
+    display: flex;
+    flex-direction: column;
     position: relative;
     overflow: hidden;
     padding: 100px 8%;
