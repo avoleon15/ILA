@@ -587,6 +587,8 @@ footer p{
 }
 
 #escability{
+    display: flex;
+    flex-direction: column;
     position: relative;
     overflow: hidden;
     padding: 100px 8%;
