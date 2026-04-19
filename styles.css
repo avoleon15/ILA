@@ -191,7 +191,8 @@ footer p{
 #money{
     display: flow-root;
     background-color: var(--color-background);
-    height: 90vh;
+    min-height: 70vh;
+    padding: 2rem;
     
 
     
