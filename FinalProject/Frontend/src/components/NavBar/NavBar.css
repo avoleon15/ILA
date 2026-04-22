@@ -1,0 +1,11 @@
+.container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    background-color: black;
+}
+
+.container h1{
+    
+    color: aliceblue;
+}
