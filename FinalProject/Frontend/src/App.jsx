@@ -4,6 +4,9 @@ function App() {
 
   return (
     <>
+      <section id='game-box'>
+
+      </section>
     </>
   )
 }
