@@ -13,14 +13,12 @@
 }
 
 .titleHolder h1{
-    background: linear-gradient(to right, var(--color-accent), var(--color-purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--color-accent);
     letter-spacing: 5px;
     font-family: var(--font-title);
     position: relative;
     z-index: 2;
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 .canvas{
