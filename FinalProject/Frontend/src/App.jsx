@@ -5,7 +5,9 @@ function App() {
 
   return (
     <>
-    <TitleHolder/>
+      <section id='game-box'>
+         <TitleHolder/>
+      </section>
     </>
   )
 }
