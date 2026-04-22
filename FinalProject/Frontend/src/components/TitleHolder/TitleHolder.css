@@ -1,0 +1,145 @@
+.titleHolder{
+    background-color: var(--color-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid var(--color-background);
+
+    height: 100px;
+    width: 402px;
+    position: relative;
+    overflow: hidden;
+
+}
+
+.titleHolder h1{
+    color: var(--color-accent);
+    letter-spacing: 5px;
+    font-family: var(--font-title);
+    position: relative;
+    z-index: 2;
+    font-size: 3rem;
+}
+
+.canvas{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    pointer-events: none;
+
+    box-shadow:
+    -200px -40px var(--color-surface-secondary),
+    -180px -40px var(--color-surface-primary),
+    -160px -40px transparent,
+    -140px -40px var(--color-surface-primary),
+    -120px -40px var(--color-surface-secondary),
+    -100px -40px transparent,
+    -80px -40px var(--color-surface-secondary),
+    -60px -40px var(--color-surface-primary),
+    -40px -40px transparent,
+    -20px -40px var(--color-surface-primary),
+    0px -40px var(--color-surface-secondary),
+    20px -40px var(--color-surface-primary),
+    40px -40px transparent,
+    60px -40px var(--color-surface-primary),
+    80px -40px var(--color-surface-secondary),
+    100px -40px var(--color-surface-primary),
+    120px -40px transparent,
+    140px -40px var(--color-surface-primary),
+    160px -40px var(--color-surface-secondary),
+    180px -40px var(--color-surface-primary),
+    200px -40px transparent,
+
+    -200px -20px var(--color-surface-primary),
+    -180px -20px transparent,
+    -160px -20px var(--color-surface-primary),
+    -140px -20px var(--color-surface-secondary),
+    -120px -20px transparent,
+    -100px -20px var(--color-surface-secondary),
+    -80px -20px var(--color-surface-primary),
+    -60px -20px transparent,
+    -40px -20px var(--color-surface-primary),
+    -20px -20px var(--color-surface-secondary),
+    0px -20px var(--color-surface-primary),
+    20px -20px transparent,
+    40px -20px var(--color-surface-primary),
+    60px -20px var(--color-surface-secondary),
+    80px -20px transparent,
+    100px -20px var(--color-surface-secondary),
+    120px -20px var(--color-surface-primary),
+    140px -20px var(--color-surface-secondary),
+    160px -20px transparent,
+    180px -20px var(--color-surface-secondary),
+    200px -20px var(--color-surface-primary),
+
+    -200px 0px var(--color-surface-secondary),
+    -180px 0px var(--color-surface-primary),
+    -160px 0px transparent,
+    -140px 0px var(--color-surface-primary),
+    -120px 0px var(--color-surface-secondary),
+    -100px 0px var(--color-surface-primary),
+    -80px 0px transparent,
+    -60px 0px var(--color-surface-primary),
+    -40px 0px var(--color-surface-secondary),
+    -20px 0px transparent,
+    0px 0px var(--color-surface-secondary),
+    20px 0px var(--color-surface-primary),
+    40px 0px var(--color-surface-secondary),
+    60px 0px transparent,
+    80px 0px var(--color-surface-secondary),
+    100px 0px var(--color-surface-primary),
+    120px 0px transparent,
+    140px 0px var(--color-surface-primary),
+    160px 0px var(--color-surface-secondary),
+    180px 0px var(--color-surface-primary),
+    200px 0px transparent,
+
+    -200px 20px var(--color-surface-primary),
+    -180px 20px var(--color-surface-secondary),
+    -160px 20px var(--color-surface-primary),
+    -140px 20px transparent,
+    -120px 20px var(--color-surface-primary),
+    -100px 20px var(--color-surface-secondary),
+    -80px 20px transparent,
+    -60px 20px var(--color-surface-secondary),
+    -40px 20px var(--color-surface-primary),
+    -20px 20px var(--color-surface-secondary),
+    0px 20px transparent,
+    20px 20px var(--color-surface-secondary),
+    40px 20px var(--color-surface-primary),
+    60px 20px transparent,
+    80px 20px var(--color-surface-primary),
+    100px 20px var(--color-surface-secondary),
+    120px 20px var(--color-surface-primary),
+    140px 20px transparent,
+    160px 20px var(--color-surface-primary),
+    180px 20px var(--color-surface-secondary),
+    200px 20px var(--color-surface-primary),
+
+    -200px 40px var(--color-surface-secondary),
+    -180px 40px var(--color-surface-primary),
+    -160px 40px transparent,
+    -140px 40px var(--color-surface-primary),
+    -120px 40px var(--color-surface-secondary),
+    -100px 40px var(--color-surface-primary),
+    -80px 40px transparent,
+    -60px 40px var(--color-surface-primary),
+    -40px 40px var(--color-surface-secondary),
+    -20px 40px var(--color-surface-primary),
+    0px 40px transparent,
+    20px 40px var(--color-surface-primary),
+    40px 40px var(--color-surface-secondary),
+    60px 40px var(--color-surface-primary),
+    80px 40px transparent,
+    100px 40px var(--color-surface-primary),
+    120px 40px var(--color-surface-secondary),
+    140px 40px transparent,
+    160px 40px var(--color-surface-secondary),
+    180px 40px var(--color-surface-primary),
+    200px 40px var(--color-surface-secondary);
+
+}
