@@ -2,10 +2,12 @@
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
-    background-color: black;
+    background-color: var(--color-accent);
+    min-height: 0.5vh;
 }
 
-.container h1{
-    
-    color: aliceblue;
+.container h3{
+    font-family: var(--font-title);
 }
+
+
