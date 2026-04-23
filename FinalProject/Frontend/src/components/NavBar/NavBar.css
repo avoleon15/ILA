@@ -1,13 +1,53 @@
-.container{
+
+.NavBar{
+    position: relative;
     display: flex;
-    justify-content: space-evenly;
-    flex-direction: row;
-    background-color: var(--color-accent);
-    min-height: 0.5vh;
+    align-items: center;
+    background-color: var(--color-surface-secondary);
+    min-height: 70px;
+    z-index: 100;
+    border-radius: 20px;
 }
 
-.container h3{
+
+.center{
+    position: absolute;
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.center h3{
+    color: var(--color-text-primary);
+    font-size: 4rem;
     font-family: var(--font-title);
 }
 
+.Left{
+    margin-right: auto;
+    
+}
 
+
+.Left img{
+    width: 300px;
+    height: 300px;
+}
+
+
+.pixel{
+    position: absolute;
+    margin: 0 auto;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 30px;      /* tamaño de 1 píxel */
+    height: 30px;
+    box-shadow:
+        /* x      y     blur spread  color  */
+        10px    10px    0    0    #e24b4a,   /* píxel fila 1, col 2 */
+        20px    10px    0    0    #e24b4a,   /* píxel fila 1, col 3 */
+        10px    20px    0    0    #378add;   /* píxel fila 2, col 2 */
+}

@@ -1,14 +1,20 @@
 
 import './NavBar.css';
+import logo from '../../Assets/images/ChatGPT Image 22 abr 2026, 10_49_12.png';
 
 function NavBar() {
 
   return (
 
-    <div className="container">
-        <h3>hola</h3>
-        <h3>hola</h3>
-        <h3>hola</h3>
+    <div className="NavBar">
+      <div className='Left'>
+      <img src={logo} alt='Knight logo'/> 
+      </div>
+      <div className='center'>
+      <h3>Asdrubal's </h3>
+      </div>
+      <div className='pixel'>
+      </div> 
     </div>
 
 
@@ -17,3 +23,4 @@ function NavBar() {
 }
 
 export default NavBar
+ 
