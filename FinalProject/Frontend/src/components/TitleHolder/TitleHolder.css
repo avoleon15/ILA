@@ -9,7 +9,6 @@
     width: 402px;
     position: relative;
     overflow: hidden;
-
 }
 
 .titleHolder h1{
@@ -21,7 +20,7 @@
     font-size: 3rem;
 }
 
-.canvas{
+.canvas-titleHolder{
     position: absolute;
     left: 50%;
     top: 50%;

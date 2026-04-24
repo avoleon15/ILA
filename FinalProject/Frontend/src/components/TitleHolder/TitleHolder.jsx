@@ -4,7 +4,7 @@ function TitleHolder(){
 
     return(
         <div className='titleHolder'>
-            <div className='canvas'></div>
+            <div className='canvas-titleHolder'></div>
             <h1>ASDRUBAL</h1>
         </div>
     )

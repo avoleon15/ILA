@@ -1,4 +1,5 @@
 import './App.css'
+import OptionHolder from './components/OptionHolder/OptionHolder.jsx'
 import TitleHolder from './components/TitleHolder/TitleHolder.jsx'
 
 function App() {
@@ -6,7 +7,10 @@ function App() {
   return (
     <>
       <section id='game-box'>
-         <TitleHolder/>
+          <TitleHolder/>
+          <OptionHolder text="Create Game"/>
+          <OptionHolder text="Join Game"/>
+          <OptionHolder text="How to Play"/>
       </section>
     </>
   )
