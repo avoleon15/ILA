@@ -11,7 +11,7 @@ function NavBar() {
       <img src={logo} alt='Knight logo'/> 
       </div>
       <div className='center'>
-      <h3>Asdrubal's </h3>
+      <h3> </h3>
       </div>
       <div className='pixel'>
       </div> 
