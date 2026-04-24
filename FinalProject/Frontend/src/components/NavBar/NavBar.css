@@ -12,33 +12,6 @@
 }
 
 
-.center{
-    position: absolute;
-    margin: 0 auto;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-}
-
-.center h3{
-    color: var(--color-);
-    font-size: 4rem;
-    font-family: var(--font-title);
-}
-
-.Left{
-    margin-right: auto;
-    
-}
-
-
-.Left img{
-    margin-left: 20px;
-    width: 100px;
-    height: 100px;
-    z-index: 1000;
-}
-
 
     .pixel{
         position: absolute;
