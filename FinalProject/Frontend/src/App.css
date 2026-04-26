@@ -17,4 +17,10 @@
     --font-title: 'Pixelify Sans', cursive;
 }
 
+#game-box{
+    aspect-ratio: 16 / 9;
+    width: 922px;
+    height: 518px;
 
+    border: 5px solid red;
+}

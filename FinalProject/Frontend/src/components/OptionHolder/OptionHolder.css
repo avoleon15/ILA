@@ -1,0 +1,96 @@
+.optionHolder{
+    background-color: var(--color-background);
+    border: 3px solid var(--color-background);
+
+    height: 60px;
+    width: 280px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    overflow: hidden;
+
+    transition: all 0.5s;
+}
+
+.optionHolder h3{
+    font-family: var(--font-title);
+    color: var(--color-white);
+    font-size: 1.5rem;
+    z-index: 2;
+
+    transition: all 0.5s;
+}
+
+.optionHolder:hover{
+    border: 3px solid var(--color-accent);
+    cursor: pointer;
+}
+
+.optionHolder:hover h3{
+    font-size: 1.6rem;
+    color: var(--color-accent);
+}
+
+.canvas-optionHolder{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    pointer-events: none;
+
+    box-shadow:
+
+    -140px -20px var(--color-surface-secondary),
+    -120px -20px transparent,
+    -100px -20px transparent,
+    -80px -20px var(--color-surface-primary),
+    -60px -20px transparent,
+    -40px -20px var(--color-surface-secondary),
+    -20px -20px transparent,
+    0px -20px transparent,
+    20px -20px var(--color-surface-primary),
+    40px -20px transparent,
+    60px -20px var(--color-surface-secondary),
+    80px -20px transparent,
+    100px -20px transparent,
+    120px -20px var(--color-surface-primary),
+    140px -20px transparent,
+
+    -140px 0px transparent,
+    -120px 0px var(--color-surface-primary),
+    -100px 0px transparent,
+    -80px 0px transparent,
+    -60px 0px var(--color-surface-secondary),
+    -40px 0px transparent,
+    -20px 0px var(--color-surface-primary),
+    0px 0px transparent,
+    20px 0px transparent,
+    40px 0px var(--color-surface-secondary),
+    60px 0px transparent,
+    80px 0px var(--color-surface-primary),
+    100px 0px transparent,
+    120px 0px transparent,
+    140px 0px var(--color-surface-secondary),
+
+    -140px 20px transparent,
+    -120px 20px var(--color-surface-secondary),
+    -100px 20px transparent,
+    -80px 20px var(--color-surface-primary),
+    -60px 20px transparent,
+    -40px 20px transparent,
+    -20px 20px var(--color-surface-secondary),
+    0px 20px transparent,
+    20px 20px var(--color-surface-primary),
+    40px 20px transparent,
+    60px 20px transparent,
+    80px 20px var(--color-surface-secondary),
+    100px 20px transparent,
+    120px 20px var(--color-surface-primary),
+    140px 20px transparent;
+}
