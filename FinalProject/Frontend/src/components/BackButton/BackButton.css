@@ -2,6 +2,7 @@
 
 .backButton{
     background-color: var(--color-background);
+    --pixel-highlight: var(--color-white);
     border: 3px solid var(--color-white);
     border-radius: 20px;
 
@@ -29,6 +30,7 @@
 }
 
 .backButton:hover{
+    --pixel-highlight: var(--color-accent);
     border: 3px solid var(--color-accent);
     cursor: pointer;
 }
@@ -49,6 +51,7 @@
     transform-origin: top left;
     z-index: 1;
     pointer-events: none;
+    transition: transform 0.5s ease;
   
   box-shadow:
 
@@ -83,7 +86,7 @@
     40px  40px 0 0 var(--color-background),
     80px  40px 0 0 var(--color-surface-primary),
     120px 40px 0 0 var(--color-background),
-    160px 40px 0 0 var(--color-white),
+    160px 40px 0 0 var(--pixel-highlight),
     200px 40px 0 0 var(--color-background),
     240px 40px 0 0 var(--color-surface-primary),
     280px 40px 0 0 var(--color-background),
@@ -109,7 +112,7 @@
     0px   80px 0 0 var(--color-background),
     40px  80px 0 0 var(--color-surface-primary),
     80px  80px 0 0 var(--color-background),
-    120px 80px 0 0 var(--color-white),
+    120px 80px 0 0 var(--pixel-highlight),
     160px 80px 0 0 var(--color-background),
     200px 80px 0 0 var(--color-surface-primary),
     240px 80px 0 0 var(--color-background),
@@ -135,12 +138,12 @@
   
     0px   120px 0 0 var(--color-surface-secondary),
     40px  120px 0 0 var(--color-background),
-    80px  120px 0 0 var(--color-white),
-    120px 120px 0 0 var(--color-white),
-    160px 120px 0 0 var(--color-white),
-    200px 120px 0 0 var(--color-white),
-    240px 120px 0 0 var(--color-white),
-    280px 120px 0 0 var(--color-white),
+    80px  120px 0 0 var(--pixel-highlight),
+    120px 120px 0 0 var(--pixel-highlight),
+    160px 120px 0 0 var(--pixel-highlight),
+    200px 120px 0 0 var(--pixel-highlight),
+    240px 120px 0 0 var(--pixel-highlight),
+    280px 120px 0 0 var(--pixel-highlight),
     320px 120px 0 0 var(--color-surface-secondary),
     360px 120px 0 0 var(--color-background),
     400px 120px 0 0 var(--color-surface-primary),
@@ -162,12 +165,12 @@
     0px   160px 0 0 var(--color-background),
     40px  160px 0 0 var(--color-surface-secondary),
     80px  160px 0 0 var(--color-background),
-    120px 160px 0 0 var(--color-white),
+    120px 160px 0 0 var(--pixel-highlight),
     160px 160px 0 0 var(--color-background),
     200px 160px 0 0 var(--color-surface-primary),
     240px 160px 0 0 var(--color-background),
     280px 160px 0 0 var(--color-surface-secondary),
-    320px 160px 0 0 var(--color-white),
+    320px 160px 0 0 var(--pixel-highlight),
     360px 160px 0 0 var(--color-surface-primary),
     400px 160px 0 0 var(--color-background),
     440px 160px 0 0 var(--color-surface-secondary),
@@ -189,10 +192,10 @@
     40px  200px 0 0 var(--color-background),
     80px  200px 0 0 var(--color-surface-secondary),
     120px 200px 0 0 var(--color-background),
-    160px 200px 0 0 var(--color-white),
+    160px 200px 0 0 var(--pixel-highlight),
     200px 200px 0 0 var(--color-background),
     240px 200px 0 0 var(--color-surface-secondary),
-    280px 200px 0 0 var(--color-white),
+    280px 200px 0 0 var(--pixel-highlight),
     320px 200px 0 0 var(--color-surface-primary),
     360px 200px 0 0 var(--color-background),
     400px 200px 0 0 var(--color-surface-secondary),
@@ -238,5 +241,9 @@
     920px 240px 0 0 var(--color-surface-primary),
     960px 240px 0 0 var(--color-background);
 
+}
+
+.backButton:hover .canvas-backButton{
+    transform: scale(0.18) translateX(20px);
 }
 
