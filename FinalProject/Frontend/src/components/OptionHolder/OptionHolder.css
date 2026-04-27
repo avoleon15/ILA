@@ -27,6 +27,7 @@
 .optionHolder:hover{
     border: 3px solid var(--color-accent);
     cursor: pointer;
+    user-select: none;
 }
 
 .optionHolder:hover h3{

@@ -1,10 +1,14 @@
 import './OptionHolder.css'
 
-function OptionHolder({ text }){
+function OptionHolder({ text, onClick }){
 
     return(
-        <div className='optionHolder'>
-            <div className='canvas-optionHolder'></div>
+        <div
+            className='optionHolder'
+            onClick={onClick}
+            role="button"
+        >
+        <div className='canvas-optionHolder'></div>
             <h3>{text}</h3>
         </div>
     )

@@ -8,7 +8,8 @@ function MenuScreen() {
     return (
         <>
             <TitleHolder/>
-            <OptionHolder/>
+            <button><OptionHolder/></button>
+            
         </>
     )
 }
