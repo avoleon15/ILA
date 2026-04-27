@@ -4,6 +4,9 @@ import Adlg from './components/Adlg/Adlg.jsx'
 import Admd from './components/Admd/Admd.jsx'
 import Adsm from './components/Adsm/Adsm.jsx'
 import NavBar from './components/NavBar/NavBar'
+import OptionHolder from './components/OptionHolder/OptionHolder.jsx'
+import TitleHolder from './components/TitleHolder/TitleHolder.jsx'
+import BackButton from './components/BackButton/BackButton.jsx'
 import GameRouter from './GameRouter.jsx'
 
 function App() {
@@ -31,6 +34,7 @@ function App() {
           <Admd/>
         </section>
       </section>
+      <BackButton text="Back"/>
     </>
   )
 }
