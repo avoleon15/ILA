@@ -4,7 +4,7 @@ import './MenuScreen.css'
 
 // MenuScreen.jsx — the main menu, first thing players see
 
-function MenuScreen() {
+function MenuScreen({navigate}) {
 
     return (
         <section id='MenuScreen'>
