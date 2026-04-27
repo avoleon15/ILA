@@ -1,3 +1,4 @@
+import GameLogic from './screens/GameLogic/GameLogic.jsx'
 import MenuScreen from './screens/MenuScreen/MenuScreen.jsx'
 
 // SCREENS maps a page key (string) → the React component
@@ -5,5 +6,6 @@ import MenuScreen from './screens/MenuScreen/MenuScreen.jsx'
 // Keys are what you pass to navigate(), e.g. navigate('lobby')
 
 export const SCREENS = {
-    menu:   MenuScreen
+    menu:   MenuScreen,
+    demo: GameLogic
 }
