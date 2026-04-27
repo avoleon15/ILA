@@ -8,7 +8,7 @@ function MenuScreen() {
 
     return (
         <section id='MenuScreen'>
-            <TitleHolder/>
+            <TitleHolder text='ASDRUBAL'/>
             <OptionHolder text="Create Game" onClick={() => navigate('createGame')} />
             <OptionHolder text="Join Game" onClick={() => navigate('joinGame')} />
             <OptionHolder text="How To Play" onClick={() => navigate('howToPlay')} />
