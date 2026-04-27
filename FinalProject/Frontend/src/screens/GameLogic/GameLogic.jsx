@@ -7,16 +7,44 @@ import './GameLogic.css'
 
 // COLORS — the preset swatches shown in the toolbar.
 const COLORS = [
-    '#000000', // black
-    '#ffffff', // white
-    '#808080', // gray
-    '#ff0000', // red
-    '#ffa500', // orange
-    '#ffff00', // yellow
-    '#00ff00', // green
-    '#00ffff', // cyan
-    '#0000ff', // blue
-    '#800080'  // purple
+  // Neutrals light → dark
+  '#ffffff', // white
+  '#d9d9d9', // light gray
+  '#9a9a9a', // gray
+  '#4a4a4a', // dark gray
+  '#000000', // black
+
+  // Reds & pinks
+  '#ff99cc', // light pink
+  '#ff007f', // hot pink
+  '#ff0000', // red
+  '#6b1a1a', // dark red
+
+  // Oranges & browns
+  '#ff6b00', // orange
+  '#ffcc00', // yellow
+  '#c68642', // tan / skin
+  '#a0522d', // sienna
+  '#7b4000', // brown
+
+  // Greens
+  '#00cc66', // mint
+  '#008000', // green
+  '#003300', // dark green
+
+  // Blues & cyans
+  '#00ffff', // cyan
+  '#00aaff', // sky blue
+  '#0000ff', // blue
+  '#003366', // dark blue
+
+  // Purples & violets
+  '#cc44ff', // violet
+  '#800080', // purple
+
+  // Accents
+  '#ffff00', // yellow green
+  '#ffe8a0', // skin light
 ]
 
 // hexToRgb — converts a hex color string like '#ff5f56'
@@ -226,50 +254,49 @@ function GameLogic({ navigate }) {
 
 return (
     <section id='GameLogic'>
+        <section className='topbar'>
+            <div className='toolbar'>
 
-    <div className='toolbar'>
+                <button className={`tool-btn ${tool==='draw'   ? 'active':''}`} onClick={() => setTool('draw')}>DRAW</button>
+                <button className={`tool-btn ${tool==='eraser' ? 'active':''}`} onClick={() => setTool('eraser')}>ERASE</button>
+                <button className={`tool-btn ${tool==='fill'   ? 'active':''}`} onClick={() => setTool('fill')}>FILL</button>
+                <button className='tool-btn' onClick={undo}>↩ UNDO</button>
+                <button className='tool-btn' onClick={clearCanvas}>CLEAR ALL</button>
 
-        <button className={`tool-btn ${tool==='draw'   ? 'active':''}`} onClick={() => setTool('draw')}>✏️ Draw</button>
-        <button className={`tool-btn ${tool==='eraser' ? 'active':''}`} onClick={() => setTool('eraser')}>🧹 Eraser</button>
-        <button className={`tool-btn ${tool==='fill'   ? 'active':''}`} onClick={() => setTool('fill')}>🪣 Fill</button>
+                <span className='label'>SIZE</span>
+                <input type='range' min={1} max={60} value={size}
+                onChange={e => setSize(Number(e.target.value))} />
 
-        <div className='divider'/>
+            </div>
 
-        <span className='label'>Size</span>
-        <input type='range' min={1} max={60} value={size}
-        onChange={e => setSize(Number(e.target.value))} />
+            <div className='colorbar'>
 
-        <div className='divider'/>
+                {COLORS.map(c => (
+                <div key={c}
+                    className={`color-swatch ${color===c ? 'active':''}`}
+                    style={{ background: c }}
+                    onClick={() => setColor(c)}
+                />
+                ))}
 
-        {COLORS.map(c => (
-        <div key={c}
-            className={`color-swatch ${color===c ? 'active':''}`}
-            style={{ background: c }}
-            onClick={() => setColor(c)}
+                <input type='color' value={color}
+                onChange={e => setColor(e.target.value)} />
+
+                    <button className='back-btn' onClick={() => navigate('menu')}>← Menu</button>
+
+            </div>
+
+        </section>
+
+        <canvas
+            ref={canvasRef}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
         />
-        ))}
 
-        <input type='color' value={color}
-        onChange={e => setColor(e.target.value)} />
-
-        <div className='divider'/>
-
-        <button className='tool-btn' onClick={undo}>↩ Undo</button>
-        <button className='tool-btn' onClick={clearCanvas}>🗑️ Clear</button>
-
-        <button className='back-btn' onClick={() => navigate('menu')}>← Menu</button>
-
-      </div>
-
-      <canvas
-        ref={canvasRef}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-      />
-
-    </section>
-  )
+        </section>
+    )
 }
 
 export default GameLogic
