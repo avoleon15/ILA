@@ -1,11 +1,11 @@
 import './TitleHolder.css'
 
-function TitleHolder(){
+function TitleHolder({ text }){
 
     return(
         <div className='titleHolder'>
             <div className='canvas-titleHolder'></div>
-            <h1>ASDRUBAL</h1>
+            <h1>{text}</h1>
         </div>
     )
 }
