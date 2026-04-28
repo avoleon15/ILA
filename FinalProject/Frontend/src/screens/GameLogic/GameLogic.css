@@ -22,6 +22,7 @@
 }
 
 .colorbar{
+  background: var(--color-background);
   width: 60%;
   display: flex;
   align-items: center;
