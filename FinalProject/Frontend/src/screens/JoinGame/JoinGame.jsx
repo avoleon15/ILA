@@ -6,10 +6,28 @@ import './JoinGame.css'
 
 const JoinGame = ({navigate}) => {
 
+    const [code, setCode] = useState(['', '', '', '', '', ''])
   return (
     <div id='Joingame'>
         <TitleHolder text="Join Game"/> 
         <h2>Enter the 6-digit code to join a game</h2>
+        
+        <div className="code-inputs">
+         {code.map((val, i) => (
+        <input
+            key={i}
+            type="text"
+            maxLength={1}
+            value={val}
+            onChange={(e) => {
+                const newCode = [...code]
+                newCode[i] = e.target.value
+                setCode(newCode)
+            }}
+        />
+        ))}
+        </div>
+        <OptionHolder text="JoinGame"/>
     </div>
   )
 }
