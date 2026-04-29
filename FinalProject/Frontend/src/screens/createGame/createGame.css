@@ -1,7 +1,19 @@
-#createGame{
+#createGame {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+    gap: 20px; /* ← espacio entre TitleHolder y NumberInput */
+}
+
+
+h2{
+    align-items: center;
+    color: var(--color-accent);
+    font-family: var(--font-title);
+
+}
+
     border-bottom: 10px;
 }
