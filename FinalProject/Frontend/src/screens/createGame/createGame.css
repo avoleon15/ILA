@@ -1,7 +1,39 @@
+<<<<<<< Updated upstream
 #createGame{
+=======
+#createGame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../Assets/images/creategamebg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+>>>>>>> Stashed changes
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+<<<<<<< Updated upstream
     border-bottom: 10px;
 }
+=======
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.createGameBackButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+#createGame h2 {
+    align-items: center;
+    color: var(--color-background);
+    font-family: var(--font-title);
+    padding: 7px 14px;
+    border-radius: 10px;
+}
+>>>>>>> Stashed changes
