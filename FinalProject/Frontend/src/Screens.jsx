@@ -1,5 +1,5 @@
-    import MenuScreen from './screens/MenuScreen/MenuScreen.jsx'
-    import createGame from './screens/createGame/createGame.jsx'
+import MenuScreen from './screens/MenuScreen/MenuScreen.jsx'
+import createGame from './screens/createGame/createGame.jsx'
 
     // SCREENS maps a page key (string) → the React component
     // that should render inside the game box for that page.
