@@ -6,7 +6,7 @@
     border: 3px solid var(--color-white);
     border-radius: 20px;
 
-    height: 44px;
+    height: 50px;
     width: 160px;
 
     display: flex;
@@ -36,7 +36,7 @@
 }
 
 .backButton:hover h3{
-    font-size: 1.45rem;
+    font-size: 1.9rem;
     color: var(--color-accent);
     
 }
@@ -51,7 +51,7 @@
     transform-origin: top left;
     z-index: 1;
     pointer-events: none;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s;
   
   box-shadow:
 
@@ -243,7 +243,4 @@
 
 }
 
-.backButton:hover .canvas-backButton{
-    transform: scale(0.18) translateX(20px);
-}
 
