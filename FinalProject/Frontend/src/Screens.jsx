@@ -1,5 +1,6 @@
 import MenuScreen from './screens/MenuScreen/MenuScreen.jsx'
 import createGame from './screens/createGame/createGame.jsx'
+import LobbyScreen from './screens/LobbyScreen/LobbyScreen.jsx'
 
     // SCREENS maps a page key (string) → the React component
     // that should render inside the game box for that page.
@@ -7,5 +8,6 @@ import createGame from './screens/createGame/createGame.jsx'
 
     export const SCREENS = {
         menu:   MenuScreen,
-        createGame: createGame
+        createGame: createGame,
+        lobby: LobbyScreen
     }

@@ -18,14 +18,10 @@ function CreateGame({ navigate }) {
                 min={2}
                 max={8}
             />
-        <h2>Game Mode</h2>
-        <Gamemode/>
-        <OptionHolder text="Start match"/>
-        
+            <h2>Game Mode</h2>
+            <Gamemode/>
+            <OptionHolder text="Start match" onClick={() => navigate('lobby')} />
         </section>
-    
-
-        
     )
 }
 
