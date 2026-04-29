@@ -5,3 +5,8 @@
     align-items: center;
     margin-top: 50px;
 }
+
+#Joingame h2{
+    font-family: var(--font-title);
+    color: var(--color-accent);
+}
