@@ -28,7 +28,6 @@
     font-family: var(--font-title);
     padding: 7px 14px;
     border-radius: 10px;
-}
     margin-top: 20px;
     gap: 20px; /* ← espacio entre TitleHolder y NumberInput */
 }
@@ -39,7 +38,4 @@ h2{
     color: var(--color-accent);
     font-family: var(--font-title);
 
-}
-
-    border-bottom: 10px;
 }
