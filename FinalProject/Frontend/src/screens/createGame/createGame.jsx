@@ -1,22 +1,24 @@
-import OptionHolder from '../../components/OptionHolder/OptionHolder.jsx'
-import TitleHolder from '../../components/TitleHolder/TitleHolder.jsx'
-import './createGame.css'
 import { useState } from "react"
+import NumberInput from '../../components/PlayersNum/PlayersNum.jsx'
+import TitleHolder from '../../components/TitleHolder/TitleHolder.jsx'
+import "./createGame.css"
 
-function createGame({ navigate }) {
-    const [valor, setValor] = useState("")
+function CreateGame({ navigate }) {
+    const [players, setPlayers] = useState(2)
 
     return (
         <section id='createGame'>
             <TitleHolder text="Create Game" />
-            <input
-                type="number"
-                value={valor}
-                onChange={(e) => setValor(e.target.value)}
-                placeholder="número de jugadores"
+            <NumberInput
+                label="NUM. JUGADORES"
+                value={players}
+                onChange={setPlayers}
+                min={2}
+                max={8}
             />
+
         </section>
     )
 }
 
-export default createGame
+export default CreateGame

@@ -1,6 +1,7 @@
-#createGame{
+#createGame {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 20px; /* ← espacio entre TitleHolder y NumberInput */
 }
