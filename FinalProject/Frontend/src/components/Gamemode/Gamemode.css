@@ -1,0 +1,20 @@
+.toggle-group {
+    display: flex;
+    gap: 10px;
+}
+
+.toggle-btn {
+    font-family: var(--font-title);
+    font-size: 20px;
+    padding: 10px 16px;
+    background: var(--color-surface-primary);
+    color: var(--color-accent);
+    border: 3px var(--color-accent);
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--color-background);
+}
+
+.toggle-btn.active {
+    background: var(--color-accent);
+    color: var(--color-background);
+}
