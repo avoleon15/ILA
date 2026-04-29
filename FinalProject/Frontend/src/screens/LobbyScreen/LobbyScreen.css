@@ -1,0 +1,72 @@
+#lobbyScreen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.lobbyScreenBackButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+#lobbyScreen p {
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.lobbyLeaveOverlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(5, 10, 18, 0.72);
+    backdrop-filter: blur(4px);
+    z-index: 20;
+}
+
+.lobbyLeaveModal {
+    width: min(92%, 520px);
+    padding: 28px 24px;
+    border: 5px solid var(--color-accent);
+    background: var(--color-background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.lobbyLeaveModal h2 {
+    margin: 0;
+    color: var(--color-accent);
+    font-family: var(--font-title);
+    font-size: 2rem;
+    text-align: center;
+}
+
+.lobbyLeaveModal p {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    text-align: center;
+    max-width: 36ch;
+}
+
+.lobbyLeaveActions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}

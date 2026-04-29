@@ -6,6 +6,7 @@ function TitleHolder({ text }){
         <div className='titleHolder'>
             <div className='canvas-titleHolder'></div>
             <h1>{text}</h1>
+            
         </div>
     )
 }
