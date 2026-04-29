@@ -1,0 +1,30 @@
+#Joingame {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#Joingame h2{
+    font-family: var(--font-title);
+    color: var(--color-accent);
+}
+
+.code-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+.code-inputs input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 18px;
+    background: var(--color-surface-primary);
+    color: var(--color-accent);
+    border: 3px var(--color-accent);
+    box-shadow: 3px 3px 0 var(--color-background);
+    margin-bottom: 30px;
+}

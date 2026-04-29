@@ -1,3 +1,4 @@
+import JoinGame from './screens/JoinGame/JoinGame.jsx'
 import GameLogic from './screens/GameLogic/GameLogic.jsx'
 import MenuScreen from './screens/MenuScreen/MenuScreen.jsx'
 import createGame from './screens/createGame/createGame.jsx'
@@ -8,6 +9,10 @@ import createGame from './screens/createGame/createGame.jsx'
 
 export const SCREENS = {
     menu:   MenuScreen,
+    createGame: createGame,
+    joinGame: JoinGame
+
+}
     demo: GameLogic,
     createGame: createGame
 }
