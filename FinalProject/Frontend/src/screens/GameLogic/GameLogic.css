@@ -1,0 +1,80 @@
+#GameLogic {
+  display: flex;
+  flex-direction: column;
+  height: 100%;              /* fills the game-box */
+}
+
+.topbar{
+  display: flex;
+  flex-direction: row;
+}
+
+.toolbar {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--color-background);
+  border: 1px solid var(--color-surface-secondary);
+  color: var(--color-text-primary);
+  flex-wrap: wrap;
+}
+
+.colorbar{
+  background: var(--color-background);
+  width: 60%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  gap: 8px;
+}
+
+canvas {
+  flex: 1;                   /* takes all remaining height */
+  display: block;
+  cursor: crosshair;
+  width: 100%;
+}
+
+.tool-btn {
+  background: var(--color-background);
+  border: 1px solid var(--color-surface-secondary);
+  color: var(--color-text-primary);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.tool-btn.active, .tool-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-white);
+  border: 1px solid var(--color-white);
+}
+
+.color-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--color-text-secondary);
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.color-swatch.active,
+.color-swatch:hover { border-color: var(--color-white); transform: scale(1.2); }
+
+.back-btn {
+  margin-left: auto;
+  background: var(--color-background);
+  border: 1px solid var(--color-surface-secondary);
+  color: var(--color-text-primary);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.back-btn:hover { background: var(--color-surface-secondary); }
+
+.label { color: var(--color-text-primary); font-size: 11px; font-family: var(--font-body);}
