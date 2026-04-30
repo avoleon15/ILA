@@ -10,7 +10,6 @@ Backend server for the multiplayer drawing game ASDRUBAL built with Node.js, Exp
 - Real-time drawing synchronization via WebSockets
 - 5-point voting system (very bad to very good)
 - Game results persistence with MongoDB
-- Player statistics and leaderboard
 
 ## Prerequisites
 
@@ -176,16 +175,6 @@ socket.emit('leave-room', { roomCode: 'ABC123' })
 - `finished` - Game finished
 
 ## Database Models
-
-### PlayerStats
-Tracks individual player statistics across all games
-- `playerId` - Unique player identifier
-- `playerName` - Display name
-- `gamesPlayed` - Total games participated
-- `gamesWon` - Games won
-- `totalScore` - Cumulative score
-- `averageScore` - Average score per game
-- `bestScore` - Highest single-game score
 
 ### GameResult
 Records completed game outcomes
