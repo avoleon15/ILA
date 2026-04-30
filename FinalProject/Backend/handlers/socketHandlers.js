@@ -1,12 +1,18 @@
+/**
+ * socketHandlers.js — Manejadores de eventos de Socket.io.
+ * Registra todos los eventos que el cliente puede emitir y define la respuesta del servidor.
+ * Cada evento representa una accion del juego: crear sala, unirse, dibujar, votar, etc.
+ * setupSocketHandlers recibe el objeto io y configura los listeners por cada conexion nueva.
+ */
+
 import { ROOM_STATES } from '../managers/roomManager.js'
 
 export const setupSocketHandlers = (io) => {
+  // Se ejecuta cada vez que un cliente se conecta via Socket.io
   io.on('connection', (socket) => {
     console.log(`👤 Player connected: ${socket.id}`)
 
-    /**
-     * HOST: Create a new game room
-     */
+    // El host emite este evento para crear una nueva sala con un codigo unico
     socket.on('create-room', (data, callback) => {
       const { hostName } = data
       const roomManager = io.roomManager
@@ -32,9 +38,7 @@ export const setupSocketHandlers = (io) => {
       })
     })
 
-    /**
-     * PLAYER: Join an existing game room by code
-     */
+    // Un jugador se une a una sala existente usando el codigo de 6 caracteres
     socket.on('join-room', (data, callback) => {
       const { roomCode, playerName } = data
       const roomManager = io.roomManager
@@ -63,9 +67,7 @@ export const setupSocketHandlers = (io) => {
       })
     })
 
-    /**
-     * PLAYER: Set ready status
-     */
+    // El jugador marca si esta listo; cuando todos esten listos se emite 'all-players-ready'
     socket.on('set-ready', (data, callback) => {
       const { roomCode, readyStatus } = data
       const roomManager = io.roomManager
@@ -89,9 +91,7 @@ export const setupSocketHandlers = (io) => {
       if (callback) callback({ success: true })
     })
 
-    /**
-     * HOST: Start the game
-     */
+    // El host inicia la partida; elige aleatoriamente quien seleccionara el tema
     socket.on('start-game', (data, callback) => {
       const { roomCode } = data
       const roomManager = io.roomManager
@@ -124,9 +124,7 @@ export const setupSocketHandlers = (io) => {
       if (callback) callback({ success: true })
     })
 
-    /**
-     * TOPIC SELECTOR: Choose the topic
-     */
+    // El jugador seleccionado como topic selector envia el tema que dibujaran todos
     socket.on('select-topic', (data, callback) => {
       const { roomCode, topic } = data
       const roomManager = io.roomManager
@@ -156,9 +154,7 @@ export const setupSocketHandlers = (io) => {
       if (callback) callback({ success: true })
     })
 
-    /**
-     * ALL PLAYERS: Send drawing actions (real-time sync)
-     */
+    // Transmite cada trazo de dibujo a los demas jugadores de la sala en tiempo real
     socket.on('draw-action', (data) => {
       const { roomCode, action } = data
 
@@ -170,9 +166,7 @@ export const setupSocketHandlers = (io) => {
       })
     })
 
-    /**
-     * ALL PLAYERS: Send undo action
-     */
+    // Propaga la accion de deshacer (undo) a los demas jugadores de la sala
     socket.on('undo-action', (data) => {
       const { roomCode } = data
 
@@ -181,9 +175,7 @@ export const setupSocketHandlers = (io) => {
       })
     })
 
-    /**
-     * ALL PLAYERS: Save their final drawing (base64 image data)
-     */
+    // Guarda el dibujo final del jugador (imagen en base64) y notifica al host cuantos han enviado
     socket.on('submit-drawing', (data, callback) => {
       const { roomCode, drawingData } = data
       const roomManager = io.roomManager
@@ -204,9 +196,7 @@ export const setupSocketHandlers = (io) => {
       }
     })
 
-    /**
-     * HOST: End drawing phase and move to voting
-     */
+    // El host termina la fase de dibujo y envia todos los dibujos a los jugadores para votar
     socket.on('end-drawing', (data, callback) => {
       const { roomCode } = data
       const roomManager = io.roomManager
@@ -239,9 +229,7 @@ export const setupSocketHandlers = (io) => {
       if (callback) callback({ success: true })
     })
 
-    /**
-     * PLAYER: Submit a vote
-     */
+    // El jugador envia su calificacion (1-5) al dibujo de otro jugador; un jugador no puede votarse a si mismo
     socket.on('submit-vote', (data, callback) => {
       const { roomCode, votedOnSocketId, rating } = data
       const roomManager = io.roomManager
@@ -260,9 +248,7 @@ export const setupSocketHandlers = (io) => {
       }
     })
 
-    /**
-     * HOST: End voting and show results
-     */
+    // El host cierra la votacion y calcula los resultados finales ordenados por puntaje
     socket.on('end-voting', (data, callback) => {
       const { roomCode } = data
       const roomManager = io.roomManager
@@ -286,9 +272,7 @@ export const setupSocketHandlers = (io) => {
       if (callback) callback({ success: true })
     })
 
-    /**
-     * HOST: Start a new round
-     */
+    // El host inicia una nueva ronda; reinicia dibujos, votos y tema pero conserva jugadores
     socket.on('next-round', (data, callback) => {
       const { roomCode } = data
       const roomManager = io.roomManager
@@ -313,9 +297,7 @@ export const setupSocketHandlers = (io) => {
       if (callback) callback({ success: true })
     })
 
-    /**
-     * HOST: End the game
-     */
+    // El host termina el juego definitivamente y marca la sala como FINISHED
     socket.on('end-game', (data, callback) => {
       const { roomCode } = data
       const roomManager = io.roomManager
@@ -337,9 +319,7 @@ export const setupSocketHandlers = (io) => {
       if (callback) callback({ success: true })
     })
 
-    /**
-     * PLAYER: Disconnect or leave room
-     */
+    // El jugador abandona la sala manualmente; si quedan jugadores notifica al resto
     socket.on('leave-room', (data, callback) => {
       const { roomCode } = data
       const roomManager = io.roomManager
@@ -366,9 +346,7 @@ export const setupSocketHandlers = (io) => {
       if (callback) callback({ success: true })
     })
 
-    /**
-     * Disconnect handler
-     */
+    // Se dispara automaticamente cuando el cliente pierde conexion; limpia al jugador de su sala
     socket.on('disconnect', () => {
       console.log(`❌ Player disconnected: ${socket.id}`)
 
@@ -390,9 +368,7 @@ export const setupSocketHandlers = (io) => {
       })
     })
 
-    /**
-     * DEBUG: Get room status
-     */
+    // Evento de debug: devuelve el estado actual de una sala sin modificar nada
     socket.on('get-room-status', (data, callback) => {
       const { roomCode } = data
       const roomManager = io.roomManager

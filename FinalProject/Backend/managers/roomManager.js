@@ -1,6 +1,13 @@
+/**
+ * roomManager.js — Logica central del manejo de salas de juego en memoria.
+ * RoomManager administra la creacion, estado y jugadores de cada sala.
+ * Las salas viven en un Map en memoria (no en base de datos) durante la partida.
+ * ROOM_STATES define los estados posibles por los que pasa una sala.
+ */
+
 import { v4 as uuidv4 } from 'uuid'
 
-// Room states
+// Estados posibles de una sala a lo largo del ciclo de vida del juego
 export const ROOM_STATES = {
   WAITING: 'waiting',          // Waiting for players to join
   READY: 'ready',              // All players ready, waiting for host to start

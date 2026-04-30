@@ -1,6 +1,12 @@
+/**
+ * schemas.js — Modelos de Mongoose para persistir datos en MongoDB.
+ * Define dos colecciones: GameResult (resultados de partidas) y GameSession (sesiones en curso).
+ * Exporta los modelos y la funcion saveGameResult para guardar resultados.
+ */
+
 import mongoose from 'mongoose'
 
-// Game result schema (records individual game outcomes)
+// Esquema para guardar el resultado final de una partida (ganador, puntajes, dibujos)
 const gameResultSchema = new mongoose.Schema({
   gameId: { type: String, required: true, unique: true },
   roomCode: { type: String, required: true },

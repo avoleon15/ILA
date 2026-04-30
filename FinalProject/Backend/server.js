@@ -1,3 +1,9 @@
+/**
+ * server.js — Punto de entrada del backend.
+ * Configura Express, crea el servidor HTTP, inicializa Socket.io,
+ * conecta la base de datos y registra todos los manejadores de eventos.
+ */
+
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
@@ -10,6 +16,7 @@ import { RoomManager } from './managers/roomManager.js'
 dotenv.config()
 
 const app = express()
+// httpServer envuelve Express para que Socket.io pueda compartir el mismo puerto
 const httpServer = createServer(app)
 const io = new Server(httpServer, {
   cors: {
@@ -22,21 +29,21 @@ const io = new Server(httpServer, {
 app.use(cors())
 app.use(express.json())
 
-// Attach managers to io for access in handlers
+// Se adjunta el RoomManager al objeto io para que los handlers puedan accederlo
 io.roomManager = new RoomManager()
 
-// Health check endpoint
+// Ruta de salud — útil para verificar que el servidor está corriendo
 app.get('/health', (req, res) => {
   res.json({ status: 'Backend is running', timestamp: new Date() })
 })
 
-// Connect database
+// Conectar a MongoDB
 connectDatabase()
 
-// Setup Socket.io handlers
+// Registrar todos los eventos de Socket.io
 setupSocketHandlers(io)
 
-// Start server
+// Iniciar el servidor en el puerto definido en .env o 3000 por defecto
 const PORT = process.env.PORT || 3000
 httpServer.listen(PORT, () => {
   console.log(`🎮 ASDRUBAL Backend running on port ${PORT}`)
