@@ -1,6 +1,12 @@
 #MenuScreen{
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
+
+    background-image: url("../../Assets/images/mainbg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
     display: flex;
     flex-direction: column;
