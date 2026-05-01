@@ -4,13 +4,20 @@ import Adlg from './components/Adlg/Adlg.jsx'
 import Admd from './components/Admd/Admd.jsx'
 import Adsm from './components/Adsm/Adsm.jsx'
 import NavBar from './components/NavBar/NavBar'
-import OptionHolder from './components/OptionHolder/OptionHolder.jsx'
-import TitleHolder from './components/TitleHolder/TitleHolder.jsx'
 import GameRouter from './GameRouter.jsx'
 
 function App() {
 
   const [page, setPage] = useState('menu')
+
+  const [gameState, setGameState] = useState({
+    playerName: '',
+    roomCode: '',
+    playerId: '',
+    isHost: false,
+    players: [],
+    gameMode: 'classic',
+  })
 
   return (
     <>
@@ -22,6 +29,8 @@ function App() {
             <GameRouter
               page={page}
               navigate={setPage}
+              gameState={gameState}
+              setGameState={setGameState}
             />
           </section>
 

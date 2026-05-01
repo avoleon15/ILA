@@ -1,12 +1,7 @@
 import './Gamemode.css'
-import { useState } from 'react'
 
-
-
-const Gamemode = () => {
-
-    
-    const [mode, setMode] = useState('classic')
+// Controlled component: mode and onChange come from the parent (createGame)
+const Gamemode = ({ mode, onChange }) => {
     const modes = ['CLASSIC', 'RAPID', 'EXTENDED']
 
   return (
@@ -15,7 +10,7 @@ const Gamemode = () => {
             <button
                 key={m}
                 className={`toggle-btn ${mode === m.toLowerCase() ? 'active' : ''}`}
-                onClick={() => setMode(m.toLowerCase())}
+                onClick={() => onChange(m.toLowerCase())}
             >
                 {m}
             </button>
