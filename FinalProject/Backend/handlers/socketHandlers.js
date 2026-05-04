@@ -19,9 +19,12 @@ export const setupSocketHandlers = (io) => {
 
       const newRoom = roomManager.createRoom(hostName)
       roomManager.setHostSocketId(newRoom.code, socket.id)
+      // El host tambien es jugador — se agrega al array de players
+      roomManager.addPlayerToRoom(newRoom.code, hostName, socket.id)
 
       socket.join(newRoom.code)
 
+      const room = roomManager.getRoom(newRoom.code)
       console.log(`🏠 Room created: ${newRoom.code} by ${hostName}`)
 
       callback({
@@ -32,9 +35,9 @@ export const setupSocketHandlers = (io) => {
       })
 
       socket.emit('room-updated', {
-        state: newRoom.state,
-        players: newRoom.players,
-        host: newRoom.host
+        state: room.state,
+        players: room.players,
+        host: room.host
       })
     })
 
