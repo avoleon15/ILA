@@ -35,7 +35,7 @@
 #lobbyScreen .lobby-room-code-label,
 #lobbyScreen .lobby-room-code-value,
 #lobbyScreen .lobby-players-label {
-    font-family: var(--font-title);
+    font-family: var(--font-body);
 }
 
 #lobbyScreen .lobby-room-code-value {
@@ -85,11 +85,11 @@
 .lobby-players h3 {
     margin: 0;
     color: var(--color-text-primary);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
 .lobby-players-count {
-    font-family: var(--font-title);
+    font-family: var(--font-body);
 }
 
 .lobby-players ul {
