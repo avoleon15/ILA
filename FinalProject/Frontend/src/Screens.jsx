@@ -4,6 +4,7 @@ import MenuScreen from './screens/MenuScreen/MenuScreen.jsx'
 import createGame from './screens/createGame/createGame.jsx'
 import LobbyScreen from './screens/LobbyScreen/LobbyScreen.jsx'
 import WinnerScreen from './screens/WinnerScreen/WinnerScreen.jsx'
+import { SelecTopic } from './screens/SelecTopic/SelecTopic.jsx'
 
     // SCREENS maps a page key (string) → the React component
     // that should render inside the game box for that page.
@@ -15,5 +16,6 @@ export const SCREENS = {
     joinGame: JoinGame,
     demo: GameLogic,
     lobby: LobbyScreen,
-    winner: WinnerScreen
+    winner: WinnerScreen,
+    selecTopic: SelecTopic
 }
