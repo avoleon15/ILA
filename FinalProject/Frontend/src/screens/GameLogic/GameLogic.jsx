@@ -1,101 +1,63 @@
 import { useEffect, useRef, useState } from 'react'
+import socket from '../../socket.js'
 import './GameLogic.css'
 
-// GameLogic.jsx — a paint canvas screen
-// This screen lets players draw freely inside the game box.
-// It uses the HTML5 Canvas API directly via a ref
+// GameLogic.jsx — paint canvas screen with real-time multiplayer sync.
+// Local strokes are drawn and emitted via Socket.io; remote strokes are received and replayed.
 
 // COLORS — the preset swatches shown in the toolbar.
 const COLORS = [
-  // Neutrals light → dark
-  '#ffffff', // white
-  '#d9d9d9', // light gray
-  '#9a9a9a', // gray
-  '#4a4a4a', // dark gray
-  '#000000', // black
-
-  // Reds & pinks
-  '#ff99cc', // light pink
-  '#ff007f', // hot pink
-  '#ff0000', // red
-  '#6b1a1a', // dark red
-
-  // Oranges & browns
-  '#ff6b00', // orange
-  '#ffcc00', // yellow
-  '#c68642', // tan / skin
-  '#a0522d', // sienna
-  '#7b4000', // brown
-
-  // Greens
-  '#00cc66', // mint
-  '#008000', // green
-  '#003300', // dark green
-
-  // Blues & cyans
-  '#00ffff', // cyan
-  '#00aaff', // sky blue
-  '#0000ff', // blue
-  '#003366', // dark blue
-
-  // Purples & violets
-  '#cc44ff', // violet
-  '#800080', // purple
-
-  // Accents
-  '#ffff00', // yellow green
-  '#ffe8a0', // skin light
+  '#ffffff', '#d9d9d9', '#9a9a9a', '#4a4a4a', '#000000',
+  '#ff99cc', '#ff007f', '#ff0000', '#6b1a1a',
+  '#ff6b00', '#ffcc00', '#c68642', '#a0522d', '#7b4000',
+  '#00cc66', '#008000', '#003300',
+  '#00ffff', '#00aaff', '#0000ff', '#003366',
+  '#cc44ff', '#800080',
+  '#ffff00', '#ffe8a0',
 ]
 
-// hexToRgb — converts a hex color string like '#ff5f56'
-// into an [R, G, B] array like [255, 95, 86].
+// hexToRgb — converts a hex color string into an [R, G, B] array.
 function hexToRgb(hex) {
     const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
     return r ? [parseInt(r[1],16), parseInt(r[2],16), parseInt(r[3],16)] : null
 }
 
-function GameLogic({ navigate }) {
+// drawSegment — draws a single line segment on a canvas context using action data.
+// Used both for local drawing and replaying remote strokes.
+function drawSegment(ctx, { fromX, fromY, toX, toY, tool, color, size }) {
+    ctx.beginPath()
+    ctx.moveTo(fromX, fromY)
+    ctx.lineTo(toX, toY)
+    ctx.strokeStyle = tool === 'eraser' ? '#ffffff' : color
+    ctx.lineWidth   = tool === 'eraser' ? size * 1.5 : size
+    ctx.lineCap     = 'round'
+    ctx.lineJoin    = 'round'
+    ctx.stroke()
+}
 
-    // canvasRef — a direct reference to the <canvas> DOM element.
-    const canvasRef = useRef(null)
+function GameLogic({ navigate, gameState }) {
 
-    // painting — tracks whether the mouse button is currently held down.
-    const painting = useRef(false)
+    const canvasRef  = useRef(null)
+    const painting   = useRef(false)
+    const lastPos    = useRef({ x: 0, y: 0 })
+    const undoStack  = useRef([])
 
-    // lastPos — stores the x/y of the previous mouse position.
-    // Used to draw a continuous line from the last point to the current point on every mousemove event.
-    const lastPos = useRef({ x: 0, y: 0 })
-
-    // Add undoStack ref at the top with your other refs, stores ImageData snapshots, used on the return last change button
-    const undoStack = useRef([])
-
-    // tool — which tool is active: 'draw', 'eraser', or 'fill'.
     const [tool,  setTool]  = useState('draw')
-
-    // size — the brush/eraser radius in pixels.
     const [size,  setSize]  = useState(6)
-
-    // color — the currently selected color as a hex string.
     const [color, setColor] = useState('#000000')
 
-    
-    // useEffect: canvas setup
-    // Runs once, Sets the canvas width/height to match its CSS size, then fills it with the background color.
+    // Canvas setup and keyboard shortcut
     useEffect(() => {
         const canvas = canvasRef.current
-        const ctx    = canvas.getContext('2d') // '2d' = standard drawing context
+        const ctx    = canvas.getContext('2d')
 
         const resize = () => {
-            // canvas.offsetWidth/Height = the CSS rendered size, set the size to the box defined
             canvas.width  = canvas.offsetWidth
             canvas.height = canvas.offsetHeight
-
-            // Fill the whole canvas with the background color, white.
             ctx.fillStyle = '#ffffff'
             ctx.fillRect(0, 0, canvas.width, canvas.height)
         }
 
-        //crtl + z works as a undo last change
         const handleKeyDown = (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'z') undo()
         }
@@ -104,35 +66,48 @@ function GameLogic({ navigate }) {
         window.addEventListener('resize', resize)
         window.addEventListener('keydown', handleKeyDown)
 
-        // Cleanup: remove the listener when the component unmounts
         return () => {
             window.removeEventListener('resize', resize)
             window.removeEventListener('keydown', handleKeyDown)
         }
     }, [])
 
-    // saveSnapshot
-    // Call this before any drawing action so we can undo it, saves the current canvas pixels onto the undo stack.
+    // Socket listeners for receiving remote drawing actions
+    useEffect(() => {
+        socket.on('player-draw-action', ({ action }) => {
+            const ctx = canvasRef.current?.getContext('2d')
+            if (ctx) drawSegment(ctx, action)
+        })
+
+        socket.on('player-undo-action', () => undo())
+
+        return () => {
+            socket.off('player-draw-action')
+            socket.off('player-undo-action')
+        }
+    }, [])
+
     const saveSnapshot = () => {
         const canvas = canvasRef.current
         const ctx    = canvas.getContext('2d')
-        undoStack.current.push(
-            ctx.getImageData(0, 0, canvas.width, canvas.height)
-        )
-        // Cap the stack at 30 so it doesn't eat too much memory
+        undoStack.current.push(ctx.getImageData(0, 0, canvas.width, canvas.height))
         if (undoStack.current.length > 30) undoStack.current.shift()
     }
 
-    // undo
-    // Pops the last snapshot off the stack and restores it.
     const undo = () => {
         if (undoStack.current.length === 0) return
-            const canvas = canvasRef.current
-            const ctx    = canvas.getContext('2d')
-            ctx.putImageData(undoStack.current.pop(), 0, 0)
+        const canvas = canvasRef.current
+        const ctx    = canvas.getContext('2d')
+        ctx.putImageData(undoStack.current.pop(), 0, 0)
     }
 
-    // Replace your floodFill function with this version
+    const handleUndo = () => {
+        undo()
+        if (gameState?.roomCode) {
+            socket.emit('undo-action', { roomCode: gameState.roomCode })
+        }
+    }
+
     const floodFill = (x, y) => {
         const canvas    = canvasRef.current
         const ctx       = canvas.getContext('2d')
@@ -144,85 +119,55 @@ function GameLogic({ navigate }) {
 
         if (!fill || (target[0]===fill[0] && target[1]===fill[1] && target[2]===fill[2])) return
 
-    // Tolerance check
-    // Instead of exact match, allow pixels within this distance
-    // from the target color. 32 covers most anti-aliased edges.
         const TOLERANCE = 32
-
-        const matchesTarget = (i) => {
-            return (
+        const matchesTarget = (i) => (
             Math.abs(data[i]   - target[0]) <= TOLERANCE &&
             Math.abs(data[i+1] - target[1]) <= TOLERANCE &&
             Math.abs(data[i+2] - target[2]) <= TOLERANCE
-            )
-        }
+        )
 
-        const stack = [[x, y]]
-
-        // Visited set
-        // Tracks pixels we've already processed so pixels arent added to the stack multiple times.
+        const stack   = [[x, y]]
         const visited = new Uint8Array(canvas.width * canvas.height)
 
-        // Keeps running until every connected matching pixel has been visited.
         while (stack.length) {
             const [cx, cy] = stack.pop()
-            // Skip pixels that are outside the canvas boundaries
             if (cx < 0 || cy < 0 || cx >= canvas.width || cy >= canvas.height) continue
 
             const i    = (cy * canvas.width + cx) * 4
             const vidx = cy * canvas.width + cx
 
-            // Skip this pixel if we've already processed it.
             if (visited[vidx]) continue
             visited[vidx] = 1
-
-            // Skip this pixel if its color doesn't match the target.
             if (!matchesTarget(i)) continue
 
-            // Paint the pixel
             data[i]=fill[0]; data[i+1]=fill[1]; data[i+2]=fill[2]; data[i+3]=255
-
             stack.push([cx+1,cy],[cx-1,cy],[cx,cy+1],[cx,cy-1])
         }
 
-            ctx.putImageData(imageData, 0, 0)
+        ctx.putImageData(imageData, 0, 0)
     }
 
-    // draw
-    // Called on every mousemove while the mouse button is held.
-    // Draws a line from the last recorded position to the current, mouse position.
     const draw = (x, y) => {
-        if (!painting.current) return // only draw while mouse is held
+        if (!painting.current) return
 
-        const ctx = canvasRef.current.getContext('2d')
+        const ctx    = canvasRef.current.getContext('2d')
+        const action = { fromX: lastPos.current.x, fromY: lastPos.current.y, toX: x, toY: y, tool, color, size }
 
-        ctx.beginPath()
-        ctx.moveTo(lastPos.current.x, lastPos.current.y) // start of line
-        ctx.lineTo(x, y)                                  // end of line
+        drawSegment(ctx, action)
 
-        // Eraser paints the background color; draw uses the chosen color
-        ctx.strokeStyle = tool === 'eraser' ? '#ffffff' : color
-        ctx.lineWidth   = tool === 'eraser' ? size * 1.5 : size
-        ctx.lineCap     = 'round'  // rounded ends make strokes look smooth
-        ctx.lineJoin    = 'round'  // rounded corners when direction changes
-        ctx.stroke()
+        // Broadcast stroke to other players in the room
+        if (gameState?.roomCode) {
+            socket.emit('draw-action', { roomCode: gameState.roomCode, action })
+        }
 
-        // Update lastPos so the next mousemove continues from here
         lastPos.current = { x, y }
     }
 
-  // getPos
-  // Converts a mouse event's screen coordinates into coordinates relative to the canvas element. 
-  // Without this, drawing would be offset if the canvas isn't at position 0,0 on the page.
     const getPos = (e) => {
         const rect = canvasRef.current.getBoundingClientRect()
         return { x: e.clientX - rect.left, y: e.clientY - rect.top }
     }
 
-  // onMouseDown
-  // Fires when the user presses the mouse button on the canvas.
-  // For fill: immediately flood fill at the click position.
-  // For draw/eraser: start tracking the stroke.
     const onMouseDown = (e) => {
         const { x, y } = getPos(e)
         if (tool === 'fill') {
@@ -235,66 +180,51 @@ function GameLogic({ navigate }) {
         lastPos.current  = { x, y }
     }
 
-    // Also save before clearing
     const clearCanvas = () => {
-    saveSnapshot()
-    const canvas = canvasRef.current
-    const ctx    = canvas.getContext('2d')
-    ctx.fillStyle = '#ffffff'
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+        saveSnapshot()
+        const canvas = canvasRef.current
+        const ctx    = canvas.getContext('2d')
+        ctx.fillStyle = '#ffffff'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
     }
 
-    // onMouseMove
-    // Fires continuously as the mouse moves over the canvas.
     const onMouseMove = (e) => draw(getPos(e).x, getPos(e).y)
+    const onMouseUp   = () => { painting.current = false }
 
-    // onMouseUp
-    // Stop painting when the button is released
-    const onMouseUp = () => { painting.current = false }
+    return (
+        <section id='GameLogic'>
+            <section className='topbar'>
+                <div className='toolbar'>
+                    <button className={`tool-btn ${tool==='draw'   ? 'active':''}`} onClick={() => setTool('draw')}>DRAW</button>
+                    <button className={`tool-btn ${tool==='eraser' ? 'active':''}`} onClick={() => setTool('eraser')}>ERASE</button>
+                    <button className={`tool-btn ${tool==='fill'   ? 'active':''}`} onClick={() => setTool('fill')}>FILL</button>
+                    <button className='tool-btn' onClick={handleUndo}>↩ UNDO</button>
+                    <button className='tool-btn' onClick={clearCanvas}>CLEAR ALL</button>
 
-return (
-    <section id='GameLogic'>
-        <section className='topbar'>
-            <div className='toolbar'>
+                    <span className='label'>SIZE</span>
+                    <input type='range' min={1} max={60} value={size}
+                    onChange={e => setSize(Number(e.target.value))} />
+                </div>
 
-                <button className={`tool-btn ${tool==='draw'   ? 'active':''}`} onClick={() => setTool('draw')}>DRAW</button>
-                <button className={`tool-btn ${tool==='eraser' ? 'active':''}`} onClick={() => setTool('eraser')}>ERASE</button>
-                <button className={`tool-btn ${tool==='fill'   ? 'active':''}`} onClick={() => setTool('fill')}>FILL</button>
-                <button className='tool-btn' onClick={undo}>↩ UNDO</button>
-                <button className='tool-btn' onClick={clearCanvas}>CLEAR ALL</button>
-
-                <span className='label'>SIZE</span>
-                <input type='range' min={1} max={60} value={size}
-                onChange={e => setSize(Number(e.target.value))} />
-
-            </div>
-
-            <div className='colorbar'>
-
-                {COLORS.map(c => (
-                <div key={c}
-                    className={`color-swatch ${color===c ? 'active':''}`}
-                    style={{ background: c }}
-                    onClick={() => setColor(c)}
-                />
-                ))}
-
-                <input type='color' value={color}
-                onChange={e => setColor(e.target.value)} />
-
+                <div className='colorbar'>
+                    {COLORS.map(c => (
+                        <div key={c}
+                            className={`color-swatch ${color===c ? 'active':''}`}
+                            style={{ background: c }}
+                            onClick={() => setColor(c)}
+                        />
+                    ))}
+                    <input type='color' value={color} onChange={e => setColor(e.target.value)} />
                     <button className='back-btn' onClick={() => navigate('menu')}>← Menu</button>
+                </div>
+            </section>
 
-            </div>
-
-        </section>
-
-        <canvas
-            ref={canvasRef}
-            onMouseDown={onMouseDown}
-            onMouseMove={onMouseMove}
-            onMouseUp={onMouseUp}
-        />
-
+            <canvas
+                ref={canvasRef}
+                onMouseDown={onMouseDown}
+                onMouseMove={onMouseMove}
+                onMouseUp={onMouseUp}
+            />
         </section>
     )
 }

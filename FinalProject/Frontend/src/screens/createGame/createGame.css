@@ -37,6 +37,19 @@ h2{
     align-items: center;
     color: var(--color-accent);
     font-family: var(--font-title);
-
 }
+
+.name-input {
+    font-family: var(--font-title);
+    font-size: 1rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 2px solid var(--color-accent);
+    text-align: center;
+    width: 200px;
+}
+
+.status-ok  { color: #00cc66; font-size: 0.85rem; }
+.status-err { color: #ff4444; font-size: 0.85rem; }
+.error-msg  { color: #ff4444; font-size: 0.85rem; }
 
