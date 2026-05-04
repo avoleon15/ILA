@@ -1,3 +1,4 @@
+import { ArrowCounterClockwise, Eraser, PaintBucket, PencilSimple, Trash } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
 import socket from '../../socket.js'
 import './GameLogic.css'
@@ -7,13 +8,14 @@ import './GameLogic.css'
 
 // COLORS — the preset swatches shown in the toolbar.
 const COLORS = [
-  '#ffffff', '#d9d9d9', '#9a9a9a', '#4a4a4a', '#000000',
-  '#ff99cc', '#ff007f', '#ff0000', '#6b1a1a',
-  '#ff6b00', '#ffcc00', '#c68642', '#a0522d', '#7b4000',
-  '#00cc66', '#008000', '#003300',
-  '#00ffff', '#00aaff', '#0000ff', '#003366',
-  '#cc44ff', '#800080',
-  '#ffff00', '#ffe8a0',
+  '#ffffff', '#e0e0e0', '#b0b0b0', '#787878', '#505050', '#303030', '#181818', '#000000',
+  '#ffd6e0', '#ff99cc', '#ff4da6', '#ff007f', '#cc0066', '#990044', '#660033', '#330019',
+  '#ffe0cc', '#ffb380', '#ff6b00', '#e65c00', '#b34700', '#7a3000', '#4d1e00', '#2b1000',
+  '#ffff99', '#ffff00', '#ffe135', '#ffcc00', '#e6ac00', '#b38600', '#7a5c00', '#3d2e00',
+  '#c8f5c8', '#66dd66', '#00cc66', '#00aa44', '#008000', '#006600', '#004400', '#002200',
+  '#ccf5ff', '#80dfff', '#00ccff', '#00aaff', '#0077ff', '#0044cc', '#002299', '#001166',
+  '#e0ccff', '#cc99ff', '#aa66ff', '#8833ff', '#6600cc', '#4b0099', '#320066', '#1a0033',
+  '#ffe8a0', '#c68642', '#a0522d', '#7b4000', '#5c2d00', '#d4a574', '#f5deb3', '#8b4513',
 ]
 
 // hexToRgb — converts a hex color string into an [R, G, B] array.
@@ -37,14 +39,25 @@ function drawSegment(ctx, { fromX, fromY, toX, toY, tool, color, size }) {
 
 function GameLogic({ navigate, gameState }) {
 
-    const canvasRef  = useRef(null)
-    const painting   = useRef(false)
-    const lastPos    = useRef({ x: 0, y: 0 })
-    const undoStack  = useRef([])
+    const canvasRef   = useRef(null)
+    const painting    = useRef(false)
+    const lastPos     = useRef({ x: 0, y: 0 })
+    const undoStack   = useRef([])
+    const paletteRef  = useRef(null)
 
-    const [tool,  setTool]  = useState('draw')
-    const [size,  setSize]  = useState(6)
-    const [color, setColor] = useState('#000000')
+    const [tool,         setTool]         = useState('draw')
+    const [size,         setSize]         = useState(6)
+    const [color,        setColor]        = useState('#000000')
+    const [paletteOpen,  setPaletteOpen]  = useState(false)
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (paletteRef.current && !paletteRef.current.contains(e.target))
+                setPaletteOpen(false)
+        }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [])
 
     // Canvas setup and keyboard shortcut
     useEffect(() => {
@@ -193,31 +206,54 @@ function GameLogic({ navigate, gameState }) {
 
     return (
         <section id='GameLogic'>
-            <section className='topbar'>
-                <div className='toolbar'>
-                    <button className={`tool-btn ${tool==='draw'   ? 'active':''}`} onClick={() => setTool('draw')}>DRAW</button>
-                    <button className={`tool-btn ${tool==='eraser' ? 'active':''}`} onClick={() => setTool('eraser')}>ERASE</button>
-                    <button className={`tool-btn ${tool==='fill'   ? 'active':''}`} onClick={() => setTool('fill')}>FILL</button>
-                    <button className='tool-btn' onClick={handleUndo}>↩ UNDO</button>
-                    <button className='tool-btn' onClick={clearCanvas}>CLEAR ALL</button>
+            <div className='toolbar'>
+                <button className={`tool-btn ${tool==='draw'   ? 'active':''}`} title='Draw' onClick={() => setTool('draw')}>
+                    <PencilSimple size={20} weight='duotone' />
+                </button>
+                <button className={`tool-btn ${tool==='eraser' ? 'active':''}`} title='Eraser' onClick={() => setTool('eraser')}>
+                    <Eraser size={20} weight='duotone' />
+                </button>
+                <button className={`tool-btn ${tool==='fill'   ? 'active':''}`} title='Fill' onClick={() => setTool('fill')}>
+                    <PaintBucket size={20} weight='duotone' />
+                </button>
+                <button className='tool-btn' title='Undo' onClick={handleUndo}>
+                    <ArrowCounterClockwise size={20} weight='duotone' />
+                </button>
+                <button className='tool-btn' title='Clear all' onClick={clearCanvas}>
+                    <Trash size={20} weight='duotone' />
+                </button>
 
-                    <span className='label'>SIZE</span>
-                    <input type='range' min={1} max={60} value={size}
+                <div className='toolbar-divider' />
+
+                <input className='size-slider' type='range' min={1} max={60} value={size}
                     onChange={e => setSize(Number(e.target.value))} />
+
+                <div className='toolbar-divider' />
+
+                <div className='palette-wrapper' ref={paletteRef}>
+                    <button
+                        className={`palette-toggle ${paletteOpen ? 'open' : ''}`}
+                        title='Colors'
+                        onClick={() => setPaletteOpen(p => !p)}
+                        style={{ background: color }}
+                    />
+                    {paletteOpen && (
+                        <div className='color-palette'>
+                            {COLORS.map(c => (
+                                <div key={c}
+                                    className={`color-swatch ${color===c ? 'active':''}`}
+                                    style={{ background: c }}
+                                    onClick={() => { setColor(c); setPaletteOpen(false) }}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
 
-                <div className='colorbar'>
-                    {COLORS.map(c => (
-                        <div key={c}
-                            className={`color-swatch ${color===c ? 'active':''}`}
-                            style={{ background: c }}
-                            onClick={() => setColor(c)}
-                        />
-                    ))}
-                    <input type='color' value={color} onChange={e => setColor(e.target.value)} />
-                    <button className='back-btn' onClick={() => navigate('menu')}>← Menu</button>
-                </div>
-            </section>
+                <div className='toolbar-divider' />
+
+                <button className='back-btn' title='Back to menu' onClick={() => navigate('menu')}>←</button>
+            </div>
 
             <canvas
                 ref={canvasRef}

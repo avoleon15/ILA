@@ -8,7 +8,7 @@ import GameRouter from './GameRouter.jsx'
 
 function App() {
 
-  const [page, setPage] = useState('selecTopic')
+  const [page, setPage] = useState('menu')
 
   const [gameState, setGameState] = useState({
     playerName: '',
