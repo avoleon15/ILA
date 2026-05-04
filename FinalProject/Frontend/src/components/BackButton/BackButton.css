@@ -1,5 +1,11 @@
 
 
+@property --pixel-highlight {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: #ffffff;
+}
+
 .backButton{
     background-color: var(--color-background);
     --pixel-highlight: var(--color-white);
@@ -15,7 +21,7 @@
     position: relative;
     overflow: hidden;
 
-    transition: all 0.1s;
+    transition: all 0.1s, --pixel-highlight 0.1s;
 }
 
 .backButton h3{
