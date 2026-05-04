@@ -17,6 +17,8 @@ function App() {
     isHost: false,
     players: [],
     gameMode: 'classic',
+    topicSelector: null,
+    topic: '',
   })
 
   return (

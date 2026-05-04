@@ -16,3 +16,14 @@
     background-color: var(--color-accent);
 }
 
+.waiting-text {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    color: var(--color-text-primary);
+    text-align: center;
+}
+
+.waiting-text strong {
+    color: var(--color-accent);
+}
+

@@ -72,21 +72,6 @@ function GameLogic({ navigate, gameState }) {
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [])
 
-    useEffect(() => {
-        socket.on('player-draw-action', ({ cells }) => {
-            const ctx = canvasRef.current?.getContext('2d')
-            if (!ctx) return
-            cells.forEach(({ col, row, color }) => {
-                gridRef.current[row * COLS + col] = color
-                drawCell(ctx, col, row, color)
-            })
-        })
-        socket.on('player-undo-action', () => undo())
-        return () => {
-            socket.off('player-draw-action')
-            socket.off('player-undo-action')
-        }
-    }, [])
 
     const saveSnapshot = () => {
         undoStack.current.push([...gridRef.current])
@@ -100,11 +85,7 @@ function GameLogic({ navigate, gameState }) {
         if (ctx) redrawAll(ctx, gridRef.current)
     }
 
-    const handleUndo = () => {
-        undo()
-        if (gameState?.roomCode)
-            socket.emit('undo-action', { roomCode: gameState.roomCode })
-    }
+    const handleUndo = () => undo()
 
     const getGridPos = (e) => {
         const rect   = canvasRef.current.getBoundingClientRect()
@@ -157,25 +138,20 @@ function GameLogic({ navigate, gameState }) {
         return cells
     }
 
-    const emit = (cells) => {
-        if (cells.length && gameState?.roomCode)
-            socket.emit('draw-action', { roomCode: gameState.roomCode, cells })
-    }
-
     const onMouseDown = (e) => {
         const { col, row } = getGridPos(e)
         const ctx = canvasRef.current.getContext('2d')
         saveSnapshot()
 
         if (tool === 'fill') {
-            emit(floodFill(ctx, col, row, color))
+            floodFill(ctx, col, row, color)
             return
         }
 
         painting.current  = true
         lastCell.current  = { col: -1, row: -1 }
         const paintColor  = tool === 'eraser' ? '#ffffff' : color
-        emit(paintCells(ctx, col, row, paintColor))
+        paintCells(ctx, col, row, paintColor)
         lastCell.current  = { col, row }
     }
 
@@ -185,7 +161,7 @@ function GameLogic({ navigate, gameState }) {
         if (col === lastCell.current.col && row === lastCell.current.row) return
         const ctx        = canvasRef.current.getContext('2d')
         const paintColor = tool === 'eraser' ? '#ffffff' : color
-        emit(paintCells(ctx, col, row, paintColor))
+        paintCells(ctx, col, row, paintColor)
         lastCell.current = { col, row }
     }
 
@@ -256,6 +232,11 @@ function GameLogic({ navigate, gameState }) {
                 </div>
 
                 <div className='toolbar-divider' />
+
+                <div className='topic-selected'>
+                    <h5>Topic:</h5>
+                    <h6>{gameState.topic || '...'}</h6>
+                </div>
 
                 <button className='back-btn' title='Back to menu' onClick={() => navigate('menu')}>←</button>
             </div>

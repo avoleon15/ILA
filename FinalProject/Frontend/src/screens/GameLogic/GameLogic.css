@@ -22,6 +22,26 @@
   flex-shrink: 0;
 }
 
+.topic-selected {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topic-selected h5{
+  font-size: 0.875rem;
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.topic-selected h6{
+  font-size: 1rem;
+    font-family: var(--font-title);
+    color: var(--color-accent);
+    margin: 0;
+}
+
 canvas {
   flex: 1;
   display: block;
