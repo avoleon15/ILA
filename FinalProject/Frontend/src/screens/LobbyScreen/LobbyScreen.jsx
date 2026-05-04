@@ -8,6 +8,7 @@ import './LobbyScreen.css'
 function LobbyScreen({ navigate, gameState, setGameState }) {
     const [showLeaveWarning, setShowLeaveWarning] = useState(false)
     const [players, setPlayers] = useState(gameState.players || [])
+    const [isCodeCopied, setIsCodeCopied] = useState(false)
 
     useEffect(() => {
         // Update player list whenever someone joins or leaves
@@ -39,6 +40,18 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
         navigate('menu')
     }
 
+    const handleCopyRoomCode = async () => {
+        if (!gameState.roomCode) return
+
+        try {
+            await navigator.clipboard.writeText(gameState.roomCode)
+            setIsCodeCopied(true)
+            window.setTimeout(() => setIsCodeCopied(false), 1500)
+        } catch {
+            alert('Could not copy the room code.')
+        }
+    }
+
     return (
         <section id='lobbyScreen'>
             <div className='lobbyScreenBackButton'>
@@ -48,16 +61,38 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
             <TitleHolder text='Lobby' />
 
             <div className='lobby-room-code'>
-                <p>Room code:</p>
-                <p>{gameState.roomCode}</p>
+                <p className='lobby-room-code-label'>Room code:</p>
+                <p className='lobby-room-code-value'>{gameState.roomCode}</p>
+                <button
+                    type='button'
+                    className='lobby-room-code-copy'
+                    onClick={handleCopyRoomCode}
+                    aria-label='Copy room code'
+                >
+                    <span className='lobby-room-code-copy-icon' aria-hidden='true'>
+                        {isCodeCopied ? (
+                            <svg viewBox='0 0 24 24' role='presentation' focusable='false'>
+                                <path d='M9 16.2 4.8 12 3.4 13.4 9 19 21 7 19.6 5.6z' fill='currentColor' />
+                            </svg>
+                        ) : (
+                            <svg viewBox='0 0 24 24' role='presentation' focusable='false'>
+                                <path d='M16 1H6a2 2 0 0 0-2 2v12h2V3h10zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9z' fill='currentColor' />
+                            </svg>
+                        )}
+                    </span>
+                </button>
             </div>
 
             <div className='lobby-players'>
-                <h3>Players ({players.length})</h3>
+                <h3>
+                    <span className='lobby-players-label'>Players</span>
+                    <span className='lobby-players-count'> ({players.length})</span>
+                </h3>
                 <ul>
                     {players.map((p) => (
                         <li key={p.id}>
-                            {p.name} {p.readyStatus ? '✓' : ''}
+                            <span className='lobby-player-name'>{p.name}</span>
+                            {p.readyStatus ? ' ✓' : ''}
                         </li>
                     ))}
                 </ul>
