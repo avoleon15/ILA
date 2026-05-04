@@ -10,7 +10,7 @@ import GameRouter from './GameRouter.jsx'
 
 function App() {
 
-  const [page, setPage] = useState('menu')
+  const [page, setPage] = useState('winner')
 
   return (
     <>
