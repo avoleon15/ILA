@@ -15,12 +15,14 @@
     padding: 20px 0;
 }
 
-.createGameBackButton {
+
+ .backb {
     position: absolute;
     top: 20px;
-    right: 20px;
-    z-index: 10;
+    left: 20px;
 }
+    
+
 
 #createGame h2 {
     align-items: center;

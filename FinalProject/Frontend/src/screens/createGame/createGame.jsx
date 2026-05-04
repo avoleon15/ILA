@@ -3,6 +3,7 @@ import Gamemode from "../../components/Gamemode/Gamemode.jsx"
 import OptionHolder from "../../components/OptionHolder/OptionHolder.jsx"
 import NumberInput from '../../components/PlayersNum/PlayersNum.jsx'
 import TitleHolder from '../../components/TitleHolder/TitleHolder.jsx'
+import BackButton from "../../components/BackButton/BackButton.jsx"
 import './createGame.css'
 
 function CreateGame({ navigate }) {
@@ -10,8 +11,11 @@ function CreateGame({ navigate }) {
 
     return (
         <section id='createGame'>
-            
+            <div className="backb">
+            <BackButton/>
+            </div>
             <TitleHolder text="Create Game" />
+            
             <NumberInput
                 label="NUM OF PLAYERS"
                 value={players}
