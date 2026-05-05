@@ -119,7 +119,8 @@ export const setupSocketHandlers = (io) => {
       io.to(roomCode).emit('game-started', {
         topicSelector: {
           id: topicSelector.id,
-          name: topicSelector.name
+          name: topicSelector.name,
+          socketId: topicSelector.socketId
         },
         state: ROOM_STATES.SELECTING_TOPIC
       })
@@ -155,27 +156,6 @@ export const setupSocketHandlers = (io) => {
       })
 
       if (callback) callback({ success: true })
-    })
-
-    // Transmite cada trazo de dibujo a los demas jugadores de la sala en tiempo real
-    socket.on('draw-action', (data) => {
-      const { roomCode, action } = data
-
-      // Broadcast to all other players in the room
-      socket.to(roomCode).emit('player-draw-action', {
-        playerId: null, // Will be identified by socketId
-        socketId: socket.id,
-        action: action // { tool, x, y, color, size, timestamp }
-      })
-    })
-
-    // Propaga la accion de deshacer (undo) a los demas jugadores de la sala
-    socket.on('undo-action', (data) => {
-      const { roomCode } = data
-
-      socket.to(roomCode).emit('player-undo-action', {
-        socketId: socket.id
-      })
     })
 
     // Guarda el dibujo final del jugador (imagen en base64) y notifica al host cuantos han enviado
