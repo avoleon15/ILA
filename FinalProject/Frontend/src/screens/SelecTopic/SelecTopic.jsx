@@ -10,8 +10,8 @@ export const SelecTopic = ({ navigate, gameState, setGameState }) => {
     const isSelector = socket.id === gameState.topicSelector?.socketId
 
     useEffect(() => {
-        socket.on('topic-selected', ({ topic }) => {
-            setGameState(prev => ({ ...prev, topic }))
+        socket.on('topic-selected', ({ topic, drawingDuration }) => {
+            setGameState(prev => ({ ...prev, topic, drawingDuration }))
             navigate('demo')
         })
         return () => socket.off('topic-selected')

@@ -32,7 +32,7 @@ function redrawAll(ctx, grid) {
             drawCell(ctx, col, row, grid[row * COLS + col])
 }
 
-function GameLogic({ navigate, gameState }) {
+function GameLogic({ navigate, gameState, setGameState }) {
 
     const canvasRef      = useRef(null)
     const painting       = useRef(false)
@@ -40,14 +40,51 @@ function GameLogic({ navigate, gameState }) {
     const gridRef        = useRef(Array(COLS * ROWS).fill('#ffffff'))
     const undoStack      = useRef([])
     const colorSlotsRef  = useRef(null)
+    const submittedRef   = useRef(false)
 
     const [tool,        setTool]        = useState('draw')
     const [brushSize,   setBrushSize]   = useState(1)
     const [slotColors,  setSlotColors]  = useState(['#000000', '#ff0000', '#0000ff'])
     const [activeSlot,  setActiveSlot]  = useState(0)
     const [openSlot,    setOpenSlot]    = useState(null)
+    const [timeLeft,    setTimeLeft]    = useState(null)
+    const [submitted,   setSubmitted]   = useState(false)
 
     const color = slotColors[activeSlot]
+
+    const submitDrawing = () => {
+        if (submittedRef.current) return
+        submittedRef.current = true
+        setSubmitted(true)
+        const dataUrl = canvasRef.current?.toDataURL('image/png') ?? null
+        socket.emit('submit-drawing', { roomCode: gameState.roomCode, drawingData: dataUrl })
+    }
+
+    useEffect(() => {
+        socket.on('voting-started', (data) => {
+            setGameState(prev => ({ ...prev, votingData: data }))
+            navigate('voting')
+        })
+        return () => socket.off('voting-started')
+    }, [])
+
+    useEffect(() => {
+        const seconds = Math.floor((gameState.drawingDuration ?? 60000) / 1000)
+        setTimeLeft(seconds)
+
+        const interval = setInterval(() => {
+            setTimeLeft(prev => {
+                if (prev <= 1) {
+                    clearInterval(interval)
+                    submitDrawing()
+                    return 0
+                }
+                return prev - 1
+            })
+        }, 1000)
+
+        return () => clearInterval(interval)
+    }, [])
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -238,15 +275,22 @@ function GameLogic({ navigate, gameState }) {
                     <h6>{gameState.topic || '...'}</h6>
                 </div>
 
+                <div className={`timer ${timeLeft !== null && timeLeft <= 10 ? 'timer-urgent' : ''}`}>
+                    {timeLeft !== null ? `${timeLeft}s` : ''}
+                </div>
+
+                {submitted && <span className='submitted-label'>Submitted!</span>}
+
                 <button className='back-btn' title='Back to menu' onClick={() => navigate('menu')}>←</button>
             </div>
 
             <canvas
                 ref={canvasRef}
-                onMouseDown={onMouseDown}
-                onMouseMove={onMouseMove}
+                onMouseDown={submitted ? undefined : onMouseDown}
+                onMouseMove={submitted ? undefined : onMouseMove}
                 onMouseUp={onMouseUp}
                 onMouseLeave={onMouseUp}
+                style={submitted ? { pointerEvents: 'none', opacity: 0.6 } : undefined}
             />
         </section>
     )
