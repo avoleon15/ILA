@@ -284,14 +284,16 @@ function GameLogic({ navigate, gameState, setGameState }) {
                 <button className='back-btn' title='Back to menu' onClick={() => navigate('menu')}>←</button>
             </div>
 
-            <canvas
-                ref={canvasRef}
-                onMouseDown={submitted ? undefined : onMouseDown}
-                onMouseMove={submitted ? undefined : onMouseMove}
-                onMouseUp={onMouseUp}
-                onMouseLeave={onMouseUp}
-                style={submitted ? { pointerEvents: 'none', opacity: 0.6 } : undefined}
-            />
+            <div className='canvas-wrapper'>
+                <canvas
+                    ref={canvasRef}
+                    onMouseDown={submitted ? undefined : onMouseDown}
+                    onMouseMove={submitted ? undefined : onMouseMove}
+                    onMouseUp={onMouseUp}
+                    onMouseLeave={onMouseUp}
+                    style={submitted ? { pointerEvents: 'none', opacity: 0.6 } : undefined}
+                />
+            </div>
         </section>
     )
 }
