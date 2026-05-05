@@ -41,6 +41,7 @@ function GameLogic({ navigate, gameState, setGameState }) {
     const undoStack      = useRef([])
     const colorSlotsRef  = useRef(null)
     const submittedRef   = useRef(false)
+    const totalSeconds   = useRef(Math.floor((gameState.drawingDuration ?? 60000) / 1000))
 
     const [tool,        setTool]        = useState('draw')
     const [brushSize,   setBrushSize]   = useState(1)
@@ -282,6 +283,13 @@ function GameLogic({ navigate, gameState, setGameState }) {
                 {submitted && <span className='submitted-label'>Submitted!</span>}
 
                 <button className='back-btn' title='Back to menu' onClick={() => navigate('menu')}>←</button>
+            </div>
+
+            <div className='timer-bar'>
+                <div
+                    className={`timer-bar-fill ${timeLeft !== null && timeLeft <= 10 ? 'urgent' : ''}`}
+                    style={{ width: `${timeLeft !== null ? (timeLeft / totalSeconds.current) * 100 : 100}%` }}
+                />
             </div>
 
             <div className='canvas-wrapper'>
