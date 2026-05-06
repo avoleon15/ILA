@@ -44,8 +44,9 @@
     background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
     background-color: var(--color-surface-primary);
     border: 3px solid var(--color-accent);
-    width: 260px;
-    height: 260px;
+    aspect-ratio: 16/9;
+    width: 340px;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
