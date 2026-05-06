@@ -28,7 +28,7 @@ export class RoomManager {
    * @param {string} hostName - Host player name
    * @returns {Object} Room data with roomCode
    */
-  createRoom(hostName) {
+  createRoom(hostName, drawingDuration = 60000) {
     const roomCode = this.generateRoomCode()
     const roomId = uuidv4()
 
@@ -47,8 +47,9 @@ export class RoomManager {
       currentTopic: null,
       topicSelector: null,
       drawingStartTime: null,
-      drawingDuration: 60000, // 1 minute
-      votingDuration: 10000, // 10 seconds per painting
+      drawingDuration,
+      drawingTimer: null,
+      votingDuration: 10000,
       roundNumber: 0,
       gameRound: {
         topicSetAt: null,
@@ -308,6 +309,19 @@ export class RoomManager {
       room.state = ROOM_STATES.FINISHED
     }
     return room
+  }
+
+  setDrawingTimer(roomCode, timerId) {
+    const room = this.rooms.get(roomCode)
+    if (room) room.drawingTimer = timerId
+  }
+
+  clearDrawingTimer(roomCode) {
+    const room = this.rooms.get(roomCode)
+    if (room && room.drawingTimer) {
+      clearTimeout(room.drawingTimer)
+      room.drawingTimer = null
+    }
   }
 
   /**
