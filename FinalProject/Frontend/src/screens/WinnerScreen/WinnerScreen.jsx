@@ -2,9 +2,10 @@ import React from 'react'
 import TitleHolder from '../../components/TitleHolder/TitleHolder.jsx'
 import './WinnerScreen.css'
 
-export default function WinnerScreen({ winnerData, winnerName = 'WinnerName', winnerDrawing, navigate }) {
-  const resolvedWinnerName = winnerData?.name ?? winnerName
-  const resolvedWinnerDrawing = winnerData?.drawing ?? winnerDrawing
+export default function WinnerScreen({ gameState, navigate }) {
+  const winnerData = gameState?.results?.[0]
+  const resolvedWinnerName = winnerData?.name ?? 'Unknown'
+  const resolvedWinnerDrawing = winnerData?.drawing ?? null
   const glitters = Array.from({ length: 10 }, (_, index) => index)
 
   const handlePlayAgain = () => {
