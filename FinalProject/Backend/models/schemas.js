@@ -21,8 +21,7 @@ const gameResultSchema = new mongoose.Schema({
     playerId: String,
     playerName: String,
     score: Number,
-    drawingSubmitted: Boolean,
-    votesReceived: Number
+    drawingSubmitted: Boolean
   }],
   createdAt: { type: Date, default: Date.now },
   duration: { type: Number }
