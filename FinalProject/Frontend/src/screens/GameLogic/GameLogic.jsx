@@ -9,7 +9,8 @@ const CELL = 10
 
 const COLORS = [
   '#ffffff', '#e0e0e0', '#b0b0b0', '#787878', '#505050', '#303030', '#181818', '#000000',
-  '#ffd6e0', '#ff99cc', '#ff4da6', '#ff007f', '#cc0066', '#990044', '#660033', '#330019',
+  '#ffe0e0', '#ff9999', '#ff4444', '#ff0000', '#cc0000', '#990000', '#660000', '#330000',
+  '#ffd6f0', '#ff99dd', '#ff4dbb', '#ff007f', '#cc0066', '#990044', '#660033', '#330019',
   '#ffe0cc', '#ffb380', '#ff6b00', '#e65c00', '#b34700', '#7a3000', '#4d1e00', '#2b1000',
   '#ffff99', '#ffff00', '#ffe135', '#ffcc00', '#e6ac00', '#b38600', '#7a5c00', '#3d2e00',
   '#c8f5c8', '#66dd66', '#00cc66', '#00aa44', '#008000', '#006600', '#004400', '#002200',
@@ -45,7 +46,7 @@ function GameLogic({ navigate, gameState, setGameState }) {
 
     const [tool,        setTool]        = useState('draw')
     const [brushSize,   setBrushSize]   = useState(1)
-    const [slotColors,  setSlotColors]  = useState(['#000000', '#ff0000', '#0000ff'])
+    const [slotColors,  setSlotColors]  = useState(['#000000', '#ff0000', '#0077ff'])
     const [activeSlot,  setActiveSlot]  = useState(0)
     const [openSlot,    setOpenSlot]    = useState(null)
     const [timeLeft,    setTimeLeft]    = useState(null)
