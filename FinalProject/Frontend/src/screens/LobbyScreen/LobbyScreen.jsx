@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import BackButton from '../../components/BackButton/BackButton.jsx'
 import OptionHolder from '../../components/OptionHolder/OptionHolder.jsx'
-import TitleHolder from '../../components/TitleHolder/TitleHolder.jsx'
 import socket from '../../socket.js'
 import './LobbyScreen.css'
 
@@ -9,6 +8,8 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
     const [showLeaveWarning, setShowLeaveWarning] = useState(false)
     const [players, setPlayers] = useState(gameState.players || [])
     const [isCodeCopied, setIsCodeCopied] = useState(false)
+    const cArcStartDegrees = 90 + 33 * 7  // Comienza donde terminaría el último (8 jugadores)
+    const cArcStepDegrees = -33
 
     useEffect(() => {
         // Update player list whenever someone joins or leaves
@@ -58,8 +59,6 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
                 <BackButton text='Back' onClick={() => setShowLeaveWarning(true)} />
             </div>
 
-            <TitleHolder text='Lobby' />
-
             <div className='lobby-room-code'>
                 <p className='lobby-room-code-label'>Room code:</p>
                 <p className='lobby-room-code-value'>{gameState.roomCode}</p>
@@ -88,19 +87,33 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
                     <span className='lobby-players-label'>Players</span>
                     <span className='lobby-players-count'> ({players.length})</span>
                 </h3>
-                <ul>
-                    {players.map((p) => (
-                        <li key={p.id}>
+                <ul className='lobby-players-ring'>
+                    {players.map((p, index) => {
+                        const playersCount = Math.max(players.length, 1)
+                        const angle = cArcStartDegrees + cArcStepDegrees * index
+
+                        return (
+                        <li
+                            key={p.id}
+                            className='lobby-player'
+                            style={{
+                                '--angle': `${angle}deg`,
+                                '--player-color': `hsl(${Math.round((index * 360) / playersCount)} 75% 60%)`,
+                            }}
+                        >
                             <span className='lobby-player-name'>{p.name}</span>
                             {p.readyStatus ? ' ✓' : ''}
                         </li>
-                    ))}
+                        )
+                    })}
                 </ul>
                 {players.length === 0 && <p>Waiting for players to join...</p>}
             </div>
 
             {gameState.isHost && (
-                <OptionHolder text='Start Game' onClick={handleStartGame} />
+                <div className='lobbyStartButton'>
+                    <OptionHolder text='Start Game' onClick={handleStartGame} />
+                </div>
             )}
 
             {showLeaveWarning && (
