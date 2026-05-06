@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 50px;
+    position: relative;
 }
 
 #Joingame h2{
@@ -18,8 +19,8 @@
 
 .backb{
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 1px;
+    left: 1px;
 
 }
 
