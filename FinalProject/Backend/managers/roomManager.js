@@ -295,6 +295,7 @@ export class RoomManager {
       p.readyStatus = false
       p.drawing = null
       p.votes = []
+      p.score = 0
     })
 
     return room

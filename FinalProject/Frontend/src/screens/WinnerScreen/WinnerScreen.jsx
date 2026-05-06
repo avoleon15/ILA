@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import TitleHolder from '../../components/TitleHolder/TitleHolder.jsx'
+import { useEffect } from 'react'
 import socket from '../../socket.js'
 import './WinnerScreen.css'
 
@@ -24,6 +23,12 @@ export default function WinnerScreen({ gameState, setGameState, navigate }) {
     socket.emit('next-round', { roomCode: gameState.roomCode }, (res) => {
       if (!res?.success) alert(res?.error)
     })
+  }
+
+  const handleExit = () => {
+    socket.emit('leave-room', { roomCode: gameState.roomCode })
+    setGameState(prev => ({ ...prev, roomCode: '', topic: '', results: null, players: [] }))
+    navigate('menu')
   }
 
   return (
@@ -56,6 +61,7 @@ export default function WinnerScreen({ gameState, setGameState, navigate }) {
           ) : (
             <p className="waiting-host">Waiting for host to start next round...</p>
           )}
+          <button className="play-again" onClick={handleExit}>Exit</button>
         </div>
 
     </section>
