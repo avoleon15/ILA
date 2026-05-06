@@ -17,6 +17,9 @@ function App() {
     isHost: false,
     players: [],
     gameMode: 'classic',
+    topicSelector: null,
+    topic: '',
+    drawingDuration: 60000,
   })
 
   return (

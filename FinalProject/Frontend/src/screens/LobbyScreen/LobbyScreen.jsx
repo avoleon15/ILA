@@ -18,9 +18,10 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
             setGameState(prev => ({ ...prev, players: updatedPlayers }))
         })
 
-        // Navigate everyone to the game when host starts
-        socket.on('game-started', () => {
-            navigate('demo')
+        // Navigate everyone to topic selection when host starts
+        socket.on('game-started', ({ topicSelector }) => {
+            setGameState(prev => ({ ...prev, topicSelector }))
+            navigate('selecTopic')
         })
 
         return () => {

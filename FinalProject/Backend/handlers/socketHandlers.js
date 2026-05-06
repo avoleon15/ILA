@@ -14,10 +14,13 @@ export const setupSocketHandlers = (io) => {
 
     // El host emite este evento para crear una nueva sala con un codigo unico
     socket.on('create-room', (data, callback) => {
-      const { hostName } = data
+      const { hostName, gameMode } = data
       const roomManager = io.roomManager
 
-      const newRoom = roomManager.createRoom(hostName)
+      const DURATIONS = { classic: 60000, rapid: 120000, extended: 180000 }
+      const drawingDuration = DURATIONS[gameMode] ?? 60000
+
+      const newRoom = roomManager.createRoom(hostName, drawingDuration)
       roomManager.setHostSocketId(newRoom.code, socket.id)
       // El host tambien es jugador — se agrega al array de players
       roomManager.addPlayerToRoom(newRoom.code, hostName, socket.id)
@@ -119,7 +122,8 @@ export const setupSocketHandlers = (io) => {
       io.to(roomCode).emit('game-started', {
         topicSelector: {
           id: topicSelector.id,
-          name: topicSelector.name
+          name: topicSelector.name,
+          socketId: topicSelector.socketId
         },
         state: ROOM_STATES.SELECTING_TOPIC
       })
@@ -154,28 +158,32 @@ export const setupSocketHandlers = (io) => {
         state: ROOM_STATES.DRAWING
       })
 
+      // Auto-end drawing phase when timer expires (2s grace period for submissions)
+      const timerId = setTimeout(() => {
+        const currentRoom = roomManager.getRoom(roomCode)
+        if (!currentRoom || currentRoom.state !== ROOM_STATES.DRAWING) return
+
+        roomManager.startVoting(roomCode)
+        console.log(`⏰ Timer expired — voting started in room ${roomCode}`)
+
+        const drawingsToVote = currentRoom.players.map((p, index) => ({
+          displayOrder: index,
+          socketId: p.socketId,
+          playerId: p.id,
+          playerName: p.name,
+          drawing: p.drawing
+        }))
+
+        io.to(roomCode).emit('voting-started', {
+          drawings: drawingsToVote,
+          votingDuration: currentRoom.votingDuration,
+          state: ROOM_STATES.VOTING
+        })
+      }, room.drawingDuration + 2000)
+
+      roomManager.setDrawingTimer(roomCode, timerId)
+
       if (callback) callback({ success: true })
-    })
-
-    // Transmite cada trazo de dibujo a los demas jugadores de la sala en tiempo real
-    socket.on('draw-action', (data) => {
-      const { roomCode, action } = data
-
-      // Broadcast to all other players in the room
-      socket.to(roomCode).emit('player-draw-action', {
-        playerId: null, // Will be identified by socketId
-        socketId: socket.id,
-        action: action // { tool, x, y, color, size, timestamp }
-      })
-    })
-
-    // Propaga la accion de deshacer (undo) a los demas jugadores de la sala
-    socket.on('undo-action', (data) => {
-      const { roomCode } = data
-
-      socket.to(roomCode).emit('player-undo-action', {
-        socketId: socket.id
-      })
     })
 
     // Guarda el dibujo final del jugador (imagen en base64) y notifica al host cuantos han enviado
@@ -210,6 +218,7 @@ export const setupSocketHandlers = (io) => {
         return
       }
 
+      roomManager.clearDrawingTimer(roomCode)
       roomManager.startVoting(roomCode)
 
       console.log(`🗳️ Voting started in room ${roomCode}`)

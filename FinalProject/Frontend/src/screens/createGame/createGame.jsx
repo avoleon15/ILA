@@ -36,7 +36,7 @@ function CreateGame({ navigate, gameState, setGameState }) {
         }
         setError('')
 
-        socket.emit('create-room', { hostName: gameState.playerName }, (res) => {
+        socket.emit('create-room', { hostName: gameState.playerName, gameMode: gameState.gameMode }, (res) => {
             if (res.success) {
                 setGameState(prev => ({
                     ...prev,
