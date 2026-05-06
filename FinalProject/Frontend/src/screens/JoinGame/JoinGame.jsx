@@ -30,6 +30,16 @@ const JoinGame = ({ navigate, gameState, setGameState }) => {
         if (val && i < 5) inputRefs.current[i + 1]?.focus()
     }
 
+    const handlePaste = (e) => {
+        e.preventDefault()
+        const pasted = e.clipboardData.getData('text').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6)
+        const newCode = [...code]
+        pasted.split('').forEach((char, i) => { newCode[i] = char })
+        setCode(newCode)
+        const nextEmpty = pasted.length < 6 ? pasted.length : 5
+        inputRefs.current[nextEmpty]?.focus()
+    }
+
     const handleJoin = () => {
         if (!connected) {
             setError('Not connected to server. Make sure the backend is running.')
@@ -90,6 +100,7 @@ const JoinGame = ({ navigate, gameState, setGameState }) => {
                         maxLength={1}
                         value={val}
                         onChange={(e) => handleCodeChange(e, i)}
+                        onPaste={handlePaste}
                         onKeyDown={(e) => {
                             if (e.key === 'Backspace' && !val && i > 0) inputRefs.current[i - 1]?.focus()
                         }}
