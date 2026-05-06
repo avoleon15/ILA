@@ -283,24 +283,19 @@ export const setupSocketHandlers = (io) => {
       })
 
       // Persist round result to MongoDB
-      const durationSecs = room.drawingStartTime
-        ? Math.floor((Date.now() - new Date(room.drawingStartTime).getTime()) / 1000)
-        : null
-
       saveGameResult({
         gameId:      `${room.id}-round${room.roundNumber}`,
         roomCode:    room.code,
         topic:       room.currentTopic,
-        roundNumber: room.roundNumber,
+        roundNumber: room.roundNumber + 1,
         winner:      results[0] ? { playerId: results[0].id, playerName: results[0].name, score: results[0].score } : null,
         players:     results.map(p => ({
           playerId:        p.id,
           playerName:      p.name,
           score:           p.score,
-          drawingSubmitted: p.drawing !== null,
-          votesReceived:   p.score
+          drawingSubmitted: p.drawing !== null
         })),
-        duration: durationSecs
+        duration: room.drawingDuration / 1000
       }).catch(err => console.error('❌ Failed to save game result:', err))
 
       if (callback) callback({ success: true })
