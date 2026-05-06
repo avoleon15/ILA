@@ -11,16 +11,18 @@ const VOTE_OPTIONS = [
 ]
 
 const VotingScreen = ({ navigate, gameState, setGameState }) => {
-  const drawings = gameState?.votingData?.drawings ?? []
-  const otherDrawings = drawings.filter(d => d.socketId !== socket.id)
+  const drawings        = gameState?.votingData?.drawings ?? []
+  const secondsEach     = Math.floor((gameState?.votingData?.votingDuration ?? 10000) / 1000)
 
-  const [currentIdx,      setCurrentIdx]      = useState(0)
-  const [hasVotedCurrent, setHasVotedCurrent] = useState(false)
-  const [selectedRating,  setSelectedRating]  = useState(null)
-  const [doneVoting,      setDoneVoting]      = useState(otherDrawings.length === 0)
+  const [currentIdx,     setCurrentIdx]     = useState(0)
+  const [timeLeft,       setTimeLeft]       = useState(secondsEach)
+  const [selectedRating, setSelectedRating] = useState(null)
+  const [finished,       setFinished]       = useState(false)
 
-  const currentDrawing = otherDrawings[currentIdx]
+  const currentDrawing = drawings[currentIdx]
+  const isOwnDrawing   = currentDrawing?.socketId === socket.id
 
+  // Navigate to winner when backend confirms results
   useEffect(() => {
     socket.on('voting-ended', ({ results }) => {
       setGameState(prev => ({ ...prev, results }))
@@ -29,33 +31,48 @@ const VotingScreen = ({ navigate, gameState, setGameState }) => {
     return () => socket.off('voting-ended')
   }, [])
 
-  const handleVote = (rating) => {
-    if (hasVotedCurrent) return
-    setHasVotedCurrent(true)
-    setSelectedRating(rating)
+  // Per-drawing countdown — resets every time currentIdx changes
+  useEffect(() => {
+    setTimeLeft(secondsEach)
+    setSelectedRating(null)
 
+    let remaining = secondsEach
+
+    const interval = setInterval(() => {
+      remaining -= 1
+      setTimeLeft(remaining)
+
+      if (remaining <= 0) {
+        clearInterval(interval)
+        if (currentIdx + 1 < drawings.length) {
+          setCurrentIdx(prev => prev + 1)
+        } else {
+          setFinished(true)
+          if (gameState.isHost) {
+            socket.emit('end-voting', { roomCode: gameState.roomCode })
+          }
+        }
+      }
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [currentIdx])
+
+  const handleVote = (rating) => {
+    if (selectedRating !== null || isOwnDrawing) return
+    setSelectedRating(rating)
     socket.emit('submit-vote', {
       roomCode: gameState.roomCode,
       votedOnSocketId: currentDrawing.socketId,
-      rating
+      rating,
     })
-
-    setTimeout(() => {
-      if (currentIdx + 1 < otherDrawings.length) {
-        setCurrentIdx(prev => prev + 1)
-        setHasVotedCurrent(false)
-        setSelectedRating(null)
-      } else {
-        setDoneVoting(true)
-      }
-    }, 700)
   }
 
-  if (doneVoting) {
+  if (finished) {
     return (
       <div className="vs-wrap">
         <div className="vs-title-bar"><span>VOTING PHASE</span></div>
-        <p className="vs-waiting">All votes submitted! Waiting for other players...</p>
+        <p className="vs-waiting">Calculating results...</p>
       </div>
     )
   }
@@ -64,7 +81,14 @@ const VotingScreen = ({ navigate, gameState, setGameState }) => {
     <div className="vs-wrap">
       <div className="vs-title-bar">
         <span>VOTING PHASE</span>
-        <span className="vs-progress">{currentIdx + 1} / {otherDrawings.length}</span>
+        <span className="vs-progress">{currentIdx + 1} / {drawings.length}</span>
+      </div>
+
+      <div className="vs-timer-bar">
+        <div
+          className={`vs-timer-fill ${timeLeft <= 3 ? 'urgent' : ''}`}
+          style={{ width: `${(timeLeft / secondsEach) * 100}%` }}
+        />
       </div>
 
       <p className="vs-player-label">{currentDrawing?.playerName} drew...</p>
@@ -78,20 +102,24 @@ const VotingScreen = ({ navigate, gameState, setGameState }) => {
         }
       </div>
 
-      <div className="vs-vote-row">
-        {VOTE_OPTIONS.map(opt => (
-          <button
-            key={opt.value}
-            className={`vs-vote-btn ${selectedRating === opt.value ? 'selected' : ''}`}
-            onClick={() => handleVote(opt.value)}
-            disabled={hasVotedCurrent}
-          >
-            <span className="vs-emoji">{opt.emoji}</span>
-            <span className="vs-label">{opt.label}</span>
-            <span className="vs-stars">{opt.stars}</span>
-          </button>
-        ))}
-      </div>
+      {isOwnDrawing ? (
+        <p className="vs-own-label">This is your drawing — you can't vote on it</p>
+      ) : (
+        <div className="vs-vote-row">
+          {VOTE_OPTIONS.map(opt => (
+            <button
+              key={opt.value}
+              className={`vs-vote-btn ${selectedRating === opt.value ? 'selected' : ''} ${selectedRating !== null && selectedRating !== opt.value ? 'dimmed' : ''}`}
+              onClick={() => handleVote(opt.value)}
+              disabled={selectedRating !== null}
+            >
+              <span className="vs-emoji">{opt.emoji}</span>
+              <span className="vs-label">{opt.label}</span>
+              <span className="vs-stars">{opt.stars}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

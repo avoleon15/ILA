@@ -6,6 +6,7 @@
  */
 
 import { ROOM_STATES } from '../managers/roomManager.js'
+import { saveGameResult } from '../models/schemas.js'
 
 export const setupSocketHandlers = (io) => {
   // Se ejecuta cada vez que un cliente se conecta via Socket.io
@@ -280,6 +281,27 @@ export const setupSocketHandlers = (io) => {
         results: results,
         state: ROOM_STATES.SHOWING_RESULTS
       })
+
+      // Persist round result to MongoDB
+      const durationSecs = room.drawingStartTime
+        ? Math.floor((Date.now() - new Date(room.drawingStartTime).getTime()) / 1000)
+        : null
+
+      saveGameResult({
+        gameId:      `${room.id}-round${room.roundNumber}`,
+        roomCode:    room.code,
+        topic:       room.currentTopic,
+        roundNumber: room.roundNumber,
+        winner:      results[0] ? { playerId: results[0].id, playerName: results[0].name, score: results[0].score } : null,
+        players:     results.map(p => ({
+          playerId:        p.id,
+          playerName:      p.name,
+          score:           p.score,
+          drawingSubmitted: p.drawing !== null,
+          votesReceived:   p.score
+        })),
+        duration: durationSecs
+      }).catch(err => console.error('❌ Failed to save game result:', err))
 
       if (callback) callback({ success: true })
     })
