@@ -8,6 +8,10 @@
     align-items: center;
     gap: 40px;
     padding: 20px;
+    background-image: url('../../Assets/images/LobbyBG.png');
+    background-size: 110%;
+    background-position: 80% 30%;
+    background-repeat: no-repeat;
 }
 
 .lobbyScreenBackButton {
@@ -26,10 +30,15 @@
 }
 
 .lobby-room-code{
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     gap: 20px;
     font-family: var(--font-body);
+    z-index: 9;
 }
 
 #lobbyScreen .lobby-room-code-label,
@@ -88,27 +97,91 @@
     font-size: 1.4rem;
 }
 
+.lobby-players {
+    position: absolute;
+    top: 47%;
+    left: 46%;
+    transform: translate(-50%, -50%);
+    width: min(90vw, 680px);
+    height: min(90vw, 680px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+}
+
 .lobby-players-count {
     font-family: var(--font-body);
 }
 
-.lobby-players ul {
+.lobby-players-ring {
+    position: relative;
+    width: 100%;
+    height: 0%;
     margin: 0;
-    padding-left: 0;
+    padding: 0;
     list-style: none;
+    --radius: clamp(90px, 13vw, 215px);
+    --c-vertical-squash: 0.82;
+    --c-item-unsquash-y: 1.22;
+    transform: scaleY(var(--c-vertical-squash));
+    transform-origin: center;
 }
 
-.lobby-players li {
+.lobby-players-ring .lobby-player {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    width: clamp(36px, 11vw, 58px);
+    aspect-ratio: 1;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: var(--player-color);
+    border: 2px solid var(--player-color);
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.12);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: bolder;
+    transform:
+        translate(-50%, -50%)
+        rotate(var(--angle))
+        translateX(var(--radius))
+        rotate(calc(-1 * var(--angle)))
+        scaleY(var(--c-item-unsquash-y));
+}
+
+.lobby-players-ring .lobby-player-name {
+    font-family: var(--font-body);
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    line-height: 1.1;
+    font-size: 0.8rem;
+}
+
+.lobby-players > p {
     color: var(--color-text-primary);
     font-family: var(--font-body);
     font-size: 1.15rem;
     text-align: center;
     gap: 10px;
-    font-weight: bolder;
 }
 
-.lobby-player-name {
-    font-family: var(--font-body);
+.lobbyStartButton {
+    position: absolute;
+    left: 75%;
+    bottom: 60px;
+    transform: translateX(-50%);
+    z-index: 30;
 }
 
 .lobbyLeaveOverlay {
