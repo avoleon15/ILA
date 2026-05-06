@@ -35,7 +35,8 @@ export const setupSocketHandlers = (io) => {
         success: true,
         roomCode: newRoom.code,
         roomId: newRoom.id,
-        hostId: newRoom.host.id
+        hostId: newRoom.host.id,
+        players: room.players
       })
 
       socket.emit('room-updated', {
@@ -63,7 +64,8 @@ export const setupSocketHandlers = (io) => {
       callback({
         success: true,
         playerId: result.player.id,
-        roomCode: roomCode
+        roomCode: roomCode,
+        players: result.room.players
       })
 
       // Notify all players in room that a new player joined

@@ -47,13 +47,13 @@ const JoinGame = ({ navigate, gameState, setGameState }) => {
         setError('')
 
         socket.emit('join-room', { roomCode, playerName: gameState.playerName }, (res) => {
-            console.log('join-room response:', res)
             if (res.success) {
                 setGameState(prev => ({
                     ...prev,
                     roomCode,
                     playerId: res.playerId,
                     isHost: false,
+                    players: res.players,
                 }))
                 navigate('lobby')
             } else {
