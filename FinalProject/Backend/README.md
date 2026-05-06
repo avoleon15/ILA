@@ -473,30 +473,6 @@ Persiste el resultado final de una partida completada.
 }
 ```
 
-### `GameSession`
-Sesión de juego en curso o reciente. **Se auto-elimina después de 24 horas** mediante un índice TTL de MongoDB.
-
-```js
-{
-  roomCode: String,
-  hostId: String,
-  hostName: String,
-  state: String,         // Mismo enum que ROOM_STATES
-  players: [{
-    playerId: String,
-    playerName: String,
-    socketId: String,
-    joinedAt: Date
-  }],
-  currentRound: Number,
-  currentTopic: String,
-  topicSelectedBy: String,
-  startedAt: Date,
-  endedAt: Date,
-  createdAt: Date        // TTL index: expireAfterSeconds: 86400
-}
-```
-
 ### Helper `saveGameResult(gameData)`
 Función exportada de `schemas.js` que recibe los datos del juego y los persiste en la colección `GameResult`. Lanza error si la inserción falla.
 
@@ -639,3 +615,8 @@ db.gameresults.find().pretty()          // 4. ver resultados guardados
 ## License
 
 ISC
+
+## Correr el GET de API
+curl http://localhost:3000/health
+
+

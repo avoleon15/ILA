@@ -1,7 +1,7 @@
 /**
  * schemas.js — Modelos de Mongoose para persistir datos en MongoDB.
- * Define dos colecciones: GameResult (resultados de partidas) y GameSession (sesiones en curso).
- * Exporta los modelos y la funcion saveGameResult para guardar resultados.
+ * Define la coleccion GameResult para guardar resultados de partidas completadas.
+ * Exporta el modelo y la funcion saveGameResult para guardar resultados.
  */
 
 import mongoose from 'mongoose'
@@ -25,36 +25,10 @@ const gameResultSchema = new mongoose.Schema({
     votesReceived: Number
   }],
   createdAt: { type: Date, default: Date.now },
-  duration: { type: Number } // in seconds
+  duration: { type: Number }
 })
 
-// Game session schema (ongoing or completed game)
-const gameSessionSchema = new mongoose.Schema({
-  roomCode: { type: String, required: true, unique: true },
-  hostId: String,
-  hostName: String,
-  state: {
-    type: String,
-    enum: ['waiting', 'selecting_topic', 'drawing', 'voting', 'showing_results', 'finished'],
-    default: 'waiting'
-  },
-  players: [{
-    playerId: String,
-    playerName: String,
-    socketId: String,
-    joinedAt: { type: Date, default: Date.now }
-  }],
-  currentRound: { type: Number, default: 1 },
-  currentTopic: String,
-  topicSelectedBy: String,
-  startedAt: Date,
-  endedAt: Date,
-  createdAt: { type: Date, default: Date.now, index: { expireAfterSeconds: 86400 } } // Auto-delete after 24 hours
-})
-
-// Create models
 export const GameResult = mongoose.model('GameResult', gameResultSchema)
-export const GameSession = mongoose.model('GameSession', gameSessionSchema)
 
 /**
  * Save game results to database
