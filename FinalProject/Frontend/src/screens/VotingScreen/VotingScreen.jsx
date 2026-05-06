@@ -36,7 +36,7 @@ const VotingScreen = ({ playerName = 'PLAYER_02', drawingUrl = null }) => {
         ))}
       </div>
 
-      <button className="vs-submit-btn">CONFIRM VOTE</button>
+      
     </div>
   )
 }
