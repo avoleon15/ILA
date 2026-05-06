@@ -1,0 +1,120 @@
+.vs-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--font-title);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px 20px;
+}
+
+.vs-title-bar {
+    background: var(--color-surface-primary);
+    border: 2px solid var(--color-accent);
+    padding: 12px 40px;
+    color: var(--color-accent);
+    font-size: 13px;
+    letter-spacing: 2px;
+    position: relative;
+}
+.vs-title-bar::before, .vs-title-bar::after {
+    content: '';
+    position: absolute;
+    top: -2px; bottom: -2px;
+    width: 8px;
+    background: repeating-linear-gradient(180deg, var(--color-accent) 0px, var(--color-accent) 8px, var(--color-surface-primary) 8px, var(--color-surface-primary) 16px);
+}
+.vs-title-bar::before { left: -2px; }
+.vs-title-bar::after  { right: -2px; }
+
+.vs-player-label {
+    color: var(--color-accent);
+    font-size: 9px;
+    margin: 0;
+}
+
+.vs-draw-stage {
+    background-image:
+        linear-gradient(45deg, var(--color-surface-secondary) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--color-surface-secondary) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--color-surface-secondary) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--color-surface-secondary) 75%);
+    background-size: 12px 12px;
+    background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
+    background-color: var(--color-surface-primary);
+    border: 3px solid var(--color-accent);
+    width: 260px;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.vs-corner {
+    position: absolute;
+    width: 12px; height: 12px;
+    background: var(--color-accent);
+}
+.vs-corner.tl { top: -2px; left: -2px; }
+.vs-corner.tr { top: -2px; right: -2px; }
+.vs-corner.bl { bottom: -2px; left: -2px; }
+.vs-corner.br { bottom: -2px; right: -2px; }
+
+.vs-drawing { width: 100%; height: 100%; object-fit: contain; }
+
+.vs-placeholder {
+    color: var(--color-text-secondary);
+    font-size: 9px;
+    text-align: center;
+    line-height: 2.2;
+    margin: 0;
+}
+
+.vs-vote-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.vs-vote-btn {
+    background: var(--color-surface-primary);
+    border: 2px solid var(--color-surface-secondary);
+    padding: 10px 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 90px;
+    transition: all 0.15s;
+}
+.vs-vote-btn:hover {
+    border-color: var(--color-accent);
+    background: var(--color-surface-secondary);
+}
+.vs-vote-btn:hover .vs-label { color: var(--color-accent); }
+
+.vs-emoji { font-size: 24px; }
+.vs-label { font-size: 7px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-title); }
+.vs-stars { font-size: 7px; color: var(--color-text-secondary); font-family: var(--font-title); }
+
+.vs-submit-btn {
+    background: var(--color-surface-primary);
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+    padding: 12px 40px;
+    cursor: pointer;
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-family: var(--font-title);
+    transition: all 0.15s;
+    margin-bottom: 20px;
+}
+.vs-submit-btn:hover {
+    background: var(--color-accent);
+    color: var(--color-background);
+}
