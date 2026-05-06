@@ -576,6 +576,66 @@ brew services start mongodb-community  # macOS
 
 ---
 
+## Comandos de MongoDB
+
+### Gestionar el servicio
+
+```bash
+brew services start mongodb-community    # iniciar
+brew services stop mongodb-community     # detener
+brew services restart mongodb-community  # reiniciar
+```
+
+### Abrir la shell de MongoDB
+
+```bash
+mongosh
+```
+
+### Navegar dentro de mongosh
+
+```js
+show dbs                    // ver todas las bases de datos
+use asdrubal                // cambiar a la base del juego
+show collections            // ver colecciones en la base actual
+```
+
+### Consultar resultados
+
+```js
+db.gameresults.find().pretty()           // ver todos los resultados
+db.gameresults.find().sort({ _id: -1 }) // más recientes primero
+db.gameresults.countDocuments()         // cuántos resultados hay guardados
+db.gameresults.findOne()                // ver solo el primero
+```
+
+### Limpiar datos
+
+```js
+db.gameresults.deleteMany({})  // borrar todos los resultados
+db.dropDatabase()              // borrar toda la base de datos
+```
+
+### Salir de mongosh
+
+```js
+exit
+```
+
+### Flujo de verificación rápida
+
+```bash
+brew services start mongodb-community   # 1. iniciar servicio
+mongosh                                 # 2. abrir shell
+```
+
+```js
+use asdrubal                            // 3. seleccionar base de datos
+db.gameresults.find().pretty()          // 4. ver resultados guardados
+```
+
+---
+
 ## License
 
 ISC

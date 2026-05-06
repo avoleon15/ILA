@@ -109,6 +109,7 @@
     background: var(--color-surface-secondary);
 }
 .vs-vote-btn.selected .vs-label { color: var(--color-accent); }
+.vs-vote-btn.dimmed { opacity: 0.35; }
 .vs-vote-btn:disabled { cursor: default; }
 
 .vs-progress {
@@ -117,6 +118,30 @@
     font-size: 11px;
     color: var(--color-text-secondary);
     letter-spacing: 1px;
+}
+
+.vs-timer-bar {
+    width: 100%;
+    height: 5px;
+    background: var(--color-surface-secondary);
+    flex-shrink: 0;
+}
+
+.vs-timer-fill {
+    height: 100%;
+    background: var(--color-accent);
+    transition: width 1s linear, background 0.3s;
+}
+
+.vs-timer-fill.urgent {
+    background: #e03a3a;
+}
+
+.vs-own-label {
+    color: var(--color-text-secondary);
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin: 0;
 }
 
 .vs-waiting {
