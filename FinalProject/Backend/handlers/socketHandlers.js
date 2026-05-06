@@ -254,6 +254,8 @@ export const setupSocketHandlers = (io) => {
 
       if (callback) callback({ success: true })
 
+      if (!room) return
+
       // Check if all players have voted (optional: auto-end voting)
       const allVoted = room.players.every(p => p.votes.length > 0)
       if (allVoted) {
