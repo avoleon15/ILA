@@ -86,7 +86,7 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
             <div className='lobby-players'>
                 <h3>
                     <span className='lobby-players-label'>Players</span>
-                    <span className='lobby-players-count'> ({players.length})</span>
+                    <span className='lobby-players-count'> ({players.length}/8)</span>
                 </h3>
                 <ul className='lobby-players-ring'>
                     {players.map((p, index) => {

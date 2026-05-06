@@ -1,14 +1,33 @@
-import React from 'react'
-import TitleHolder from '../../components/TitleHolder/TitleHolder.jsx'
+import { useEffect } from 'react'
+import socket from '../../socket.js'
 import './WinnerScreen.css'
 
-export default function WinnerScreen({ gameState, navigate }) {
+export default function WinnerScreen({ gameState, setGameState, navigate }) {
   const winnerData = gameState?.results?.[0]
   const resolvedWinnerName = winnerData?.name ?? 'Unknown'
   const resolvedWinnerDrawing = winnerData?.drawing ?? null
   const glitters = Array.from({ length: 10 }, (_, index) => index)
 
+  useEffect(() => {
+    socket.on('room-updated', ({ state, players }) => {
+      if (state === 'waiting') {
+        setGameState(prev => ({ ...prev, players, topic: '', results: null }))
+        navigate('lobby')
+      }
+    })
+
+    return () => socket.off('room-updated')
+  }, [])
+
   const handlePlayAgain = () => {
+    socket.emit('next-round', { roomCode: gameState.roomCode }, (res) => {
+      if (!res?.success) alert(res?.error)
+    })
+  }
+
+  const handleExit = () => {
+    socket.emit('leave-room', { roomCode: gameState.roomCode })
+    setGameState(prev => ({ ...prev, roomCode: '', topic: '', results: null, players: [] }))
     navigate('menu')
   }
 
@@ -31,16 +50,20 @@ export default function WinnerScreen({ gameState, navigate }) {
           </div>
 
           <h2 className="winner-name-title">Congratulations,</h2>
-          
+
           <div className="winner-name-panel">
             <h2 className="winner-name">{resolvedWinnerName}</h2>
           </div>
-       
 
         <div className="actions">
-          <button className="play-again" onClick={handlePlayAgain}>Play Again</button>
+          {gameState.isHost ? (
+            <button className="play-again" onClick={handlePlayAgain}>Play Again</button>
+          ) : (
+            <p className="waiting-host">Waiting for host to start next round...</p>
+          )}
+          <button className="play-again" onClick={handleExit}>Exit</button>
         </div>
-    
+
     </section>
   )
 }

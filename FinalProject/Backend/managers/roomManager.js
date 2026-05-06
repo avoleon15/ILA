@@ -119,14 +119,6 @@ export class RoomManager {
   }
 
   /**
-   * Gets all players in a room sorted by join time
-   */
-  getRoomPlayers(roomCode) {
-    const room = this.rooms.get(roomCode)
-    return room ? room.players : []
-  }
-
-  /**
    * Updates host socket info
    */
   setHostSocketId(roomCode, socketId) {
@@ -193,19 +185,6 @@ export class RoomManager {
     if (room) {
       room.currentTopic = topic
       room.gameRound.topicSetAt = new Date()
-    }
-    return room
-  }
-
-  /**
-   * Marks drawing phase as started
-   */
-  startDrawing(roomCode) {
-    const room = this.rooms.get(roomCode)
-    if (room) {
-      room.gameRound.drawingStarted = true
-      room.drawingStartTime = new Date()
-      room.state = ROOM_STATES.DRAWING
     }
     return room
   }
@@ -295,6 +274,7 @@ export class RoomManager {
       p.readyStatus = false
       p.drawing = null
       p.votes = []
+      p.score = 0
     })
 
     return room

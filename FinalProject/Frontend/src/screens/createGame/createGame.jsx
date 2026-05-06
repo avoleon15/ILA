@@ -43,6 +43,7 @@ function CreateGame({ navigate, gameState, setGameState }) {
                     roomCode: res.roomCode,
                     playerId: res.hostId,
                     isHost: true,
+                    players: res.players,
                 }))
                 navigate('lobby')
             } else {

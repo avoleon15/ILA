@@ -35,7 +35,8 @@ export const setupSocketHandlers = (io) => {
         success: true,
         roomCode: newRoom.code,
         roomId: newRoom.id,
-        hostId: newRoom.host.id
+        hostId: newRoom.host.id,
+        players: room.players
       })
 
       socket.emit('room-updated', {
@@ -63,7 +64,8 @@ export const setupSocketHandlers = (io) => {
       callback({
         success: true,
         playerId: result.player.id,
-        roomCode: roomCode
+        roomCode: roomCode,
+        players: result.room.players
       })
 
       // Notify all players in room that a new player joined
@@ -253,6 +255,8 @@ export const setupSocketHandlers = (io) => {
       console.log(`⭐ Vote submitted in room ${roomCode}: rating ${rating}`)
 
       if (callback) callback({ success: true })
+
+      if (!room) return
 
       // Check if all players have voted (optional: auto-end voting)
       const allVoted = room.players.every(p => p.votes.length > 0)

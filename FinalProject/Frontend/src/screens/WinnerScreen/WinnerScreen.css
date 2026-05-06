@@ -169,3 +169,8 @@
   100% { transform: translateY(220px) scale(1.1); opacity: 0; }
 }
 
+.waiting-host{
+  padding: 5px 24px;
+  color: var(--color-text-primary);
+  font-family: var(--font-title);
+}
