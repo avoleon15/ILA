@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import BackButton from '../../components/BackButton/BackButton.jsx'
 import './Matches.css'
 
-const LIMIT = 2
+const LIMIT = 10
 
 function Matches({ navigate }) {
     const [matches, setMatches]         = useState([])
@@ -15,7 +15,7 @@ function Matches({ navigate }) {
     useEffect(() => {
         setLoading(true)
         setError(null)
-        fetch(`http://localhost:3000/matches?page=${page}&limit=${LIMIT}`)
+        fetch(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'}/matches?page=${page}&limit=${LIMIT}`)
             .then(res => {
                 if (!res.ok) throw new Error('Failed to fetch')
                 return res.json()

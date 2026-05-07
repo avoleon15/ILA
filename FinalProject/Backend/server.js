@@ -38,11 +38,19 @@ app.get('/health', (req, res) => {
   res.json({ status: 'Backend is running', timestamp: new Date() })
 })
 
-// Returns all saved match results sorted by newest first
+// Returns paginated match results sorted by newest first
 app.get('/matches', async (req, res) => {
   try {
-    const matches = await GameResult.find().sort({ createdAt: -1 }).lean()
-    res.json(matches)
+    const page  = Math.max(1, parseInt(req.query.page)  || 1)
+    const limit = Math.min(50, Math.max(1, parseInt(req.query.limit) || 10))
+    const skip  = (page - 1) * limit
+
+    const [matches, total] = await Promise.all([
+      GameResult.find().sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
+      GameResult.countDocuments()
+    ])
+
+    res.json({ matches, total, page, limit, totalPages: Math.ceil(total / limit) })
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch matches' })
   }
