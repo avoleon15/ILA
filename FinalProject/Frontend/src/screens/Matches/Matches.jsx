@@ -62,7 +62,7 @@ function Matches({ navigate }) {
                                 <div><span>Topic: </span> <span className='match-info'>{match.topic}</span></div>
                                 <div><span>Round number: </span> <span className='match-info'>{match.roundNumber}</span></div>
                                 <div><span>Time Mode: </span> <span className='match-info'>{formatDuration(match.duration)}</span></div>
-                                <div><span>Winner: </span> <span className='match-info'>{match.winner.playerName}</span></div>
+                                <div><span>Winner: </span> <span className='match-info'>{match.winner?.playerName ?? 'N/A'}</span></div>
                             </div>
 
                             <div className="match-players">

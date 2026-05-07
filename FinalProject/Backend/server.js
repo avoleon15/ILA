@@ -12,6 +12,7 @@ import { Server } from 'socket.io'
 import { connectDatabase } from './config/database.js'
 import { setupSocketHandlers } from './handlers/socketHandlers.js'
 import { RoomManager } from './managers/roomManager.js'
+import { GameResult } from './models/schemas.js'
 
 dotenv.config()
 
@@ -35,6 +36,16 @@ io.roomManager = new RoomManager()
 // Ruta de salud — útil para verificar que el servidor está corriendo
 app.get('/health', (req, res) => {
   res.json({ status: 'Backend is running', timestamp: new Date() })
+})
+
+// Returns all saved match results sorted by newest first
+app.get('/matches', async (req, res) => {
+  try {
+    const matches = await GameResult.find().sort({ createdAt: -1 }).lean()
+    res.json(matches)
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch matches' })
+  }
 })
 
 // Conectar a MongoDB

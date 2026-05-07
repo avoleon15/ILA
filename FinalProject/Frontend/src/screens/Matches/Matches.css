@@ -34,7 +34,6 @@
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
-    overflow-y: auto;
 }
 
 .match-card {
