@@ -6,18 +6,20 @@ import LobbyScreen from './screens/LobbyScreen/LobbyScreen.jsx'
 import WinnerScreen from './screens/WinnerScreen/WinnerScreen.jsx'
 import { SelecTopic } from './screens/SelecTopic/SelecTopic.jsx'
 import VotingScreen from './screens/VotingScreen/VotingScreen.jsx'
+import Matches from './screens/Matches/Matches.jsx'
 
     // SCREENS maps a page key (string) → the React component
     // that should render inside the game box for that page.
     // Keys are what you pass to navigate(), e.g. navigate('lobby')
 
 export const SCREENS = {
-    menu:   MenuScreen,
+    menu:       MenuScreen,
     createGame: createGame,
-    joinGame: JoinGame,
-    demo: GameLogic,
-    lobby: LobbyScreen,
-    winner: WinnerScreen,
+    joinGame:   JoinGame,
+    demo:       GameLogic,
+    lobby:      LobbyScreen,
+    winner:     WinnerScreen,
     selecTopic: SelecTopic,
-    voting: VotingScreen
+    voting:     VotingScreen,
+    matches:    Matches,
 }

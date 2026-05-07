@@ -1,0 +1,114 @@
+#Matches {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+    overflow-y: auto;
+}
+
+.matches-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.matches-title {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.matches-status {
+    text-align: center;
+    opacity: 0.7;
+    margin-top: 32px;
+}
+
+.matches-error {
+    color: #ff4444;
+}
+
+.matches-list {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.match-card {
+    width: 44.7%;
+    background: var(--color-surface-secondary);
+    border: 1px solid var(--color-text-secondary);
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+}
+
+.match-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-text-secondary);
+}
+
+.match-code{
+    font-size: 0.9rem;
+}
+
+.match-date {
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+.match-info{
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.match-card-meta {
+    display: flex;
+    gap: 10px;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    flex-direction: column;
+}
+
+.match-card-meta div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.match-players {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-top: 1px solid var(--color-text-secondary);
+    padding-top: 8px;
+}
+
+.match-player-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+}
+
+.match-player-name {
+    flex: 1;
+}
+
+.match-player-score {
+    opacity: 0.8;
+}
+
+.match-no-drawing {
+    font-size: 0.7rem;
+    opacity: 0.5;
+    font-style: italic;
+}
