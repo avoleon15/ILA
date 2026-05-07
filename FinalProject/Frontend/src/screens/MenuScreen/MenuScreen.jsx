@@ -12,7 +12,7 @@ function MenuScreen({ navigate }) {
             <OptionHolder text="Create Game" onClick={() => navigate('createGame')} />
             <OptionHolder text="Join Game" onClick={() => navigate('joinGame')} />
             <OptionHolder text="How To Play" onClick={() => navigate('howToPlay')} />
-            <OptionHolder text="DEMO" onClick={() => navigate('demo')} />
+            <OptionHolder text="All Matches" onClick={() => navigate('matches')} />
         </section>
     )
 }
