@@ -20,6 +20,13 @@
     font-size: 1.4rem;
 }
 
+.matches-count {
+    font-size: 0.8rem;
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    margin-left: auto;
+}
+
 .matches-status {
     text-align: center;
     opacity: 0.7;
@@ -49,7 +56,7 @@
     flex-direction: column;
     gap: 10px;
     color: var(--color-text-primary);
-    font-family: var(--font-body);
+    font-family: var(--font-title);
 }
 
 .match-card-header {
@@ -111,4 +118,45 @@
     font-size: 0.7rem;
     opacity: 0.5;
     font-style: italic;
+}
+
+.matches-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding-top: 4px;
+    flex-shrink: 0;
+}
+
+.pagination-pages {
+    display: flex;
+    gap: 4px;
+}
+
+.pagination-btn,
+.pagination-page {
+    background: var(--color-surface-secondary);
+    border: 1px solid var(--color-text-secondary);
+    color: var(--color-accent);
+    font-family: var(--font-title);
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.pagination-btn:not(:disabled):hover,
+.pagination-page:not(.active):hover {
+    background: var(--color-text-secondary);
+}
+
+.pagination-page.active {
+    background: var(--color-text-primary);
+    color: var(--color-surface-secondary);
+    border-color: var(--color-text-primary);
 }

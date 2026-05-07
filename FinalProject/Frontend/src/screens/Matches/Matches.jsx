@@ -2,26 +2,35 @@ import { useEffect, useState } from 'react'
 import BackButton from '../../components/BackButton/BackButton.jsx'
 import './Matches.css'
 
+const LIMIT = 2
+
 function Matches({ navigate }) {
-    const [matches, setMatches] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError]     = useState(null)
+    const [matches, setMatches]         = useState([])
+    const [loading, setLoading]         = useState(true)
+    const [error, setError]             = useState(null)
+    const [page, setPage]               = useState(1)
+    const [totalPages, setTotalPages]   = useState(1)
+    const [total, setTotal]             = useState(0)
 
     useEffect(() => {
-        fetch('http://localhost:3000/matches')
+        setLoading(true)
+        setError(null)
+        fetch(`http://localhost:3000/matches?page=${page}&limit=${LIMIT}`)
             .then(res => {
                 if (!res.ok) throw new Error('Failed to fetch')
                 return res.json()
             })
             .then(data => {
-                setMatches(data)
+                setMatches(data.matches)
+                setTotalPages(data.totalPages)
+                setTotal(data.total)
                 setLoading(false)
             })
             .catch(() => {
                 setError('Could not load matches. Make sure the backend is running.')
                 setLoading(false)
             })
-    }, [])
+    }, [page])
 
     const formatDate = (iso) => new Date(iso).toLocaleDateString('en-US', {
         year: 'numeric', month: 'short', day: 'numeric',
@@ -40,6 +49,9 @@ function Matches({ navigate }) {
             <div className="matches-header">
                 <BackButton text="Back" onClick={() => navigate('menu')} />
                 <h2 className="matches-title">All Matches</h2>
+                {!loading && !error && total > 0 && (
+                    <span className="matches-count">{total} match{total !== 1 ? 'es' : ''}</span>
+                )}
             </div>
 
             {loading && <p className="matches-status">Loading...</p>}
@@ -76,6 +88,38 @@ function Matches({ navigate }) {
                             </div>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {!loading && !error && totalPages > 1 && (
+                <div className="matches-pagination">
+                    <button
+                        className="pagination-btn"
+                        onClick={() => setPage(p => p - 1)}
+                        disabled={page === 1}
+                    >
+                        &larr; Prev
+                    </button>
+
+                    <div className="pagination-pages">
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                            <button
+                                key={p}
+                                className={`pagination-page${p === page ? ' active' : ''}`}
+                                onClick={() => setPage(p)}
+                            >
+                                {p}
+                            </button>
+                        ))}
+                    </div>
+
+                    <button
+                        className="pagination-btn"
+                        onClick={() => setPage(p => p + 1)}
+                        disabled={page === totalPages}
+                    >
+                        Next &rarr;
+                    </button>
                 </div>
             )}
         </section>
