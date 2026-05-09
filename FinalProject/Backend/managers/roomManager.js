@@ -28,7 +28,7 @@ export class RoomManager {
    * @param {string} hostName - Host player name
    * @returns {Object} Room data with roomCode
    */
-  createRoom(hostName, drawingDuration = 60000) {
+  createRoom(hostName, drawingDuration = 60000, maxPlayers = 8) {
     const roomCode = this.generateRoomCode()
     const roomId = uuidv4()
 
@@ -42,7 +42,7 @@ export class RoomManager {
       },
       players: [],
       state: ROOM_STATES.WAITING,
-      maxPlayers: 8,
+      maxPlayers: Math.min(8, Math.max(2, maxPlayers)),
       minPlayers: 2,
       currentTopic: null,
       topicSelector: null,
@@ -289,6 +289,19 @@ export class RoomManager {
       room.state = ROOM_STATES.FINISHED
     }
     return room
+  }
+
+  transferHost(roomCode) {
+    const room = this.rooms.get(roomCode)
+    if (!room || room.players.length === 0) return null
+
+    const newHostPlayer = room.players[Math.floor(Math.random() * room.players.length)]
+    room.host = {
+      id: newHostPlayer.id,
+      name: newHostPlayer.name,
+      socketId: newHostPlayer.socketId
+    }
+    return room.host
   }
 
   setDrawingTimer(roomCode, timerId) {
