@@ -1,0 +1,157 @@
+
+.NavBar{
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-surface-secondary);
+    height: 60px;
+    width: auto;
+    z-index: 100;
+    border-radius: 20px;
+}
+
+
+
+    .pixel{
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        width: 50px;      
+        height: 50px;
+        
+        box-shadow:
+        /* Fila 3: -25px */
+        -1520px -25px 0px 0px var(--color-purple),
+        -1470px -25px 0px 0px var(--color-accent),
+        -1420px -25px 0px 0px var(--color-surface-primary),
+        -1370px -25px 0px 0px var(--color-background),
+        -1320px -25px 0px 0px var(--color-surface-primary),   
+        -1270px -25px 0px 0px var(--color-surface-secondary), 
+        -1220px -25px 0px 0px var(--color-surface-primary),
+        -1170px -25px 0px 0px var(--color-surface-primary),
+        -1120px -25px 0px 0px var(--color-accent),
+        -1070px -25px 0px 0px var(--color-background),
+        -950px -25px 0px 0px var(--color-purple),
+        -900px -25px 0px 0px var(--color-surface-primary),
+        -850px -25px 0px 0px var(--color-surface-primary),
+        -800px -25px 0px 0px var(--color-accent),
+        -750px -25px 0px 0px var(--color-background),
+        -700px -25px 0px 0px var(--color-surface-primary),
+        -650px -25px 0px 0px var(--color-surface-secondary),
+        -600px -25px 0px 0px var(--color-surface-primary),
+        -550px -25px 0px 0px var(--color-surface-primary),
+        -500px -25px 0px 0px var(--color-background),
+        -450px -25px 0px 0px var(--color-surface-primary),
+        -400px -25px 0px 0px var(--color-surface-secondary),
+        -350px -25px 0px 0px var(--color-accent),
+        -300px -25px 0px 0px var(--color-surface-primary),
+        -250px -25px 0px 0px var(--color-surface-primary),
+        -200px -25px 0px 0px var(--color-background),
+        -150px -25px 0px 0px var(--color-surface-secondary),
+        -100px -25px 0px 0px var(--color-surface-primary),
+        -50px -25px 0px 0px var(--color-surface-primary),
+        0px -25px 0px 0px var(--color-purple),
+        50px -25px 0px 0px var(--color-background),
+        100px -25px 0px 0px var(--color-surface-primary),
+        150px -25px 0px 0px var(--color-accent),
+        200px -25px 0px 0px var(--color-surface-primary),
+        250px -25px 0px 0px var(--color-background),
+        300px -25px 0px 0px var(--color-surface-secondary),
+        350px -25px 0px 0px var(--color-surface-primary),
+        400px -25px 0px 0px var(--color-background),
+        450px -25px 0px 0px var(--color-surface-primary),
+        500px -25px 0px 0px var(--color-accent),
+        550px -25px 0px 0px var(--color-purple),
+        600px -25px 0px 0px var(--color-surface-primary),
+        650px -25px 0px 0px var(--color-surface-primary),
+        700px -25px 0px 0px var(--color-background),
+        750px -25px 0px 0px var(--color-surface-secondary),
+        800px -25px 0px 0px var(--color-surface-primary),
+        850px -25px 0px 0px var(--color-surface-primary),
+        900px -25px 0px 0px var(--color-surface-primary),
+        950px -25px 0px 0px var(--color-background),
+        1000px -25px 0px 0px var(--color-purple),
+        1050px -25px 0px 0px var(--color-accent),
+        1100px -25px 0px 0px var(--color-surface-primary),
+        1150px -25px 0px 0px var(--color-background),
+        1200px -25px 0px 0px var(--color-surface-primary),
+        1250px -25px 0px 0px var(--color-surface-secondary),
+        1300px -25px 0px 0px var(--color-surface-primary),
+        1350px -25px 0px 0px var(--color-surface-primary),
+        1400px -25px 0px 0px var(--color-accent),
+        1450px -25px 0px 0px var(--color-background),
+        
+            
+
+        /* Fila 4: 25px */
+
+        -1500px 25px 0px 0px var(--color-background),
+        -1450px 25px 0px 0px var(--color-surface-primary),
+        -1400px 25px 0px 0px var(--color-surface-secondary),
+        -1350px 25px 0px 0px var(--color-surface-primary),
+        -1300px 25px 0px 0px var(--color-purple),
+        -1250px 25px 0px 0px var(--color-surface-primary),
+        -1200px 25px 0px 0px var(--color-accent),
+        -1150px 25px 0px 0px var(--color-background),
+        -1100px 25px 0px 0px var(--color-surface-secondary),
+        -1050px 25px 0px 0px var(--color-surface-primary),
+        -1000px 25px 0px 0px var(--color-purple),
+        -950px 25px 0px 0px var(--color-background),
+        -900px 25px 0px 0px var(--color-surface-secondary),
+        -850px 25px 0px 0px var(--color-purple),
+        -800px 25px 0px 0px var(--color-surface-primary),
+        -750px 25px 0px 0px var(--color-accent),
+        -700px 25px 0px 0px var(--color-surface-primary),
+        -650px 25px 0px 0px var(--color-surface-primary),
+        -600px 25px 0px 0px var(--color-surface-secondary),
+        -550px 25px 0px 0px var(--color-background),
+        -500px 25px 0px 0px var(--color-surface-primary),
+        -450px 25px 0px 0px var(--color-surface-primary),
+        -400px 25px 0px 0px var(--color-accent),
+        -350px 25px 0px 0px var(--color-surface-primary),
+        -300px 25px 0px 0px var(--color-surface-primary),
+        -250px 25px 0px 0px var(--color-purple),
+        -200px 25px 0px 0px var(--color-surface-secondary),
+        -150px 25px 0px 0px var(--color-background),
+        -100px 25px 0px 0px var(--color-surface-primary),
+        -50px 25px 0px 0px var(--color-accent),
+        0px 25px 0px 0px var(--color-surface-secondary),
+        50px 25px 0px 0px var(--color-purple),
+        100px 25px 0px 0px var(--color-surface-primary),
+        150px 25px 0px 0px var(--color-surface-primary),
+        200px 25px 0px 0px var(--color-accent),
+        250px 25px 0px 0px var(--color-surface-secondary),
+        300px 25px 0px 0px var(--color-background),
+        350px 25px 0px 0px var(--color-surface-primary),
+        400px 25px 0px 0px var(--color-accent),
+        450px 25px 0px 0px var(--color-purple),
+        500px 25px 0px 0px var(--color-surface-primary),
+        550px 25px 0px 0px var(--color-background),
+        600px 25px 0px 0px var(--color-accent),
+        650px 25px 0px 0px var(--color-surface-primary),
+        700px 25px 0px 0px var(--color-background),
+        750px 25px 0px 0px var(--color-surface-primary),
+        800px 25px 0px 0px var(--color-purple),
+        850px 25px 0px 0px var(--color-surface-secondary),
+        900px 25px 0px 0px var(--color-background),
+        950px 25px 0px 0px var(--color-surface-primary),
+        1000px 25px 0px 0px var(--color-surface-primary),
+        1050px 25px 0px 0px var(--color-surface-secondary),
+        1100px 25px 0px 0px var(--color-purple),
+        1150px 25px 0px 0px var(--color-surface-primary),
+        1200px 25px 0px 0px var(--color-background),
+        1250px 25px 0px 0px var(--color-accent),
+        1300px 25px 0px 0px var(--color-surface-primary),
+        1350px 25px 0px 0px var(--color-surface-secondary),
+        1400px 25px 0px 0px var(--color-background),
+        1470px 25px 0px 0px var(--color-purple);
+
+        
+
+
+       
+    
+        
+            
+}

@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&family=Pixelify+Sans&display=swap');
+
+:root {
+    --color-background: #0A101A;
+    --color-surface-primary: #0C1F34;
+    --color-surface-secondary: #102945;
+    --color-text-primary: #CFCED0;
+    --color-text-secondary: #B3B3B3;
+    --color-accent: #C18D21;
+    --color-shadow:#333333;
+    --color-box_shadow: #2d2d2d;
+    --color-white: #ffffff;
+    --color-green: #468432;
+    --color-purple: #462C7D;
+
+    --font-body: 'Barlow', sans-serif;
+    --font-title: 'Pixelify Sans', cursive;
+}
+
+#game-box{
+    aspect-ratio: 16 / 9;
+    width: 800px;
+    height: 518px;
+
+    border: 5px solid red;
+    overflow: hidden;
+}
+
+#page-display{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8%;
+    margin: 3%;
+}
+
+#display-right{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+@media (max-width: 1280px) {
+    #page-display{
+        gap: 2%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 1024px) {
+    #display-right{
+        display: none;
+    }
+}
+

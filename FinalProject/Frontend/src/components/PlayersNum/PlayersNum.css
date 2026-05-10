@@ -1,0 +1,64 @@
+.pixel-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.pixel-label {
+    font-family: var(--font-title);
+    font-size: 20px;
+    color: var(--color-accent);
+    letter-spacing: 1px;
+}
+
+.pixel-controls {
+    display: flex;
+    align-items: center;
+}
+
+.pixel-btn {
+    font-family: var(--font-body);
+    font-size:30px;
+    width: 44px;
+    height: 44px;
+    background: var(--color-surface-primary);
+    color: var(--color-accent);
+    border: 3px var(--color-accent);
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--color-background);
+    transition: transform 0.05s, box-shadow 0.05s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pixel-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--color-background);
+}
+
+.pixel-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.pixel-input {
+    font-family: var(--font-title);
+    font-size: 40px;
+    width: 80px;
+    height: 44px;
+    background: var(--color-surface-primary);
+    color: var(--color-accent);
+    border-top: 3px var(--color-accent);
+    border-bottom: 3px var(--color-accent);
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    outline: none;
+}
+
+.pixel-input::-webkit-outer-spin-button,
+.pixel-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
