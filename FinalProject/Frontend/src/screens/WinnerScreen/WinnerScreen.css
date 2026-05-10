@@ -176,7 +176,7 @@
 }
 
 .waiting-host{
-  padding: 5px 24px;
-  color: var(--color-text-primary);
+  padding: 0 24px;
+  color: var(--color-white);
   font-family: var(--font-title);
 }
