@@ -25,6 +25,15 @@ function App() {
   return (
     <>
       <NavBar/>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
       <section id='page-display'>
         <section>
 
