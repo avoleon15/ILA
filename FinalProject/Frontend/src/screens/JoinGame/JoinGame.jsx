@@ -64,6 +64,7 @@ const JoinGame = ({ navigate, gameState, setGameState }) => {
                     playerId: res.playerId,
                     isHost: false,
                     players: res.players,
+                    maxPlayers: res.maxPlayers,
                 }))
                 navigate('lobby')
             } else {
@@ -75,10 +76,6 @@ const JoinGame = ({ navigate, gameState, setGameState }) => {
     return (
         <div id='Joingame'>
             <TitleHolder text="Join Game"/>
-
-            <p className={connected ? 'status-ok' : 'status-err'}>
-                {connected ? '● Connected' : '● Disconnected — start the backend (npm start)'}
-            </p>
 
             <input
                 className='name-input'

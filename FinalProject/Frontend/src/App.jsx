@@ -20,6 +20,7 @@ function App() {
     topicSelector: null,
     topic: '',
     drawingDuration: 60000,
+    maxPlayers: 8,
   })
 
   return (

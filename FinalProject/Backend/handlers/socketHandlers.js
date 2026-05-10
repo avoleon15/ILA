@@ -15,13 +15,13 @@ export const setupSocketHandlers = (io) => {
 
     // El host emite este evento para crear una nueva sala con un codigo unico
     socket.on('create-room', (data, callback) => {
-      const { hostName, gameMode } = data
+      const { hostName, gameMode, maxPlayers } = data
       const roomManager = io.roomManager
 
       const DURATIONS = { classic: 60000, rapid: 120000, extended: 180000 }
       const drawingDuration = DURATIONS[gameMode] ?? 60000
 
-      const newRoom = roomManager.createRoom(hostName, drawingDuration)
+      const newRoom = roomManager.createRoom(hostName, drawingDuration, maxPlayers)
       roomManager.setHostSocketId(newRoom.code, socket.id)
       // El host tambien es jugador — se agrega al array de players
       roomManager.addPlayerToRoom(newRoom.code, hostName, socket.id)
@@ -36,7 +36,8 @@ export const setupSocketHandlers = (io) => {
         roomCode: newRoom.code,
         roomId: newRoom.id,
         hostId: newRoom.host.id,
-        players: room.players
+        players: room.players,
+        maxPlayers: room.maxPlayers
       })
 
       socket.emit('room-updated', {
@@ -65,7 +66,8 @@ export const setupSocketHandlers = (io) => {
         success: true,
         playerId: result.player.id,
         roomCode: roomCode,
-        players: result.room.players
+        players: result.room.players,
+        maxPlayers: result.room.maxPlayers
       })
 
       // Notify all players in room that a new player joined
@@ -358,17 +360,24 @@ export const setupSocketHandlers = (io) => {
       const roomManager = io.roomManager
 
       if (roomCode) {
-        const room = roomManager.removePlayerFromRoom(roomCode, socket.id)
+        const room = roomManager.getRoom(roomCode)
+        const wasHost = room?.host.socketId === socket.id
+
+        const updatedRoom = roomManager.removePlayerFromRoom(roomCode, socket.id)
         socket.leave(roomCode)
 
-        if (room) {
-          console.log(`👋 Player left room ${roomCode}. Remaining: ${room.players.length}`)
-
-          if (room.players.length > 0) {
+        if (updatedRoom) {
+          if (updatedRoom.players.length > 0) {
+            if (wasHost) {
+              roomManager.transferHost(roomCode)
+              console.log(`👑 Host left room ${roomCode}. New host: ${updatedRoom.host.name}`)
+              io.to(roomCode).emit('host-changed', { host: updatedRoom.host })
+            }
+            console.log(`👋 Player left room ${roomCode}. Remaining: ${updatedRoom.players.length}`)
             io.to(roomCode).emit('room-updated', {
-              state: room.state,
-              players: room.players,
-              host: room.host
+              state: updatedRoom.state,
+              players: updatedRoom.players,
+              host: updatedRoom.host
             })
           } else {
             console.log(`🏚️ Room ${roomCode} is now empty and will be deleted`)
@@ -389,8 +398,15 @@ export const setupSocketHandlers = (io) => {
 
       allRooms.forEach(room => {
         if (room.players.find(p => p.socketId === socket.id)) {
+          const wasHost = room.host.socketId === socket.id
           roomManager.removePlayerFromRoom(room.code, socket.id)
+
           if (room.players.length > 0) {
+            if (wasHost) {
+              roomManager.transferHost(room.code)
+              console.log(`👑 Host disconnected from room ${room.code}. New host: ${room.host.name}`)
+              io.to(room.code).emit('host-changed', { host: room.host })
+            }
             io.to(room.code).emit('room-updated', {
               state: room.state,
               players: room.players,

@@ -12,13 +12,15 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
     const cArcStepDegrees = -33
 
     useEffect(() => {
-        // Update player list whenever someone joins or leaves
         socket.on('room-updated', ({ players: updatedPlayers }) => {
             setPlayers(updatedPlayers)
             setGameState(prev => ({ ...prev, players: updatedPlayers }))
         })
 
-        // Navigate everyone to topic selection when host starts
+        socket.on('host-changed', ({ host }) => {
+            setGameState(prev => ({ ...prev, isHost: socket.id === host.socketId }))
+        })
+
         socket.on('game-started', ({ topicSelector }) => {
             setGameState(prev => ({ ...prev, topicSelector }))
             navigate('selecTopic')
@@ -26,6 +28,7 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
 
         return () => {
             socket.off('room-updated')
+            socket.off('host-changed')
             socket.off('game-started')
         }
     }, [])
@@ -86,7 +89,7 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
             <div className='lobby-players'>
                 <h3>
                     <span className='lobby-players-label'>Players</span>
-                    <span className='lobby-players-count'> ({players.length}/8)</span>
+                    <span className='lobby-players-count'> ({players.length}/{gameState.maxPlayers})</span>
                 </h3>
                 <ul className='lobby-players-ring'>
                     {players.map((p, index) => {
@@ -111,7 +114,7 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
                 {players.length === 0 && <p>Waiting for players to join...</p>}
             </div>
 
-            {gameState.isHost && (
+            {gameState.isHost && !showLeaveWarning && (
                 <div className='lobbyStartButton'>
                     <OptionHolder text='Start Game' onClick={handleStartGame} />
                 </div>

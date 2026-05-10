@@ -32,14 +32,12 @@
 .name-input {
     font-family: var(--font-title);
     font-size: 1rem;
-    padding: 6px 12px;
+    padding: 12px;
     border-radius: 6px;
     border: 2px solid var(--color-accent);
     text-align: center;
     width: 200px;
-    margin-bottom: 10px;
+    margin: 20px;
 }
 
-.status-ok  { color: #00cc66; font-size: 0.85rem; margin-bottom: 8px; }
-.status-err { color: #ff4444; font-size: 0.85rem; margin-bottom: 8px; }
-.error-msg  { color: #ff4444; font-size: 0.85rem; margin-top: 8px; }
+.error-msg  { font-family: var(--font-title);color: #ff4444; font-size: 0.85rem; margin-top: 8px; }

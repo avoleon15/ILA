@@ -36,7 +36,7 @@ function CreateGame({ navigate, gameState, setGameState }) {
         }
         setError('')
 
-        socket.emit('create-room', { hostName: gameState.playerName, gameMode: gameState.gameMode }, (res) => {
+        socket.emit('create-room', { hostName: gameState.playerName, gameMode: gameState.gameMode, maxPlayers: players }, (res) => {
             if (res.success) {
                 setGameState(prev => ({
                     ...prev,
@@ -44,6 +44,7 @@ function CreateGame({ navigate, gameState, setGameState }) {
                     playerId: res.hostId,
                     isHost: true,
                     players: res.players,
+                    maxPlayers: res.maxPlayers,
                 }))
                 navigate('lobby')
             } else {
@@ -55,10 +56,6 @@ function CreateGame({ navigate, gameState, setGameState }) {
     return (
         <section id='createGame'>
             <TitleHolder text="Create Game" />
-
-            <p className={connected ? 'status-ok' : 'status-err'}>
-                {connected ? '● Connected' : '● Disconnected — start the backend (npm start)'}
-            </p>
 
             <input
                 className='name-input'
