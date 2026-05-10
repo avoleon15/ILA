@@ -59,7 +59,7 @@ export default function WinnerScreen({ gameState, setGameState, navigate }) {
           {gameState.isHost ? (
             <button className="play-again" onClick={handlePlayAgain}>Play Again</button>
           ) : (
-            <p className="waiting-host">Waiting for host to start next round...</p>
+            <p className="waiting-host">Waiting for host...</p>
           )}
           <button className="play-again" onClick={handleExit}>Exit</button>
         </div>
