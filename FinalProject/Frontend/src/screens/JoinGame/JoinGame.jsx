@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import BackButton from '../../components/BackButton/BackButton'
 import OptionHolder from '../../components/OptionHolder/OptionHolder'
 import TitleHolder from '../../components/TitleHolder/TitleHolder'
 import socket from '../../socket.js'
@@ -74,6 +75,9 @@ const JoinGame = ({ navigate, gameState, setGameState }) => {
 
     return (
         <div id='Joingame'>
+            <div className='joinGameBackButton'>
+                <BackButton text="Back" onClick={() => navigate('menu')} />
+            </div>
             <TitleHolder text="Join Game"/>
 
             <p className={connected ? 'status-ok' : 'status-err'}>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import BackButton from '../../components/BackButton/BackButton.jsx'
 import Gamemode from "../../components/Gamemode/Gamemode.jsx"
 import OptionHolder from "../../components/OptionHolder/OptionHolder.jsx"
 import NumberInput from '../../components/PlayersNum/PlayersNum.jsx'
@@ -54,6 +55,9 @@ function CreateGame({ navigate, gameState, setGameState }) {
 
     return (
         <section id='createGame'>
+            <div className='createGameBackButton'>
+                <BackButton text="Back" onClick={() => navigate('menu')} />
+            </div>
             <TitleHolder text="Create Game" />
 
             <p className={connected ? 'status-ok' : 'status-err'}>
