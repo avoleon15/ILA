@@ -82,6 +82,58 @@ El servidor arranca en `http://localhost:3000`.
 
 ---
 
+## Deployment — Railway + MongoDB Atlas
+
+El backend está desplegado en **Railway**, conectado a **MongoDB Atlas** como base de datos en la nube.
+
+**URL de producción:** `https://ila-production.up.railway.app`
+
+### Base de datos — MongoDB Atlas
+
+1. Crear un cluster gratuito (M0) en [mongodb.com/atlas](https://www.mongodb.com/atlas)
+2. En **Database Access** → crear un usuario con contraseña
+3. En **Network Access** → agregar `0.0.0.0/0` (necesario porque Railway no tiene IP fija en el tier gratuito)
+4. En el cluster → **Connect** → **Drivers** → copiar el connection string y reemplazar `<password>`:
+   ```
+   mongodb+srv://usuario:contraseña@cluster0.xxxxx.mongodb.net/asdrubal?retryWrites=true&w=majority
+   ```
+
+### Configuración en Railway
+
+| Campo | Valor |
+|---|---|
+| Root Directory | `FinalProject/Backend` |
+| Start Command | `npm start` (detectado desde `package.json`) |
+| Puerto | Railway asigna automáticamente (usa `process.env.PORT`) |
+
+### Variables de entorno en Railway
+
+| Variable | Valor |
+|---|---|
+| `MONGODB_URI` | Connection string de MongoDB Atlas |
+| `CORS_ORIGIN` | URL del frontend en Vercel (ej: `https://asdrubal-dun.vercel.app`) |
+| `PORT` | No es necesario definirlo — Railway lo inyecta automáticamente |
+
+### Verificar que el backend está vivo
+
+```bash
+curl https://ila-production.up.railway.app/health
+```
+
+Debe responder:
+```json
+{ "status": "Backend is running", "timestamp": "..." }
+```
+
+### Endpoint de partidas guardadas
+
+```bash
+curl https://ila-production.up.railway.app/matches
+curl "https://ila-production.up.railway.app/matches?page=1&limit=10"
+```
+
+---
+
 ## server.js — Punto de entrada
 
 Configura y conecta todas las piezas del sistema:
