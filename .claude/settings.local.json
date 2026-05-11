@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(git stash *)",
+      "Bash(git pull *)",
+      "Read(//Users/alvaro_leon15/Desktop/**)",
+      "Bash(grep -n \"getAllRooms\" \"Introducción a Desarrollo Software/ILA/FinalProject/Backend\"/**/*.js)"
+    ]
+  }
+}
