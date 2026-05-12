@@ -19,20 +19,22 @@
 
 #game-box{
     aspect-ratio: 16 / 9;
-    width: 800px;
-    height: 518px;
+    width: min(800px, 100%);
+    height: auto;
 
     border: 5px solid red;
     overflow: hidden;
 }
 
 #page-display{
-    height: 80vh;
+    min-height: calc(100vh - 60px);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     gap: 8%;
-    margin: 3%;
+    margin: 0;
+    padding: 24px 3% 3%;
+    box-sizing: border-box;
 }
 
 #display-right{
