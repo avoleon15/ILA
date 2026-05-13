@@ -370,7 +370,7 @@ footer p{
     align-items: center;
     justify-content: space-evenly;
     gap: 5%;
-    border-color: var(--color-surface-secondary);
+    transition: transform 1.5s, color 1.5s;
 }
 
 .tech-box{
@@ -382,12 +382,11 @@ footer p{
 }
 
 
-.tech-bigbox :hover{
+.tech-bigbox:hover{
 
     color: var(--color-accent);
     transform: scale(1.05);
     cursor: pointer;
-    transition: 1.5s;
 }
 
 
@@ -594,8 +593,6 @@ footer p{
 }
 
 #escability{
-    display: flex;
-    flex-direction: column;
     position: relative;
     overflow: hidden;
     padding: 100px 8%;
