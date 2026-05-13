@@ -1,4 +1,10 @@
+.ad-large img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
 .ad-large{
     height: 125px;
-    width: 800px;
+    width: 810px;
 }

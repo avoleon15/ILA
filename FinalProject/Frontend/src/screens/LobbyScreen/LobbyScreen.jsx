@@ -1,3 +1,7 @@
+// LobbyScreen.jsx — waiting room before the game starts.
+// Shows connected players, the room code (copyable), and a Start Game button for the host.
+// Listens for room-updated, host-changed, and game-started socket events.
+
 import { useEffect, useState } from 'react'
 import BackButton from '../../components/BackButton/BackButton.jsx'
 import OptionHolder from '../../components/OptionHolder/OptionHolder.jsx'

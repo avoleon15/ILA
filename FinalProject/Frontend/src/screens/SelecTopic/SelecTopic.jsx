@@ -1,3 +1,7 @@
+// SelecTopic.jsx — screen shown after the game starts, while the topic is being chosen.
+// The randomly selected topic selector sees an input; all other players see a waiting message.
+// Navigates to the drawing screen once topic-selected is received from the server.
+
 import { useEffect, useState } from 'react'
 import OptionHolder from '../../components/OptionHolder/OptionHolder'
 import TitleHolder from '../../components/TitleHolder/TitleHolder'
