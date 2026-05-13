@@ -1,4 +1,11 @@
-.ad-medium{
+.ad-medium {
     height: 225px;
     width: 225px;
+}
+
+.ad-medium img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
 }

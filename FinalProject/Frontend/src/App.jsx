@@ -26,6 +26,9 @@ function App() {
   return (
     <>
       <NavBar/>
+      <br />
+      <br />
+      <br />
       <section id='page-display'>
         <section>
 
@@ -41,9 +44,9 @@ function App() {
           <Adlg/>
         </section>
         <section id='display-right'>
-          <Admd/>
+          <Admd variant={1}/>
           <Adsm/>
-          <Admd/>
+          <Admd variant={2}/>
         </section>
       </section>
     </>

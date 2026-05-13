@@ -22,7 +22,7 @@
     width: 800px;
     height: 518px;
 
-    border: 5px solid red;
+    border: 5px solid var(--color-surface-secondary);
     overflow: hidden;
 }
 

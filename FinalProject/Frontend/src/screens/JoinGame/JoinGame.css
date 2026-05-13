@@ -9,6 +9,7 @@
     background-image: url('../../Assets/images/JoinGameBG.png');
     background-size: 100%;
     background-repeat: no-repeat;
+    background-position: -3px -3px;
 }
 
 .joinGameBackButton {
