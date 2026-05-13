@@ -1,3 +1,6 @@
+// WinnerScreen.jsx — results screen shown after voting ends.
+// Displays the winner's name and their drawing. The host can start a new round or any player can exit.
+
 import { useEffect } from 'react'
 import socket from '../../socket.js'
 import './WinnerScreen.css'

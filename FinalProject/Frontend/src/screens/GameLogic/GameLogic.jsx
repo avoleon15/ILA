@@ -1,3 +1,8 @@
+// GameLogic.jsx — pixel canvas drawing screen.
+// Manages an 80x45 grid rendered on a <canvas>. Supports draw, eraser, and flood-fill tools,
+// a 3-slot color palette, brush size slider, undo (up to 30 steps), and a server-authoritative
+// countdown timer that auto-submits the drawing as a base64 PNG when time runs out.
+
 import { ArrowCounterClockwise, Eraser, PaintBucket, PencilSimple, Trash } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
 import socket from '../../socket.js'

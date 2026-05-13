@@ -1,3 +1,6 @@
+// JoinGame.jsx — screen where a player enters their name and a 6-character room code to join an existing room.
+// Handles paste, per-character input navigation, and join-room socket emit.
+
 import { useEffect, useRef, useState } from 'react'
 import BackButton from '../../components/BackButton/BackButton'
 import OptionHolder from '../../components/OptionHolder/OptionHolder'

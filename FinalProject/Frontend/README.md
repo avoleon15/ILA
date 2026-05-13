@@ -142,6 +142,65 @@ npm run lint      # Linter con ESLint
 
 ---
 
+## GameLogic — Canvas Drawing Screen
+
+The drawing screen uses the **Canvas API**, a native browser API built into HTML5. No external drawing library was installed.
+
+### Grid-based pixel art, not freehand drawing
+
+Instead of a freehand canvas, the drawing area is divided into a fixed grid of cells:
+
+```js
+const COLS = 80   // 80 columns
+const ROWS = 45   // 45 rows
+const CELL = 10   // each cell = 10×10 px on screen
+```
+
+The actual canvas is **800×450px**, but the player draws cell by cell, giving it a pixel-art feel.
+
+### The 3 Canvas API pieces used
+
+**1. `canvas.getContext('2d')`** — gets the drawing context (the "brush"):
+```js
+const ctx = canvas.getContext('2d')
+```
+
+**2. `ctx.fillRect()`** — paints each cell with a color:
+```js
+ctx.fillStyle = color
+ctx.fillRect(col * CELL, row * CELL, CELL, CELL)
+```
+On every mouse click or drag, the code converts the cursor position into a grid cell and fills that rectangle.
+
+**3. `canvas.toDataURL('image/png')`** — exports the drawing as an image:
+```js
+const dataUrl = canvasRef.current.toDataURL('image/png')
+```
+When the timer runs out, the entire canvas is converted into a base64-encoded PNG string and sent to the server via socket as the player's submission.
+
+### Flood fill (paint bucket tool)
+
+The fill tool was implemented manually using a classic **stack-based flood fill** algorithm — it is not a Canvas API feature:
+
+```js
+const stack = [[startCol, startRow]]
+while (stack.length) {
+    // expands to 4 neighbors if they share the original color
+}
+```
+
+### Grid state lives in memory, not the canvas
+
+The most important design decision: the grid is stored as a flat array in a React ref, not in the canvas itself:
+
+```js
+const gridRef = useRef(Array(COLS * ROWS).fill('#ffffff'))
+```
+
+The canvas is only the **visual representation** of that array. This makes undo possible — before every stroke, a copy of the array is pushed onto `undoStack`. Undoing means popping the last snapshot and redrawing the whole canvas from it (up to 30 undo steps).
+
+---
+
 ## Deployment — Vercel
 
 El frontend está desplegado en **Vercel**, conectado al repositorio de GitHub.
