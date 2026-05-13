@@ -1,3 +1,7 @@
+// VotingScreen.jsx — displays each player's drawing one at a time for voting.
+// Each drawing is shown for a fixed duration; players rate it 1–5 (can't vote their own).
+// The host ends the voting phase once all drawings have been shown.
+
 import { useEffect, useState } from 'react'
 import socket from '../../socket.js'
 import './VotingScreen.css'

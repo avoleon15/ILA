@@ -1,3 +1,6 @@
+// createGame.jsx — screen where the host configures and creates a new room.
+// Lets the host pick a name, player count, and game mode before emitting create-room.
+
 import { useEffect, useState } from "react"
 import BackButton from '../../components/BackButton/BackButton.jsx'
 import Gamemode from "../../components/Gamemode/Gamemode.jsx"

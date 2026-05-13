@@ -1,3 +1,6 @@
+// Matches.jsx — paginated list of all completed matches fetched from the REST API.
+// Pulls from GET /matches with page and limit params, showing 10 results per page.
+
 import { useEffect, useState } from 'react'
 import BackButton from '../../components/BackButton/BackButton.jsx'
 import './Matches.css'

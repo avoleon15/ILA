@@ -1,3 +1,8 @@
+// GameLogic.jsx — pixel canvas drawing screen.
+// Manages an 80x45 grid rendered on a <canvas>. Supports draw, eraser, and flood-fill tools,
+// a 3-slot color palette, brush size slider, undo (up to 30 steps), and a server-authoritative
+// countdown timer that auto-submits the drawing as a base64 PNG when time runs out.
+
 import { ArrowCounterClockwise, Eraser, PaintBucket, PencilSimple, Trash } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
 import socket from '../../socket.js'
@@ -19,6 +24,7 @@ const COLORS = [
   '#ffe8a0', '#c68642', '#a0522d', '#7b4000', '#5c2d00', '#d4a574', '#f5deb3', '#8b4513',
 ]
 
+// Paints a single grid cell on the canvas with its color and a faint border to show the grid.
 function drawCell(ctx, col, row, color) {
     ctx.fillStyle = color
     ctx.fillRect(col * CELL, row * CELL, CELL, CELL)
@@ -27,6 +33,7 @@ function drawCell(ctx, col, row, color) {
     ctx.strokeRect(col * CELL + 0.25, row * CELL + 0.25, CELL - 0.5, CELL - 0.5)
 }
 
+// Redraws every cell in the grid — used after undo or clear to sync the canvas with gridRef.
 function redrawAll(ctx, grid) {
     for (let row = 0; row < ROWS; row++)
         for (let col = 0; col < COLS; col++)
@@ -54,6 +61,7 @@ function GameLogic({ navigate, gameState, setGameState }) {
 
     const color = slotColors[activeSlot]
 
+    // Exports the canvas as a base64 PNG and sends it to the server. Runs only once (guard via ref).
     const submitDrawing = () => {
         if (submittedRef.current) return
         submittedRef.current = true
@@ -112,11 +120,13 @@ function GameLogic({ navigate, gameState, setGameState }) {
     }, [])
 
 
+    // Saves a copy of the current grid to the undo stack (capped at 30 snapshots).
     const saveSnapshot = () => {
         undoStack.current.push([...gridRef.current])
         if (undoStack.current.length > 30) undoStack.current.shift()
     }
 
+    // Restores the last saved snapshot from the undo stack and redraws the canvas.
     const undo = () => {
         if (!undoStack.current.length) return
         gridRef.current = undoStack.current.pop()
@@ -124,8 +134,10 @@ function GameLogic({ navigate, gameState, setGameState }) {
         if (ctx) redrawAll(ctx, gridRef.current)
     }
 
+    // Toolbar button handler that calls undo.
     const handleUndo = () => undo()
 
+    // Converts a mouse event's pixel coordinates into a grid cell (col, row), accounting for canvas scaling.
     const getGridPos = (e) => {
         const rect   = canvasRef.current.getBoundingClientRect()
         const scaleX = (COLS * CELL) / rect.width
@@ -136,6 +148,7 @@ function GameLogic({ navigate, gameState, setGameState }) {
         }
     }
 
+    // Paints a square brush area centered on (centerCol, centerRow). Skips cells already that color.
     const paintCells = (ctx, centerCol, centerRow, paintColor) => {
         const half  = Math.floor(brushSize / 2)
         const cells = []
@@ -154,6 +167,7 @@ function GameLogic({ navigate, gameState, setGameState }) {
         return cells
     }
 
+    // Stack-based flood fill: replaces all connected cells of the same color with fillColor.
     const floodFill = (ctx, startCol, startRow, fillColor) => {
         const grid        = gridRef.current
         const targetColor = grid[startRow * COLS + startCol]
@@ -177,6 +191,7 @@ function GameLogic({ navigate, gameState, setGameState }) {
         return cells
     }
 
+    // Saves a snapshot then starts painting or triggers flood fill on the clicked cell.
     const onMouseDown = (e) => {
         const { col, row } = getGridPos(e)
         const ctx = canvasRef.current.getContext('2d')
@@ -194,6 +209,7 @@ function GameLogic({ navigate, gameState, setGameState }) {
         lastCell.current  = { col, row }
     }
 
+    // Continues painting while the mouse is held down, skipping repeated cells.
     const onMouseMove = (e) => {
         if (!painting.current) return
         const { col, row } = getGridPos(e)
@@ -204,8 +220,10 @@ function GameLogic({ navigate, gameState, setGameState }) {
         lastCell.current = { col, row }
     }
 
+    // Stops painting when the mouse button is released or leaves the canvas.
     const onMouseUp = () => { painting.current = false }
 
+    // Saves a snapshot then fills the entire grid with white and redraws the canvas.
     const clearCanvas = () => {
         saveSnapshot()
         gridRef.current.fill('#ffffff')
