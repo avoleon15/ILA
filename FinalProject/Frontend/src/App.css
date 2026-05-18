@@ -58,3 +58,31 @@
     }
 }
 
+/* ── Mobile layout ── */
+@media (max-width: 768px) {
+    #App {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    #page-display {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        margin: 0;
+        gap: 0;
+    }
+
+    /* Let the unnamed wrapper section stretch full width */
+    #page-display > section:first-child {
+        width: 100%;
+    }
+
+    #game-box {
+        /* Full viewport width; height derived from 16:9 so children's height:100% resolves */
+        box-sizing: border-box;
+        width: 100vw;
+        height: calc(100vw * 9 / 16);
+    }
+}
+

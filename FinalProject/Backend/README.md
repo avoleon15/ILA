@@ -162,7 +162,6 @@ Configura y conecta todas las piezas del sistema:
 
 ```
 waiting          → Esperando jugadores, sala recién creada
-ready            → (reservado) Todos los jugadores listos
 selecting_topic  → Un jugador aleatorio está eligiendo el tema
 drawing          → Todos los jugadores están dibujando
 voting           → Fase de votación activa
@@ -223,7 +222,7 @@ finished         → Partida terminada definitivamente
 
 | Método | Descripción |
 |---|---|
-| `createRoom(hostName, drawingDuration)` | Crea una sala con código aleatorio de 6 caracteres. `drawingDuration` se asigna según el modo de juego elegido al crear la sala. |
+| `createRoom(hostName, drawingDuration, maxPlayers)` | Crea una sala con código aleatorio de 6 caracteres. `drawingDuration` se asigna según el modo de juego; `maxPlayers` (2–8) lo elige el host al crear la sala. |
 | `addPlayerToRoom(roomCode, playerName, socketId)` | Agrega un jugador a la sala. Falla si la sala está llena, no existe, o la partida ya empezó. |
 | `removePlayerFromRoom(roomCode, socketId)` | Elimina al jugador. Si la sala queda vacía, la borra del Map. |
 | `setHostSocketId(roomCode, socketId)` | Guarda el socketId del host (se llama al crear sala). |
@@ -232,7 +231,6 @@ finished         → Partida terminada definitivamente
 | `setRoomState(roomCode, newState)` | Transiciona la sala a un nuevo estado. |
 | `selectTopicSelector(roomCode)` | Elige un jugador al azar para seleccionar el tema y lo guarda en `room.topicSelector`. |
 | `setTopic(roomCode, topic)` | Guarda el tema elegido y registra `topicSetAt`. |
-| `startDrawing(roomCode)` | Marca el inicio de la fase de dibujo con timestamp. |
 | `savePlayerDrawing(roomCode, socketId, drawingData)` | Guarda el dibujo (base64 PNG) del jugador en `player.drawing`. |
 | `startVoting(roomCode)` | Cambia estado a `VOTING` y resetea los `votes` de todos los jugadores. |
 | `recordVote(roomCode, voterSocketId, votedOnSocketId, rating)` | Registra un voto (1-5) y suma el `rating` al `score` del dibujante. Un jugador no puede votarse a sí mismo. |
@@ -242,7 +240,6 @@ finished         → Partida terminada definitivamente
 | `setDrawingTimer(roomCode, timerId)` | Guarda la referencia del `setTimeout` del temporizador. |
 | `clearDrawingTimer(roomCode)` | Cancela el `setTimeout` activo (evita doble disparo si el host termina manualmente). |
 | `getRoom(roomCode)` | Devuelve la sala por código. |
-| `getRoomPlayers(roomCode)` | Devuelve el array de jugadores de una sala. |
 | `getAllRooms()` | Devuelve todas las salas activas (usado en `disconnect` para limpiar). |
 | `generateRoomCode()` | Genera un código alfanumérico de 6 caracteres único (no repite códigos activos). |
 
@@ -267,9 +264,10 @@ El host crea una nueva sala.
 // Emit
 socket.emit('create-room', {
   hostName: 'Player1',
-  gameMode: 'classic' // 'classic' | 'rapid' | 'extended'
+  gameMode: 'classic', // 'classic' | 'rapid' | 'extended'
+  maxPlayers: 4        // número de jugadores (2–8)
 }, (response) => {
-  // { success: true, roomCode: 'ABC123', roomId: '...', hostId: '...' }
+  // { success: true, roomCode: 'ABC123', roomId: '...', hostId: '...', players: [], maxPlayers: 4 }
 })
 ```
 
@@ -290,7 +288,7 @@ socket.emit('join-room', {
   roomCode: 'ABC123',
   playerName: 'Player2'
 }, (response) => {
-  // { success: true, playerId: '...', roomCode: 'ABC123' }
+  // { success: true, playerId: '...', roomCode: 'ABC123', players: [], maxPlayers: 4 }
   // Error: { success: false, error: 'Room is full' | 'Game already started' | 'Room not found' }
 })
 ```
@@ -517,8 +515,7 @@ Persiste el resultado final de una partida completada.
     playerId: String,
     playerName: String,
     score: Number,
-    drawingSubmitted: Boolean,
-    votesReceived: Number
+    drawingSubmitted: Boolean
   }],
   createdAt: Date,
   duration: Number       // Duración de la partida en segundos

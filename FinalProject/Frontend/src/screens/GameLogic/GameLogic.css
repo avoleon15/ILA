@@ -73,6 +73,7 @@ canvas {
   cursor: crosshair;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  touch-action: none; /* let JS handle all touch input; prevents scroll/zoom on canvas */
 }
 
 /* Tool buttons */
@@ -190,4 +191,60 @@ canvas {
 
 .back-btn:hover {
   background: var(--color-surface-secondary);
+}
+
+/* ── Mobile overrides ── */
+@media (max-width: 768px) {
+  /* Toolbar scrolls horizontally instead of overflowing */
+  .toolbar {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 6px;
+    gap: 3px;
+  }
+  .toolbar::-webkit-scrollbar { display: none; }
+
+  /* Shrink border around canvas to reclaim vertical space */
+  .canvas-wrapper {
+    border-width: 12px;
+  }
+
+  /* Bigger tap targets on mobile */
+  .tool-btn,
+  .palette-toggle,
+  .back-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Wider slider for easier thumb dragging */
+  .size-slider {
+    width: 80px;
+  }
+
+  /* Color palette popup: anchor above the toolbar so it doesn't clip off-screen */
+  .color-palette {
+    top: auto;
+    bottom: calc(100% + 6px);
+    left: 0;
+    /* Smaller swatches on narrow screen */
+    grid-template-columns: repeat(8, 18px);
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .color-swatch {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Topic & timer: smaller text so they fit alongside tools */
+  .topic-selected h5 { font-size: 0.75rem; }
+  .topic-selected h6 { font-size: 0.85rem; }
+
+  .timer {
+    font-size: 0.85rem;
+  }
 }

@@ -119,6 +119,32 @@ function GameLogic({ navigate, gameState, setGameState }) {
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [])
 
+    // Touch drawing — registered with { passive: false } so preventDefault() can block page scroll.
+    // Touch objects expose clientX/clientY just like MouseEvent, so existing handlers work as-is.
+    useEffect(() => {
+        const canvas = canvasRef.current
+
+        const onTouchStart = (e) => {
+            if (submittedRef.current) return
+            e.preventDefault()
+            onMouseDown(e.touches[0])
+        }
+        const onTouchMove = (e) => {
+            e.preventDefault()
+            onMouseMove(e.touches[0])
+        }
+
+        canvas.addEventListener('touchstart', onTouchStart, { passive: false })
+        canvas.addEventListener('touchmove',  onTouchMove,  { passive: false })
+        canvas.addEventListener('touchend',   onMouseUp)
+
+        return () => {
+            canvas.removeEventListener('touchstart', onTouchStart)
+            canvas.removeEventListener('touchmove',  onTouchMove)
+            canvas.removeEventListener('touchend',   onMouseUp)
+        }
+    }, [tool, color, brushSize])
+
 
     // Saves a copy of the current grid to the undo stack (capped at 30 snapshots).
     const saveSnapshot = () => {

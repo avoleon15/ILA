@@ -184,6 +184,17 @@
     z-index: 30;
 }
 
+@media (max-width: 768px) {
+    .lobbyStartButton {
+        left: 50%;
+        bottom: 16px;
+    }
+
+    .lobby-room-code {
+        gap: 10px;
+    }
+}
+
 .lobbyLeaveOverlay {
     position: absolute;
     inset: 0;

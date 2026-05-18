@@ -15,3 +15,9 @@
 
     gap: 30px;
 }
+
+@media (max-width: 768px) {
+    #MenuScreen {
+        gap: 14px;
+    }
+}
