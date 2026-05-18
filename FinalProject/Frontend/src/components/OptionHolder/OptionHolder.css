@@ -3,7 +3,7 @@
     border: 3px solid var(--color-background);
 
     height: 60px;
-    width: min(280px, 60%);
+    width: min(280px, 40%);
 
     display: flex;
     justify-content: center;

@@ -6,7 +6,7 @@
     border: 5px solid var(--color-background);
 
     height: 100px;
-    width: 402px;
+    width: min(402px, 56%);
     position: relative;
     overflow: hidden;
 }
@@ -17,128 +17,144 @@
     font-family: var(--font-title);
     position: relative;
     z-index: 2;
-    font-size: 3rem;
+    font-size: clamp(1.6rem, 8vw, 1.3rem);
 }
 
 .canvas-titleHolder{
+    /* Change this single value to rescale the entire pixel pattern */
+    --th-block: 20px;
+
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 20px;
-    height: 20px;
+    width: var(--th-block);
+    height: var(--th-block);
     transform: translate(-50%, -50%);
     z-index: 1;
     pointer-events: none;
 
     box-shadow:
-    -200px -40px var(--color-surface-secondary),
-    -180px -40px var(--color-surface-primary),
-    -160px -40px transparent,
-    -140px -40px var(--color-surface-primary),
-    -120px -40px var(--color-surface-secondary),
-    -100px -40px transparent,
-    -80px -40px var(--color-surface-secondary),
-    -60px -40px var(--color-surface-primary),
-    -40px -40px transparent,
-    -20px -40px var(--color-surface-primary),
-    0px -40px var(--color-surface-secondary),
-    20px -40px var(--color-surface-primary),
-    40px -40px transparent,
-    60px -40px var(--color-surface-primary),
-    80px -40px var(--color-surface-secondary),
-    100px -40px var(--color-surface-primary),
-    120px -40px transparent,
-    140px -40px var(--color-surface-primary),
-    160px -40px var(--color-surface-secondary),
-    180px -40px var(--color-surface-primary),
-    200px -40px transparent,
+    /* Row -2 */
+    calc(var(--th-block) * -10) calc(var(--th-block) * -2) var(--color-surface-secondary),
+    calc(var(--th-block) *  -9) calc(var(--th-block) * -2) var(--color-surface-primary),
+    calc(var(--th-block) *  -8) calc(var(--th-block) * -2) transparent,
+    calc(var(--th-block) *  -7) calc(var(--th-block) * -2) var(--color-surface-primary),
+    calc(var(--th-block) *  -6) calc(var(--th-block) * -2) var(--color-surface-secondary),
+    calc(var(--th-block) *  -5) calc(var(--th-block) * -2) transparent,
+    calc(var(--th-block) *  -4) calc(var(--th-block) * -2) var(--color-surface-secondary),
+    calc(var(--th-block) *  -3) calc(var(--th-block) * -2) var(--color-surface-primary),
+    calc(var(--th-block) *  -2) calc(var(--th-block) * -2) transparent,
+    calc(var(--th-block) *  -1) calc(var(--th-block) * -2) var(--color-surface-primary),
+    0px                         calc(var(--th-block) * -2) var(--color-surface-secondary),
+    var(--th-block)             calc(var(--th-block) * -2) var(--color-surface-primary),
+    calc(var(--th-block) *   2) calc(var(--th-block) * -2) transparent,
+    calc(var(--th-block) *   3) calc(var(--th-block) * -2) var(--color-surface-primary),
+    calc(var(--th-block) *   4) calc(var(--th-block) * -2) var(--color-surface-secondary),
+    calc(var(--th-block) *   5) calc(var(--th-block) * -2) var(--color-surface-primary),
+    calc(var(--th-block) *   6) calc(var(--th-block) * -2) transparent,
+    calc(var(--th-block) *   7) calc(var(--th-block) * -2) var(--color-surface-primary),
+    calc(var(--th-block) *   8) calc(var(--th-block) * -2) var(--color-surface-secondary),
+    calc(var(--th-block) *   9) calc(var(--th-block) * -2) var(--color-surface-primary),
+    calc(var(--th-block) *  10) calc(var(--th-block) * -2) transparent,
 
-    -200px -20px var(--color-surface-primary),
-    -180px -20px transparent,
-    -160px -20px var(--color-surface-primary),
-    -140px -20px var(--color-surface-secondary),
-    -120px -20px transparent,
-    -100px -20px var(--color-surface-secondary),
-    -80px -20px var(--color-surface-primary),
-    -60px -20px transparent,
-    -40px -20px var(--color-surface-primary),
-    -20px -20px var(--color-surface-secondary),
-    0px -20px var(--color-surface-primary),
-    20px -20px transparent,
-    40px -20px var(--color-surface-primary),
-    60px -20px var(--color-surface-secondary),
-    80px -20px transparent,
-    100px -20px var(--color-surface-secondary),
-    120px -20px var(--color-surface-primary),
-    140px -20px var(--color-surface-secondary),
-    160px -20px transparent,
-    180px -20px var(--color-surface-secondary),
-    200px -20px var(--color-surface-primary),
+    /* Row -1 */
+    calc(var(--th-block) * -10) calc(var(--th-block) * -1) var(--color-surface-primary),
+    calc(var(--th-block) *  -9) calc(var(--th-block) * -1) transparent,
+    calc(var(--th-block) *  -8) calc(var(--th-block) * -1) var(--color-surface-primary),
+    calc(var(--th-block) *  -7) calc(var(--th-block) * -1) var(--color-surface-secondary),
+    calc(var(--th-block) *  -6) calc(var(--th-block) * -1) transparent,
+    calc(var(--th-block) *  -5) calc(var(--th-block) * -1) var(--color-surface-secondary),
+    calc(var(--th-block) *  -4) calc(var(--th-block) * -1) var(--color-surface-primary),
+    calc(var(--th-block) *  -3) calc(var(--th-block) * -1) transparent,
+    calc(var(--th-block) *  -2) calc(var(--th-block) * -1) var(--color-surface-primary),
+    calc(var(--th-block) *  -1) calc(var(--th-block) * -1) var(--color-surface-secondary),
+    0px                         calc(var(--th-block) * -1) var(--color-surface-primary),
+    var(--th-block)             calc(var(--th-block) * -1) transparent,
+    calc(var(--th-block) *   2) calc(var(--th-block) * -1) var(--color-surface-primary),
+    calc(var(--th-block) *   3) calc(var(--th-block) * -1) var(--color-surface-secondary),
+    calc(var(--th-block) *   4) calc(var(--th-block) * -1) transparent,
+    calc(var(--th-block) *   5) calc(var(--th-block) * -1) var(--color-surface-secondary),
+    calc(var(--th-block) *   6) calc(var(--th-block) * -1) var(--color-surface-primary),
+    calc(var(--th-block) *   7) calc(var(--th-block) * -1) var(--color-surface-secondary),
+    calc(var(--th-block) *   8) calc(var(--th-block) * -1) transparent,
+    calc(var(--th-block) *   9) calc(var(--th-block) * -1) var(--color-surface-secondary),
+    calc(var(--th-block) *  10) calc(var(--th-block) * -1) var(--color-surface-primary),
 
-    -200px 0px var(--color-surface-secondary),
-    -180px 0px var(--color-surface-primary),
-    -160px 0px transparent,
-    -140px 0px var(--color-surface-primary),
-    -120px 0px var(--color-surface-secondary),
-    -100px 0px var(--color-surface-primary),
-    -80px 0px transparent,
-    -60px 0px var(--color-surface-primary),
-    -40px 0px var(--color-surface-secondary),
-    -20px 0px transparent,
-    0px 0px var(--color-surface-secondary),
-    20px 0px var(--color-surface-primary),
-    40px 0px var(--color-surface-secondary),
-    60px 0px transparent,
-    80px 0px var(--color-surface-secondary),
-    100px 0px var(--color-surface-primary),
-    120px 0px transparent,
-    140px 0px var(--color-surface-primary),
-    160px 0px var(--color-surface-secondary),
-    180px 0px var(--color-surface-primary),
-    200px 0px transparent,
+    /* Row 0 */
+    calc(var(--th-block) * -10) 0px var(--color-surface-secondary),
+    calc(var(--th-block) *  -9) 0px var(--color-surface-primary),
+    calc(var(--th-block) *  -8) 0px transparent,
+    calc(var(--th-block) *  -7) 0px var(--color-surface-primary),
+    calc(var(--th-block) *  -6) 0px var(--color-surface-secondary),
+    calc(var(--th-block) *  -5) 0px var(--color-surface-primary),
+    calc(var(--th-block) *  -4) 0px transparent,
+    calc(var(--th-block) *  -3) 0px var(--color-surface-primary),
+    calc(var(--th-block) *  -2) 0px var(--color-surface-secondary),
+    calc(var(--th-block) *  -1) 0px transparent,
+    0px                         0px var(--color-surface-secondary),
+    var(--th-block)             0px var(--color-surface-primary),
+    calc(var(--th-block) *   2) 0px var(--color-surface-secondary),
+    calc(var(--th-block) *   3) 0px transparent,
+    calc(var(--th-block) *   4) 0px var(--color-surface-secondary),
+    calc(var(--th-block) *   5) 0px var(--color-surface-primary),
+    calc(var(--th-block) *   6) 0px transparent,
+    calc(var(--th-block) *   7) 0px var(--color-surface-primary),
+    calc(var(--th-block) *   8) 0px var(--color-surface-secondary),
+    calc(var(--th-block) *   9) 0px var(--color-surface-primary),
+    calc(var(--th-block) *  10) 0px transparent,
 
-    -200px 20px var(--color-surface-primary),
-    -180px 20px var(--color-surface-secondary),
-    -160px 20px var(--color-surface-primary),
-    -140px 20px transparent,
-    -120px 20px var(--color-surface-primary),
-    -100px 20px var(--color-surface-secondary),
-    -80px 20px transparent,
-    -60px 20px var(--color-surface-secondary),
-    -40px 20px var(--color-surface-primary),
-    -20px 20px var(--color-surface-secondary),
-    0px 20px transparent,
-    20px 20px var(--color-surface-secondary),
-    40px 20px var(--color-surface-primary),
-    60px 20px transparent,
-    80px 20px var(--color-surface-primary),
-    100px 20px var(--color-surface-secondary),
-    120px 20px var(--color-surface-primary),
-    140px 20px transparent,
-    160px 20px var(--color-surface-primary),
-    180px 20px var(--color-surface-secondary),
-    200px 20px var(--color-surface-primary),
+    /* Row +1 */
+    calc(var(--th-block) * -10) var(--th-block) var(--color-surface-primary),
+    calc(var(--th-block) *  -9) var(--th-block) var(--color-surface-secondary),
+    calc(var(--th-block) *  -8) var(--th-block) var(--color-surface-primary),
+    calc(var(--th-block) *  -7) var(--th-block) transparent,
+    calc(var(--th-block) *  -6) var(--th-block) var(--color-surface-primary),
+    calc(var(--th-block) *  -5) var(--th-block) var(--color-surface-secondary),
+    calc(var(--th-block) *  -4) var(--th-block) transparent,
+    calc(var(--th-block) *  -3) var(--th-block) var(--color-surface-secondary),
+    calc(var(--th-block) *  -2) var(--th-block) var(--color-surface-primary),
+    calc(var(--th-block) *  -1) var(--th-block) var(--color-surface-secondary),
+    0px                         var(--th-block) transparent,
+    var(--th-block)             var(--th-block) var(--color-surface-secondary),
+    calc(var(--th-block) *   2) var(--th-block) var(--color-surface-primary),
+    calc(var(--th-block) *   3) var(--th-block) transparent,
+    calc(var(--th-block) *   4) var(--th-block) var(--color-surface-primary),
+    calc(var(--th-block) *   5) var(--th-block) var(--color-surface-secondary),
+    calc(var(--th-block) *   6) var(--th-block) var(--color-surface-primary),
+    calc(var(--th-block) *   7) var(--th-block) transparent,
+    calc(var(--th-block) *   8) var(--th-block) var(--color-surface-primary),
+    calc(var(--th-block) *   9) var(--th-block) var(--color-surface-secondary),
+    calc(var(--th-block) *  10) var(--th-block) var(--color-surface-primary),
 
-    -200px 40px var(--color-surface-secondary),
-    -180px 40px var(--color-surface-primary),
-    -160px 40px transparent,
-    -140px 40px var(--color-surface-primary),
-    -120px 40px var(--color-surface-secondary),
-    -100px 40px var(--color-surface-primary),
-    -80px 40px transparent,
-    -60px 40px var(--color-surface-primary),
-    -40px 40px var(--color-surface-secondary),
-    -20px 40px var(--color-surface-primary),
-    0px 40px transparent,
-    20px 40px var(--color-surface-primary),
-    40px 40px var(--color-surface-secondary),
-    60px 40px var(--color-surface-primary),
-    80px 40px transparent,
-    100px 40px var(--color-surface-primary),
-    120px 40px var(--color-surface-secondary),
-    140px 40px transparent,
-    160px 40px var(--color-surface-secondary),
-    180px 40px var(--color-surface-primary),
-    200px 40px var(--color-surface-secondary);
+    /* Row +2 */
+    calc(var(--th-block) * -10) calc(var(--th-block) * 2) var(--color-surface-secondary),
+    calc(var(--th-block) *  -9) calc(var(--th-block) * 2) var(--color-surface-primary),
+    calc(var(--th-block) *  -8) calc(var(--th-block) * 2) transparent,
+    calc(var(--th-block) *  -7) calc(var(--th-block) * 2) var(--color-surface-primary),
+    calc(var(--th-block) *  -6) calc(var(--th-block) * 2) var(--color-surface-secondary),
+    calc(var(--th-block) *  -5) calc(var(--th-block) * 2) var(--color-surface-primary),
+    calc(var(--th-block) *  -4) calc(var(--th-block) * 2) transparent,
+    calc(var(--th-block) *  -3) calc(var(--th-block) * 2) var(--color-surface-primary),
+    calc(var(--th-block) *  -2) calc(var(--th-block) * 2) var(--color-surface-secondary),
+    calc(var(--th-block) *  -1) calc(var(--th-block) * 2) var(--color-surface-primary),
+    0px                         calc(var(--th-block) * 2) transparent,
+    var(--th-block)             calc(var(--th-block) * 2) var(--color-surface-primary),
+    calc(var(--th-block) *   2) calc(var(--th-block) * 2) var(--color-surface-secondary),
+    calc(var(--th-block) *   3) calc(var(--th-block) * 2) var(--color-surface-primary),
+    calc(var(--th-block) *   4) calc(var(--th-block) * 2) transparent,
+    calc(var(--th-block) *   5) calc(var(--th-block) * 2) var(--color-surface-primary),
+    calc(var(--th-block) *   6) calc(var(--th-block) * 2) var(--color-surface-secondary),
+    calc(var(--th-block) *   7) calc(var(--th-block) * 2) transparent,
+    calc(var(--th-block) *   8) calc(var(--th-block) * 2) var(--color-surface-secondary),
+    calc(var(--th-block) *   9) calc(var(--th-block) * 2) var(--color-surface-primary),
+    calc(var(--th-block) *  10) calc(var(--th-block) * 2) var(--color-surface-secondary);
+}
 
+@media (max-width: 768px) {
+    .titleHolder {
+        height: 70px;
+    }
+    .canvas-titleHolder {
+        --th-block: 10px;
+    }
 }
