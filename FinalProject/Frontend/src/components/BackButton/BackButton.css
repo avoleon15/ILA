@@ -34,13 +34,15 @@
     transition: all 0.1s;
 }
 
-.backButton:hover{
+.backButton:hover,
+.backButton:active {
     --pixel-highlight: var(--color-accent);
     border: 3px solid var(--color-accent);
     cursor: pointer;
 }
 
-.backButton:hover h3{
+.backButton:hover h3,
+.backButton:active h3 {
     font-size: 1.6rem;
     color: var(--color-accent);
 }

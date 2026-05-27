@@ -17,7 +17,7 @@
     font-family: var(--font-title);
     position: relative;
     z-index: 2;
-    font-size: clamp(1.6rem, 8vw, 1.3rem);
+    font-size: 3rem;
 }
 
 .canvas-titleHolder{
@@ -153,8 +153,13 @@
 @media (max-width: 768px) {
     .titleHolder {
         height: 70px;
+        width: min(402px, 68%);
+        border-width: 3px;
+    }
+    .titleHolder h1{
+        font-size: 2.3rem;
     }
     .canvas-titleHolder {
-        --th-block: 10px;
+        --th-block: 20px;
     }
 }

@@ -24,13 +24,15 @@
     transition: all 0.5s;
 }
 
-.optionHolder:hover{
+.optionHolder:hover,
+.optionHolder:active {
     border: 3px solid var(--color-accent);
     cursor: pointer;
     user-select: none;
 }
 
-.optionHolder:hover h3{
+.optionHolder:hover h3,
+.optionHolder:active h3 {
     font-size: 1.6rem;
     color: var(--color-accent);
 }
@@ -102,10 +104,17 @@
 }
 
 @media (max-width: 768px) {
+    .optionHolder {
+        width: min(280px, 65%);
+        border-width: 2px;
+    }
     .optionHolder h3 {
-        font-size: 0.9rem;
+        font-size: 1rem;
+    }
+    .optionHolder:active h3, .optionHolder:hover h3 {
+        font-size: 1.15rem;
     }
     .canvas-optionHolder {
-        --oh-block: 10px;
+        --oh-block: 17px;
     }
 }

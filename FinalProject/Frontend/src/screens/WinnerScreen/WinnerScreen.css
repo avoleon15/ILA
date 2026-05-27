@@ -180,3 +180,10 @@
   color: var(--color-white);
   font-family: var(--font-title);
 }
+
+@media (max-width: 768px) {
+  #WinnerScreen {
+    background-size: cover;
+    background-position: center;
+  }
+}

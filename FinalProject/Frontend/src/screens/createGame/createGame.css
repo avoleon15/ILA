@@ -74,3 +74,42 @@ h2{
 
 .error-msg  { font-family: var(--font-title);color: #ff4444; font-size: 0.85rem; }
 
+@media (max-width: 768px) {
+    #createGame {
+        gap: 14px;
+        padding: 52px 16px 24px;
+        justify-content: center;
+    }
+
+    #createGame h2 {
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    #createGame .titleHolder h1 {
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+    }
+
+    .toggle-btn {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    .pixel-label {
+        font-size: 14px;
+    }
+
+    .pixel-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 22px;
+    }
+
+    .pixel-input {
+        font-size: 28px;
+        width: 60px;
+        height: 36px;
+    }
+}
+

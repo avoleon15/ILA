@@ -102,7 +102,11 @@ function GameLogic({ navigate, gameState, setGameState }) {
                 setOpenSlot(null)
         }
         document.addEventListener('mousedown', handleClickOutside)
-        return () => document.removeEventListener('mousedown', handleClickOutside)
+        document.addEventListener('touchstart', handleClickOutside, { passive: true })
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+            document.removeEventListener('touchstart', handleClickOutside)
+        }
     }, [])
 
     useEffect(() => {
@@ -259,75 +263,79 @@ function GameLogic({ navigate, gameState, setGameState }) {
     return (
         <section id='GameLogic'>
             <div className='toolbar'>
-                <button className={`tool-btn ${tool==='draw'   ? 'active':''}`} title='Draw' onClick={() => setTool('draw')}>
-                    <PencilSimple size={20} weight='duotone' />
-                </button>
-                <button className={`tool-btn ${tool==='eraser' ? 'active':''}`} title='Eraser' onClick={() => setTool('eraser')}>
-                    <Eraser size={20} weight='duotone' />
-                </button>
-                <button className={`tool-btn ${tool==='fill'   ? 'active':''}`} title='Fill' onClick={() => setTool('fill')}>
-                    <PaintBucket size={20} weight='duotone' />
-                </button>
-                <button className='tool-btn' title='Undo' onClick={handleUndo}>
-                    <ArrowCounterClockwise size={20} weight='duotone' />
-                </button>
-                <button className='tool-btn' title='Clear all' onClick={clearCanvas}>
-                    <Trash size={20} weight='duotone' />
-                </button>
+                <div className='toolbar-tools'>
+                    <button className={`tool-btn ${tool==='draw'   ? 'active':''}`} title='Draw' onClick={() => setTool('draw')}>
+                        <PencilSimple size={20} weight='duotone' />
+                    </button>
+                    <button className={`tool-btn ${tool==='eraser' ? 'active':''}`} title='Eraser' onClick={() => setTool('eraser')}>
+                        <Eraser size={20} weight='duotone' />
+                    </button>
+                    <button className={`tool-btn ${tool==='fill'   ? 'active':''}`} title='Fill' onClick={() => setTool('fill')}>
+                        <PaintBucket size={20} weight='duotone' />
+                    </button>
+                    <button className='tool-btn' title='Undo' onClick={handleUndo}>
+                        <ArrowCounterClockwise size={20} weight='duotone' />
+                    </button>
+                    <button className='tool-btn' title='Clear all' onClick={clearCanvas}>
+                        <Trash size={20} weight='duotone' />
+                    </button>
 
-                <div className='toolbar-divider' />
+                    <div className='toolbar-divider' />
 
-                <input className='size-slider' type='range' min={1} max={5} value={brushSize}
-                    onChange={e => setBrushSize(Number(e.target.value))} />
-
-                <div className='toolbar-divider' />
-
-                <div className='color-slots' ref={colorSlotsRef}>
-                    {slotColors.map((slotColor, i) => (
-                        <div key={i} className='palette-wrapper'>
-                            <button
-                                className={`palette-toggle ${activeSlot === i ? 'active-slot' : ''} ${openSlot === i ? 'open' : ''}`}
-                                title={`Color slot ${i + 1}`}
-                                style={{ background: slotColor }}
-                                onClick={() => {
-                                    setActiveSlot(i)
-                                    setOpenSlot(openSlot === i ? null : i)
-                                }}
-                            />
-                            {openSlot === i && (
-                                <div className='color-palette'>
-                                    {COLORS.map(c => (
-                                        <div key={c}
-                                            className={`color-swatch ${slotColor === c ? 'active' : ''}`}
-                                            style={{ background: c }}
-                                            onClick={() => {
-                                                const next = [...slotColors]
-                                                next[i] = c
-                                                setSlotColors(next)
-                                                setOpenSlot(null)
-                                            }}
-                                        />
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ))}
+                    <input className='size-slider' type='range' min={1} max={5} value={brushSize}
+                        onChange={e => setBrushSize(Number(e.target.value))} />
                 </div>
 
-                <div className='toolbar-divider' />
+                <div className='toolbar-right'>
+                    <div className='toolbar-divider' />
 
-                <div className='topic-selected'>
-                    <h5>Topic:</h5>
-                    <h6>{gameState.topic || '...'}</h6>
+                    <div className='color-slots' ref={colorSlotsRef}>
+                        {slotColors.map((slotColor, i) => (
+                            <div key={i} className='palette-wrapper'>
+                                <button
+                                    className={`palette-toggle ${activeSlot === i ? 'active-slot' : ''} ${openSlot === i ? 'open' : ''}`}
+                                    title={`Color slot ${i + 1}`}
+                                    style={{ background: slotColor }}
+                                    onClick={() => {
+                                        setActiveSlot(i)
+                                        setOpenSlot(openSlot === i ? null : i)
+                                    }}
+                                />
+                                {openSlot === i && (
+                                    <div className='color-palette'>
+                                        {COLORS.map(c => (
+                                            <div key={c}
+                                                className={`color-swatch ${slotColor === c ? 'active' : ''}`}
+                                                style={{ background: c }}
+                                                onClick={() => {
+                                                    const next = [...slotColors]
+                                                    next[i] = c
+                                                    setSlotColors(next)
+                                                    setOpenSlot(null)
+                                                }}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className='toolbar-divider' />
+
+                    <div className='topic-selected'>
+                        <h5>Topic:</h5>
+                        <h6>{gameState.topic || '...'}</h6>
+                    </div>
+
+                    <div className={`timer ${timeLeft !== null && timeLeft <= 10 ? 'timer-urgent' : ''}`}>
+                        {timeLeft !== null ? `${timeLeft}s` : ''}
+                    </div>
+
+                    {submitted && <span className='submitted-label'>Submitted!</span>}
+
+                    <button className='back-btn' title='Back to menu' onClick={() => navigate('menu')}>←</button>
                 </div>
-
-                <div className={`timer ${timeLeft !== null && timeLeft <= 10 ? 'timer-urgent' : ''}`}>
-                    {timeLeft !== null ? `${timeLeft}s` : ''}
-                </div>
-
-                {submitted && <span className='submitted-label'>Submitted!</span>}
-
-                <button className='back-btn' title='Back to menu' onClick={() => navigate('menu')}>←</button>
             </div>
 
             <div className='timer-bar'>
