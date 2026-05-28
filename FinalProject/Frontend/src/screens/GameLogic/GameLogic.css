@@ -56,6 +56,18 @@
     margin: 0;
 }
 
+.timer {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--font-title);
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+}
+
+.timer.timer-urgent {
+  color: #e03a3a;
+}
+
 .timer-bar {
   height: 5px;
   background: var(--color-surface-secondary);
@@ -76,8 +88,6 @@
   flex: 1;
   position: relative;
   margin: 0;
-  border: 40px solid transparent;
-  border-image: url('../../assets/images/border-canva2.png') 10% / 40px round;
 }
 
 canvas {
@@ -185,105 +195,91 @@ canvas {
   transform: scale(1.25);
 }
 
-/* Back button */
-.back-btn {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: var(--color-surface-primary);
-  border: 1px solid var(--color-surface-secondary);
-  color: var(--color-text-primary);
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.15s;
-}
-
-.back-btn:hover {
-  background: var(--color-surface-secondary);
-}
 
 /* ── Mobile overrides ── */
 @media (max-width: 768px) {
-  /* Toolbar: tools section scrolls, right section (color slots + info) stays fixed.
-     .toolbar itself must NOT have overflow set — if it clips, the color-palette
-     popup (position:absolute inside .toolbar-right) would be hidden. */
+  /* Two-row toolbar: row 1 = tools + colors + timer + back, row 2 = topic */
   .toolbar {
-    padding: 4px 6px;
-    gap: 0;
+    padding: 2px 4px;
+    gap: 2px;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
-  /* Left: tool buttons + slider scroll horizontally */
+  /* Row 1: tool buttons + slider scroll horizontally */
   .toolbar-tools {
     overflow-x: auto;
     overflow-y: visible;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-    gap: 3px;
+    gap: 2px;
     flex: 1 1 0;
     min-width: 0;
   }
   .toolbar-tools::-webkit-scrollbar { display: none; }
 
-  /* Right: color slots, topic, timer, back — fixed, no overflow clip */
-  .toolbar-right {
-    gap: 3px;
-    flex-shrink: 0;
-    position: relative; /* needed so child absolute popups resolve here, not toolbar */
-  }
-
-  /* Shrink border around canvas to reclaim vertical space */
-  .canvas-wrapper {
-    border-width: 12px;
-  }
-
-  /* Bigger tap targets on mobile */
+  /* Smaller tap targets on mobile */
   .tool-btn,
-  .palette-toggle,
-  .back-btn {
-    width: 40px;
-    height: 40px;
+  .palette-toggle {
+    width: 28px;
+    height: 28px;
   }
 
-  /* Wider slider for easier thumb dragging */
+  .tool-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Shorter slider */
   .size-slider {
-    width: 80px;
+    width: 52px;
   }
 
-  /* Color palette popup: open ABOVE the toolbar-right so it doesn't overlap canvas */
+  /* Color slots: stay on row 1, no overflow clip so palette popup is visible */
+  .color-slots {
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  /* Color palette popup opens downward since toolbar is at the top.
+     Anchored to the right edge of the button so it doesn't overflow off-screen. */
   .color-palette {
-    top: auto;
-    bottom: calc(100% + 6px);
-    left: 0;
-    grid-template-columns: repeat(8, 18px);
-    gap: 4px;
-    padding: 8px;
+    top: calc(100% + 4px);
+    bottom: auto;
+    left: auto;
+    right: 0;
+    grid-template-columns: repeat(8, 16px);
+    gap: 3px;
+    padding: 6px;
   }
 
   .color-swatch {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
-
-  /* Topic & timer: smaller text so they fit alongside tools */
-  .topic-selected h5 { font-size: 0.75rem; }
-  .topic-selected h6 { font-size: 0.85rem; }
 
   .timer {
-    font-size: 0.85rem;
+    font-size: 0.7rem;
   }
 
-  /* Canvas: maintain intrinsic 800×450 ratio so drawings aren't distorted. */
-  .canvas-wrapper {
-    overflow: hidden;
-    display: flex;
-    align-items: flex-start;
+  /* Row 2: topic fills the full width below everything */
+  .topic-selected {
+    flex-basis: 100%;
+    gap: 6px;
     justify-content: center;
-    border-width: 10px;
+    padding: 2px 0;
+    border-top: 1px solid var(--color-surface-secondary);
+  }
+  .topic-selected h5 { font-size: 0.65rem; }
+  .topic-selected h6 { font-size: 0.7rem; }
+
+  /* Canvas: centered, intrinsic 800×450 ratio preserved. */
+  .canvas-wrapper {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 
   canvas {

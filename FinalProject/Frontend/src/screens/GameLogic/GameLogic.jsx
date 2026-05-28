@@ -286,55 +286,51 @@ function GameLogic({ navigate, gameState, setGameState }) {
                         onChange={e => setBrushSize(Number(e.target.value))} />
                 </div>
 
-                <div className='toolbar-right'>
-                    <div className='toolbar-divider' />
+                <div className='toolbar-divider' />
 
-                    <div className='color-slots' ref={colorSlotsRef}>
-                        {slotColors.map((slotColor, i) => (
-                            <div key={i} className='palette-wrapper'>
-                                <button
-                                    className={`palette-toggle ${activeSlot === i ? 'active-slot' : ''} ${openSlot === i ? 'open' : ''}`}
-                                    title={`Color slot ${i + 1}`}
-                                    style={{ background: slotColor }}
-                                    onClick={() => {
-                                        setActiveSlot(i)
-                                        setOpenSlot(openSlot === i ? null : i)
-                                    }}
-                                />
-                                {openSlot === i && (
-                                    <div className='color-palette'>
-                                        {COLORS.map(c => (
-                                            <div key={c}
-                                                className={`color-swatch ${slotColor === c ? 'active' : ''}`}
-                                                style={{ background: c }}
-                                                onClick={() => {
-                                                    const next = [...slotColors]
-                                                    next[i] = c
-                                                    setSlotColors(next)
-                                                    setOpenSlot(null)
-                                                }}
-                                            />
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
+                <div className='color-slots' ref={colorSlotsRef}>
+                    {slotColors.map((slotColor, i) => (
+                        <div key={i} className='palette-wrapper'>
+                            <button
+                                className={`palette-toggle ${activeSlot === i ? 'active-slot' : ''} ${openSlot === i ? 'open' : ''}`}
+                                title={`Color slot ${i + 1}`}
+                                style={{ background: slotColor }}
+                                onClick={() => {
+                                    setActiveSlot(i)
+                                    setOpenSlot(openSlot === i ? null : i)
+                                }}
+                            />
+                            {openSlot === i && (
+                                <div className='color-palette'>
+                                    {COLORS.map(c => (
+                                        <div key={c}
+                                            className={`color-swatch ${slotColor === c ? 'active' : ''}`}
+                                            style={{ background: c }}
+                                            onClick={() => {
+                                                const next = [...slotColors]
+                                                next[i] = c
+                                                setSlotColors(next)
+                                                setOpenSlot(null)
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
 
-                    <div className='toolbar-divider' />
+                <div className='toolbar-divider' />
 
-                    <div className='topic-selected'>
-                        <h5>Topic:</h5>
-                        <h6>{gameState.topic || '...'}</h6>
-                    </div>
+                <div className={`timer ${timeLeft !== null && timeLeft <= 10 ? 'timer-urgent' : ''}`}>
+                    {timeLeft !== null ? `${timeLeft}s` : ''}
+                </div>
 
-                    <div className={`timer ${timeLeft !== null && timeLeft <= 10 ? 'timer-urgent' : ''}`}>
-                        {timeLeft !== null ? `${timeLeft}s` : ''}
-                    </div>
+                {submitted && <span className='submitted-label'>Submitted!</span>}
 
-                    {submitted && <span className='submitted-label'>Submitted!</span>}
-
-                    <button className='back-btn' title='Back to menu' onClick={() => navigate('menu')}>←</button>
+                <div className='topic-selected'>
+                    <h5>Topic:</h5>
+                    <h6>{gameState.topic || '...'}</h6>
                 </div>
             </div>
 

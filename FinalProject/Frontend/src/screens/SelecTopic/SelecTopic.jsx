@@ -28,7 +28,7 @@ export const SelecTopic = ({ navigate, gameState, setGameState }) => {
 
     return (
         <div id='sl'>
-            <TitleHolder text='Topic Time!!' />
+            <TitleHolder text='Topic Time' />
 
             {isSelector ? (
                 <>

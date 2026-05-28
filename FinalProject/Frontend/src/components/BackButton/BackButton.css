@@ -248,4 +248,24 @@
 
 }
 
+@media (max-width: 768px) {
+    .backButton {
+        height: 35px;
+        width: 112px;
+        border-width: 2px;
+    }
 
+    .backButton h3 {
+        font-size: 1.05rem;
+        margin-left: 36px;
+    }
+
+    .backButton:hover h3,
+    .backButton:active h3 {
+        font-size: 1.15rem;
+    }
+
+    .canvas-backButton {
+        transform: scale(0.126);
+    }
+}
