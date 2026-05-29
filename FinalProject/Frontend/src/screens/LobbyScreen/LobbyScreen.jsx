@@ -67,28 +67,30 @@ function LobbyScreen({ navigate, gameState, setGameState }) {
                 <BackButton text='Back' onClick={() => setShowLeaveWarning(true)} />
             </div>
 
-            <div className='lobby-room-code'>
-                <p className='lobby-room-code-label'>Room code:</p>
-                <p className='lobby-room-code-value'>{gameState.roomCode}</p>
-                <button
-                    type='button'
-                    className='lobby-room-code-copy'
-                    onClick={handleCopyRoomCode}
-                    aria-label='Copy room code'
-                >
-                    <span className='lobby-room-code-copy-icon' aria-hidden='true'>
-                        {isCodeCopied ? (
-                            <svg viewBox='0 0 24 24' role='presentation' focusable='false'>
-                                <path d='M9 16.2 4.8 12 3.4 13.4 9 19 21 7 19.6 5.6z' fill='currentColor' />
-                            </svg>
-                        ) : (
-                            <svg viewBox='0 0 24 24' role='presentation' focusable='false'>
-                                <path d='M16 1H6a2 2 0 0 0-2 2v12h2V3h10zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9z' fill='currentColor' />
-                            </svg>
-                        )}
-                    </span>
-                </button>
-            </div>
+            {gameState.isHost && (
+                <div className='lobby-room-code'>
+                    <p className='lobby-room-code-label'>Room code:</p>
+                    <p className='lobby-room-code-value'>{gameState.roomCode}</p>
+                    <button
+                        type='button'
+                        className='lobby-room-code-copy'
+                        onClick={handleCopyRoomCode}
+                        aria-label='Copy room code'
+                    >
+                        <span className='lobby-room-code-copy-icon' aria-hidden='true'>
+                            {isCodeCopied ? (
+                                <svg viewBox='0 0 24 24' role='presentation' focusable='false'>
+                                    <path d='M9 16.2 4.8 12 3.4 13.4 9 19 21 7 19.6 5.6z' fill='currentColor' />
+                                </svg>
+                            ) : (
+                                <svg viewBox='0 0 24 24' role='presentation' focusable='false'>
+                                    <path d='M16 1H6a2 2 0 0 0-2 2v12h2V3h10zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H10V7h9z' fill='currentColor' />
+                                </svg>
+                            )}
+                        </span>
+                    </button>
+                </div>
+            )}
 
             <div className='lobby-players'>
                 <h3>

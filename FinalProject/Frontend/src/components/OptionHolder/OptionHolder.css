@@ -3,7 +3,7 @@
     border: 3px solid var(--color-background);
 
     height: 60px;
-    width: 280px;
+    width: min(280px, 40%);
 
     display: flex;
     justify-content: center;
@@ -24,74 +24,97 @@
     transition: all 0.5s;
 }
 
-.optionHolder:hover{
+.optionHolder:hover,
+.optionHolder:active {
     border: 3px solid var(--color-accent);
     cursor: pointer;
     user-select: none;
 }
 
-.optionHolder:hover h3{
+.optionHolder:hover h3,
+.optionHolder:active h3 {
     font-size: 1.6rem;
     color: var(--color-accent);
 }
 
 .canvas-optionHolder{
+    /* Change this single value to rescale the entire pixel pattern */
+    --oh-block: 20px;
+
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 20px;
-    height: 20px;
+    width: var(--oh-block);
+    height: var(--oh-block);
     transform: translate(-50%, -50%);
     z-index: 1;
     pointer-events: none;
 
     box-shadow:
+    /* Row -1 */
+    calc(var(--oh-block) * -7) calc(var(--oh-block) * -1) var(--color-surface-secondary),
+    calc(var(--oh-block) * -6) calc(var(--oh-block) * -1) transparent,
+    calc(var(--oh-block) * -5) calc(var(--oh-block) * -1) transparent,
+    calc(var(--oh-block) * -4) calc(var(--oh-block) * -1) var(--color-surface-primary),
+    calc(var(--oh-block) * -3) calc(var(--oh-block) * -1) transparent,
+    calc(var(--oh-block) * -2) calc(var(--oh-block) * -1) var(--color-surface-secondary),
+    calc(var(--oh-block) * -1) calc(var(--oh-block) * -1) transparent,
+    0px                        calc(var(--oh-block) * -1) transparent,
+    var(--oh-block)            calc(var(--oh-block) * -1) var(--color-surface-primary),
+    calc(var(--oh-block) *  2) calc(var(--oh-block) * -1) transparent,
+    calc(var(--oh-block) *  3) calc(var(--oh-block) * -1) var(--color-surface-secondary),
+    calc(var(--oh-block) *  4) calc(var(--oh-block) * -1) transparent,
+    calc(var(--oh-block) *  5) calc(var(--oh-block) * -1) transparent,
+    calc(var(--oh-block) *  6) calc(var(--oh-block) * -1) var(--color-surface-primary),
+    calc(var(--oh-block) *  7) calc(var(--oh-block) * -1) transparent,
 
-    -140px -20px var(--color-surface-secondary),
-    -120px -20px transparent,
-    -100px -20px transparent,
-    -80px -20px var(--color-surface-primary),
-    -60px -20px transparent,
-    -40px -20px var(--color-surface-secondary),
-    -20px -20px transparent,
-    0px -20px transparent,
-    20px -20px var(--color-surface-primary),
-    40px -20px transparent,
-    60px -20px var(--color-surface-secondary),
-    80px -20px transparent,
-    100px -20px transparent,
-    120px -20px var(--color-surface-primary),
-    140px -20px transparent,
+    /* Row 0 */
+    calc(var(--oh-block) * -7) 0px transparent,
+    calc(var(--oh-block) * -6) 0px var(--color-surface-primary),
+    calc(var(--oh-block) * -5) 0px transparent,
+    calc(var(--oh-block) * -4) 0px transparent,
+    calc(var(--oh-block) * -3) 0px var(--color-surface-secondary),
+    calc(var(--oh-block) * -2) 0px transparent,
+    calc(var(--oh-block) * -1) 0px var(--color-surface-primary),
+    0px                        0px transparent,
+    var(--oh-block)            0px transparent,
+    calc(var(--oh-block) *  2) 0px var(--color-surface-secondary),
+    calc(var(--oh-block) *  3) 0px transparent,
+    calc(var(--oh-block) *  4) 0px var(--color-surface-primary),
+    calc(var(--oh-block) *  5) 0px transparent,
+    calc(var(--oh-block) *  6) 0px transparent,
+    calc(var(--oh-block) *  7) 0px var(--color-surface-secondary),
 
-    -140px 0px transparent,
-    -120px 0px var(--color-surface-primary),
-    -100px 0px transparent,
-    -80px 0px transparent,
-    -60px 0px var(--color-surface-secondary),
-    -40px 0px transparent,
-    -20px 0px var(--color-surface-primary),
-    0px 0px transparent,
-    20px 0px transparent,
-    40px 0px var(--color-surface-secondary),
-    60px 0px transparent,
-    80px 0px var(--color-surface-primary),
-    100px 0px transparent,
-    120px 0px transparent,
-    140px 0px var(--color-surface-secondary),
+    /* Row +1 */
+    calc(var(--oh-block) * -7) var(--oh-block) transparent,
+    calc(var(--oh-block) * -6) var(--oh-block) var(--color-surface-secondary),
+    calc(var(--oh-block) * -5) var(--oh-block) transparent,
+    calc(var(--oh-block) * -4) var(--oh-block) var(--color-surface-primary),
+    calc(var(--oh-block) * -3) var(--oh-block) transparent,
+    calc(var(--oh-block) * -2) var(--oh-block) transparent,
+    calc(var(--oh-block) * -1) var(--oh-block) var(--color-surface-secondary),
+    0px                        var(--oh-block) transparent,
+    var(--oh-block)            var(--oh-block) var(--color-surface-primary),
+    calc(var(--oh-block) *  2) var(--oh-block) transparent,
+    calc(var(--oh-block) *  3) var(--oh-block) transparent,
+    calc(var(--oh-block) *  4) var(--oh-block) var(--color-surface-secondary),
+    calc(var(--oh-block) *  5) var(--oh-block) transparent,
+    calc(var(--oh-block) *  6) var(--oh-block) var(--color-surface-primary),
+    calc(var(--oh-block) *  7) var(--oh-block) transparent;
+}
 
-    -140px 20px transparent,
-    -120px 20px var(--color-surface-secondary),
-    -100px 20px transparent,
-    -80px 20px var(--color-surface-primary),
-    -60px 20px transparent,
-    -40px 20px transparent,
-    -20px 20px var(--color-surface-secondary),
-    0px 20px transparent,
-    20px 20px var(--color-surface-primary),
-    40px 20px transparent,
-    60px 20px transparent,
-    80px 20px var(--color-surface-secondary),
-    100px 20px transparent,
-    120px 20px var(--color-surface-primary),
-    140px 20px transparent;
+@media (max-width: 768px) {
+    .optionHolder {
+        width: min(280px, 65%);
+        border-width: 2px;
+    }
+    .optionHolder h3 {
+        font-size: 1rem;
+    }
+    .optionHolder:active h3, .optionHolder:hover h3 {
+        font-size: 1.15rem;
+    }
+    .canvas-optionHolder {
+        --oh-block: 17px;
+    }
 }

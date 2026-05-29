@@ -11,6 +11,13 @@
     border-radius: 20px;
 }
 
+@media (max-width: 768px) {
+    .NavBar {
+        border-radius: 0;
+        height: 44px;
+    }
+}
+
 
 
     .pixel{

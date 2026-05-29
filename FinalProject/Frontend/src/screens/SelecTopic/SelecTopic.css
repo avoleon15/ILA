@@ -8,20 +8,39 @@
     justify-content: center;
     gap: 50px;
     padding-top: 30px;
-    background-image: url('../../Assets/images/TopicTimeBG.png');
+    background-image: url('../../Assets/images/TopicTimeBG.webp');
     background-size: 100%;
     background-position: 80% 30%;
     background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+    #sl {
+        gap: 24px;
+        padding-top: 16px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .waiting-text {
+        font-size: 1.1rem;
+        padding: 0 16px;
+    }
 }
 
 
 .topic{
     text-align: center;
     font-family: var(--font-title);
-    font-size: 40px;
-    width: 600px;
-    height: 100px;
+    font-size: clamp(1.4rem, 6vw, 2.5rem);
+    width: min(600px, 90%);
+    min-height: 60px;
+    padding: 10px 16px;
+    box-sizing: border-box;
     background-color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .waiting-text {

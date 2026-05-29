@@ -8,7 +8,7 @@
     align-items: center;
     gap: 40px;
     padding: 20px;
-    background-image: url('../../Assets/images/LobbyBG.png');
+    background-image: url('../../Assets/images/LobbyBG.webp');
     background-size: 110%;
     background-position: 80% 30%;
     background-repeat: no-repeat;
@@ -182,6 +182,37 @@
     bottom: 60px;
     transform: translateX(-50%);
     z-index: 30;
+    width: min(280px, 80vw);
+}
+
+.lobbyStartButton .optionHolder {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    #lobbyScreen {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .lobbyStartButton {
+        left: 50%;
+        bottom: 48px;
+    }
+
+    .lobby-room-code {
+        gap: 10px;
+    }
+
+    /* Shrink ring container so it fits inside the taller-but-narrower mobile game box */
+    .lobby-players {
+        width: min(90vw, 400px);
+        height: min(60vw, 400px);
+    }
+
+    .lobby-players-ring {
+        --radius: clamp(70px, 10vw, 160px);
+    }
 }
 
 .lobbyLeaveOverlay {

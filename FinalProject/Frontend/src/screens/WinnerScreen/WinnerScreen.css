@@ -12,7 +12,7 @@
   position: relative;
   overflow: hidden;
   background: var(--color-background);
-  background-image: url('../../Assets/images/WinnerBG.png');
+  background-image: url('../../Assets/images/WinnerBG.webp');
   background-size: 110%;
   background-position: 60% 30%;
   background-repeat: no-repeat;
@@ -179,4 +179,11 @@
   padding: 0 24px;
   color: var(--color-white);
   font-family: var(--font-title);
+}
+
+@media (max-width: 768px) {
+  #WinnerScreen {
+    background-size: cover;
+    background-position: center;
+  }
 }

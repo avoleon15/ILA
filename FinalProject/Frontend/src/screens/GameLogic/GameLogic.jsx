@@ -102,7 +102,11 @@ function GameLogic({ navigate, gameState, setGameState }) {
                 setOpenSlot(null)
         }
         document.addEventListener('mousedown', handleClickOutside)
-        return () => document.removeEventListener('mousedown', handleClickOutside)
+        document.addEventListener('touchstart', handleClickOutside, { passive: true })
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+            document.removeEventListener('touchstart', handleClickOutside)
+        }
     }, [])
 
     useEffect(() => {
@@ -118,6 +122,32 @@ function GameLogic({ navigate, gameState, setGameState }) {
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [])
+
+    // Touch drawing — registered with { passive: false } so preventDefault() can block page scroll.
+    // Touch objects expose clientX/clientY just like MouseEvent, so existing handlers work as-is.
+    useEffect(() => {
+        const canvas = canvasRef.current
+
+        const onTouchStart = (e) => {
+            if (submittedRef.current) return
+            e.preventDefault()
+            onMouseDown(e.touches[0])
+        }
+        const onTouchMove = (e) => {
+            e.preventDefault()
+            onMouseMove(e.touches[0])
+        }
+
+        canvas.addEventListener('touchstart', onTouchStart, { passive: false })
+        canvas.addEventListener('touchmove',  onTouchMove,  { passive: false })
+        canvas.addEventListener('touchend',   onMouseUp)
+
+        return () => {
+            canvas.removeEventListener('touchstart', onTouchStart)
+            canvas.removeEventListener('touchmove',  onTouchMove)
+            canvas.removeEventListener('touchend',   onMouseUp)
+        }
+    }, [tool, color, brushSize])
 
 
     // Saves a copy of the current grid to the undo stack (capped at 30 snapshots).
@@ -233,26 +263,28 @@ function GameLogic({ navigate, gameState, setGameState }) {
     return (
         <section id='GameLogic'>
             <div className='toolbar'>
-                <button className={`tool-btn ${tool==='draw'   ? 'active':''}`} title='Draw' onClick={() => setTool('draw')}>
-                    <PencilSimple size={20} weight='duotone' />
-                </button>
-                <button className={`tool-btn ${tool==='eraser' ? 'active':''}`} title='Eraser' onClick={() => setTool('eraser')}>
-                    <Eraser size={20} weight='duotone' />
-                </button>
-                <button className={`tool-btn ${tool==='fill'   ? 'active':''}`} title='Fill' onClick={() => setTool('fill')}>
-                    <PaintBucket size={20} weight='duotone' />
-                </button>
-                <button className='tool-btn' title='Undo' onClick={handleUndo}>
-                    <ArrowCounterClockwise size={20} weight='duotone' />
-                </button>
-                <button className='tool-btn' title='Clear all' onClick={clearCanvas}>
-                    <Trash size={20} weight='duotone' />
-                </button>
+                <div className='toolbar-tools'>
+                    <button className={`tool-btn ${tool==='draw'   ? 'active':''}`} title='Draw' onClick={() => setTool('draw')}>
+                        <PencilSimple size={20} weight='duotone' />
+                    </button>
+                    <button className={`tool-btn ${tool==='eraser' ? 'active':''}`} title='Eraser' onClick={() => setTool('eraser')}>
+                        <Eraser size={20} weight='duotone' />
+                    </button>
+                    <button className={`tool-btn ${tool==='fill'   ? 'active':''}`} title='Fill' onClick={() => setTool('fill')}>
+                        <PaintBucket size={20} weight='duotone' />
+                    </button>
+                    <button className='tool-btn' title='Undo' onClick={handleUndo}>
+                        <ArrowCounterClockwise size={20} weight='duotone' />
+                    </button>
+                    <button className='tool-btn' title='Clear all' onClick={clearCanvas}>
+                        <Trash size={20} weight='duotone' />
+                    </button>
 
-                <div className='toolbar-divider' />
+                    <div className='toolbar-divider' />
 
-                <input className='size-slider' type='range' min={1} max={5} value={brushSize}
-                    onChange={e => setBrushSize(Number(e.target.value))} />
+                    <input className='size-slider' type='range' min={1} max={5} value={brushSize}
+                        onChange={e => setBrushSize(Number(e.target.value))} />
+                </div>
 
                 <div className='toolbar-divider' />
 
@@ -290,18 +322,16 @@ function GameLogic({ navigate, gameState, setGameState }) {
 
                 <div className='toolbar-divider' />
 
-                <div className='topic-selected'>
-                    <h5>Topic:</h5>
-                    <h6>{gameState.topic || '...'}</h6>
-                </div>
-
                 <div className={`timer ${timeLeft !== null && timeLeft <= 10 ? 'timer-urgent' : ''}`}>
                     {timeLeft !== null ? `${timeLeft}s` : ''}
                 </div>
 
                 {submitted && <span className='submitted-label'>Submitted!</span>}
 
-                <button className='back-btn' title='Back to menu' onClick={() => navigate('menu')}>←</button>
+                <div className='topic-selected'>
+                    <h5>Topic:</h5>
+                    <h6>{gameState.topic || '...'}</h6>
+                </div>
             </div>
 
             <div className='timer-bar'>
