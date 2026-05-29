@@ -3,7 +3,7 @@
     height: 100%;
     box-sizing: border-box;
 
-    background-image: url("../../Assets/images/mainbg.png");
+    background-image: url("../../Assets/images/mainbg.webp");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -14,4 +14,10 @@
     align-items: center;
 
     gap: 30px;
+}
+
+@media (max-width: 768px) {
+    #MenuScreen {
+        gap: 14px;
+    }
 }

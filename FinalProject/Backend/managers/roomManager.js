@@ -287,6 +287,8 @@ export class RoomManager {
     const room = this.rooms.get(roomCode)
     if (room) {
       room.state = ROOM_STATES.FINISHED
+      // Schedule room deletion after 5 minutes so late disconnects still find it
+      setTimeout(() => this.rooms.delete(roomCode), 5 * 60 * 1000)
     }
     return room
   }

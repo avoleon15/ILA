@@ -14,6 +14,20 @@
   flex-shrink: 0;
 }
 
+.toolbar-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
 .toolbar-divider {
   width: 1px;
   height: 20px;
@@ -42,6 +56,18 @@
     margin: 0;
 }
 
+.timer {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--font-title);
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+}
+
+.timer.timer-urgent {
+  color: #e03a3a;
+}
+
 .timer-bar {
   height: 5px;
   background: var(--color-surface-secondary);
@@ -62,8 +88,6 @@
   flex: 1;
   position: relative;
   margin: 0;
-  border: 40px solid transparent;
-  border-image: url('../../assets/images/border-canva2.png') 10% / 40px round;
 }
 
 canvas {
@@ -73,6 +97,7 @@ canvas {
   cursor: crosshair;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  touch-action: none; /* let JS handle all touch input; prevents scroll/zoom on canvas */
 }
 
 /* Tool buttons */
@@ -170,24 +195,95 @@ canvas {
   transform: scale(1.25);
 }
 
-/* Back button */
-.back-btn {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: var(--color-surface-primary);
-  border: 1px solid var(--color-surface-secondary);
-  color: var(--color-text-primary);
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.15s;
-}
 
-.back-btn:hover {
-  background: var(--color-surface-secondary);
+/* ── Mobile overrides ── */
+@media (max-width: 768px) {
+  /* Two-row toolbar: row 1 = tools + colors + timer + back, row 2 = topic */
+  .toolbar {
+    padding: 2px 4px;
+    gap: 2px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* Row 1: tool buttons + slider scroll horizontally */
+  .toolbar-tools {
+    overflow-x: auto;
+    overflow-y: visible;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    gap: 2px;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .toolbar-tools::-webkit-scrollbar { display: none; }
+
+  /* Smaller tap targets on mobile */
+  .tool-btn,
+  .palette-toggle {
+    width: 28px;
+    height: 28px;
+  }
+
+  .tool-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Shorter slider */
+  .size-slider {
+    width: 52px;
+  }
+
+  /* Color slots: stay on row 1, no overflow clip so palette popup is visible */
+  .color-slots {
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  /* Color palette popup opens downward since toolbar is at the top.
+     Anchored to the right edge of the button so it doesn't overflow off-screen. */
+  .color-palette {
+    top: calc(100% + 4px);
+    bottom: auto;
+    left: auto;
+    right: 0;
+    grid-template-columns: repeat(8, 16px);
+    gap: 3px;
+    padding: 6px;
+  }
+
+  .color-swatch {
+    width: 16px;
+    height: 16px;
+  }
+
+  .timer {
+    font-size: 0.7rem;
+  }
+
+  /* Row 2: topic fills the full width below everything */
+  .topic-selected {
+    flex-basis: 100%;
+    gap: 6px;
+    justify-content: center;
+    padding: 2px 0;
+    border-top: 1px solid var(--color-surface-secondary);
+  }
+  .topic-selected h5 { font-size: 0.65rem; }
+  .topic-selected h6 { font-size: 0.7rem; }
+
+  /* Canvas: centered, intrinsic 800×450 ratio preserved. */
+  .canvas-wrapper {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  canvas {
+    width: 100%;
+    height: auto;
+  }
 }

@@ -58,3 +58,39 @@
     }
 }
 
+/* ── Mobile layout ── */
+@media (max-width: 768px) {
+    /* Lock to full screen so the game box can fill the viewport */
+    #App {
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+    }
+
+    #page-display {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        margin: 0;
+        gap: 0;
+        /* Fill everything below the NavBar */
+        height: calc(100vh - 44px);
+        height: calc(100dvh - 44px);
+        overflow: hidden;
+    }
+
+    /* Let the unnamed wrapper section stretch to fill */
+    #page-display > section:first-child {
+        width: 100%;
+        height: 100%;
+    }
+
+    #game-box {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        /* Release the 16:9 desktop lock so each screen can use the full height */
+        aspect-ratio: unset;
+    }
+}
+

@@ -45,7 +45,7 @@
     background-color: var(--color-surface-primary);
     border: 3px solid var(--color-accent);
     aspect-ratio: 16/9;
-    width: 500px;
+    width: min(500px, 100%);
     height: auto;
     display: flex;
     align-items: center;
@@ -149,4 +149,20 @@
     font-size: 11px;
     margin-top: 40px;
     letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .vs-wrap {
+        padding: 12px 8px;
+        gap: 10px;
+    }
+
+    /* Vote buttons: larger tap target on mobile */
+    .vs-vote-btn {
+        min-width: 54px;
+        padding: 8px 6px;
+    }
+
+    .vs-emoji { font-size: 20px; }
+    .vs-label { font-size: 10px; }
 }

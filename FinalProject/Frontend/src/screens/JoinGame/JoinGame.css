@@ -6,7 +6,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('../../Assets/images/JoinGameBG.png');
+    background-image: url('../../Assets/images/JoinGameBG.webp');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: -3px -3px;
@@ -54,3 +54,28 @@
 }
 
 .error-msg  { font-family: var(--font-title);color: #ff4444; font-size: 0.85rem; margin-top: 8px; }
+
+@media (max-width: 768px) {
+    #Joingame {
+        background-size: cover;
+        background-position: center;
+    }
+
+    #Joingame h2 {
+        font-size: 0.95rem;
+        text-align: center;
+        padding: 0 12px;
+        margin: 8px 0;
+    }
+
+    .code-inputs input {
+        width: 40px;
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .name-input {
+        margin: 12px;
+        width: 180px;
+    }
+}
