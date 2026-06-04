@@ -1,6 +1,10 @@
 .ad-large {
     height: 125px;
     width: 810px;
+    min-height: 125px;
+    max-height: 125px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .ad-large .adsbygoogle {
