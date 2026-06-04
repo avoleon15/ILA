@@ -35,7 +35,7 @@
     padding: 60px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     gap: 8%;
     margin: 20px;
     height: calc(100vh - 44px);
