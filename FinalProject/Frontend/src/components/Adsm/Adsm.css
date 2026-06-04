@@ -1,6 +1,7 @@
 .ad-small {
     height: 100px;
     width: 225px;
+    overflow: hidden;
 }
 
 .ad-small .adsbygoogle {
