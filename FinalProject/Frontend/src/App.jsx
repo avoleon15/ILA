@@ -8,7 +8,7 @@ import GameRouter from './GameRouter.jsx'
 
 function App() {
 
-  const [page, setPage] = useState('home')
+  const [page, setPage] = useState('menu')
 
   const [gameState, setGameState] = useState({
     playerName: '',
@@ -24,11 +24,13 @@ function App() {
   })
 
   return (
-    <section id='App'>
+    <section id='App'>  
       <NavBar/>
       <section id='page-display'>
-        <section>
 
+        <Adsm/>
+
+        <section>
           <section id='game-box'>
             <GameRouter
               page={page}
@@ -37,14 +39,15 @@ function App() {
               setGameState={setGameState}
             />
           </section>
-
           <Adlg/>
         </section>
+
         <section id='display-right'>
-          <Admd variant={1}/>
-          <Adsm/>
-          <Admd variant={2}/>
+          <Admd/>
+          <Admd/>
+          <Admd/>
         </section>
+
       </section>
     </section>
   )

@@ -1,11 +1,20 @@
+/* Admd.css */
 .ad-medium {
     height: 225px;
     width: 225px;
+    min-width: 225px;
+    min-height: 225px;
+    max-height: 225px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
-.ad-medium img {
-    display: block;
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
+/* Adlg.css */
+.ad-large {
+    height: 125px;
+    width: 810px;
+    min-height: 125px;
+    max-height: 125px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
