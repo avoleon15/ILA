@@ -13,7 +13,7 @@ function Adsm() {
   }, [])
 
   return (
-    <div className='ad ad-small'>
+    <div className='ad-small'>
       <ins
         ref={adRef}
         className="adsbygoogle"

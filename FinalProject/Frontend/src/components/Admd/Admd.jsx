@@ -17,10 +17,10 @@ function Admd() {
       <ins
         ref={adRef}
         className="adsbygoogle"
-        style={{ display: 'block' }}
+        style={{ display: 'block'}}
         data-ad-client="ca-pub-5424598379625497"
         data-ad-slot="9398811622"
-        data-ad-format="auto"
+        data-ad-format="rectangle"
         data-full-width-responsive="true"
       />
     </div>
