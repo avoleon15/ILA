@@ -34,7 +34,7 @@
 #page-display{
     padding: 60px;
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: flex-start;
     gap: 8%;
     margin: 20px;
