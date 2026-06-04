@@ -20,8 +20,8 @@ function Admd() {
         style={{ display: 'block' }}
         data-ad-client="ca-pub-5424598379625497"
         data-ad-slot="9398811622"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
+        data-ad-format="rectangle"
+        data-full-width-responsive="false"
       />
     </div>
   )
