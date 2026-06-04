@@ -27,8 +27,9 @@ function App() {
     <section id='App'>  
       <NavBar/>
       <section id='page-display'>
-
+        
         <Adsm/>
+        
 
         <section>
           <section id='game-box'>
