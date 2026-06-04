@@ -1,10 +1,9 @@
-.ad-large img {
-    display: block;
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-}
-.ad-large{
+.ad-large {
     height: 125px;
     width: 810px;
+}
+
+.ad-large .adsbygoogle {
+    width: 100%;
+    height: 100%;
 }

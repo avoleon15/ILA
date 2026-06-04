@@ -3,9 +3,7 @@
     width: 225px;
 }
 
-.ad-medium img {
-    display: block;
-    height: 100%;
+.ad-medium .adsbygoogle {
     width: 100%;
-    object-fit: contain;
+    height: 100%;
 }

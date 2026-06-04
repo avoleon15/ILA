@@ -1,13 +1,30 @@
-import adLarge from '../../Assets/images/ad-lg.png'
+import { useEffect, useRef } from 'react'
 import './Adlg.css'
 
-function Adlg(){
+function Adlg() {
+  const adRef = useRef(null)
 
-    return(
-        <div className='ad ad-large'>
-            <img src={adLarge} alt='Publicidad grande' />
-        </div>
-    )
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({})
+    } catch (e) {
+      console.error(e)
+    }
+  }, [])
+
+  return (
+    <div className='ad ad-large'>
+      <ins
+        ref={adRef}
+        className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-client="ca-pub-5424598379625497"
+        data-ad-slot="6079043941"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+    </div>
+  )
 }
 
 export default Adlg

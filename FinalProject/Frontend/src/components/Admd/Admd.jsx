@@ -1,16 +1,30 @@
-import adMediumOne from '../../Assets/images/ad-md-1.png'
-import adMediumTwo from '../../Assets/images/ad-md-2.png'
+import { useEffect, useRef } from 'react'
 import './Admd.css'
 
-function Admd({ variant = 1 }){
+function Admd() {
+  const adRef = useRef(null)
 
-    const adImage = variant === 2 ? adMediumTwo : adMediumOne
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({})
+    } catch (e) {
+      console.error(e)
+    }
+  }, [])
 
-    return(
-        <div className='ad ad-medium'>
-            <img src={adImage} alt='Publicidad mediana' />
-        </div>
-    )
+  return (
+    <div className='ad ad-medium'>
+      <ins
+        ref={adRef}
+        className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-client="ca-pub-5424598379625497"
+        data-ad-slot="9398811622"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+    </div>
+  )
 }
 
 export default Admd
